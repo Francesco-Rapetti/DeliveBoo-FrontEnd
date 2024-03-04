@@ -55,6 +55,8 @@ export default {
                         </li>
                     </ul>
                 </div>
+                <a href="http://localhost:8000" target="_blank" class="btn btn-dark">Vai a DeliveBoo<span
+                        class="fst-italic fs-6">Admin</span></a>
             </div>
         </nav>
     </header>
