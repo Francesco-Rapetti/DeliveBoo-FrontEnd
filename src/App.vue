@@ -56,23 +56,23 @@ export default {
 				.catch((errore) => {
 					console.error(errore);
 				})
-		}
-	},
-	getFoodTypeList() {
-		let url = this.store.urlAPI + this.store.apiFoodTypeEndpoint;
+		},
+		getFoodTypeList() {
+			let url = this.store.urlAPI + this.store.apiFoodTypeEndpoint;
 
-		axios
-			.get(url)
-			.then((result) => {
-				if (result.status === 200 && result.data.success) {
-					this.store.foodTypeList = result.data.payload;
-				} else {
-					console.error("Qualcosa è andato storto...");
-				}
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+			axios
+				.get(url)
+				.then((result) => {
+					if (result.status === 200 && result.data.success) {
+						this.store.foodTypeList = result.data.payload;
+					} else {
+						console.error("Qualcosa è andato storto...");
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		},
 	},
 }
 

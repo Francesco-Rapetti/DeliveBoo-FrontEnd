@@ -39,7 +39,7 @@ const router = createRouter({
             path: "/cart",
             name: "cart",
             component: Cart
-        }
+        },
         // {
         //     path: "/event/:id",
         //     name: "event-detail",
