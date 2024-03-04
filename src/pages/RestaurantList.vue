@@ -12,7 +12,7 @@ export default {
             store,
             userInputSearch: "",
             selectedTypes: [],
-            typeClicked: {}, 
+            typeClicked: {},
         };
     },
     computed: {
@@ -39,10 +39,10 @@ export default {
         clearSearch() {
             this.userInputSearch = "";
             this.selectedTypes = [];
-            this.typeClicked = {}; 
+            this.typeClicked = {};
         },
         toggleTypeFilter(type) {
-            
+
             const index = this.selectedTypes.indexOf(type.name);
             if (index !== -1) {
                 this.selectedTypes.splice(index, 1);
@@ -57,8 +57,8 @@ export default {
             return [
                 'badge',
                 'rounded-pill',
-                {'text-bg-secondary' : !this.typeClicked[type.name]},
-                { 'text-bg-primary' : this.typeClicked[type.name] },
+                { 'text-bg-secondary': !this.typeClicked[type.name] },
+                { 'text-bg-primary': this.typeClicked[type.name] },
             ];
         },
     },
