@@ -38,5 +38,4 @@ export default {
 // importo variabili
 // @use './styles/partials/variables' as *;
 
-// ...qui eventuale SCSS di App.vue
-</style>
+// ...qui eventuale SCSS di App.vue</style>
