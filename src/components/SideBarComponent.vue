@@ -66,6 +66,11 @@ export default {
         </nav>
         <a :href="backendUrl" target="_blank" class="btn btn-dark admin-btn">Vai a DeliveBoo<span
                 class="fst-italic fs-6">Admin</span></a>
+        <router-link to="/cart" class="btn btn-dark">
+            <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+            Carrello
+        </router-link>
+
     </header>
 </template>
 
