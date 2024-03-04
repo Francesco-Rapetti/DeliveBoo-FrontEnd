@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomePage from './pages/HomePage.vue'
 import RestaurantList from './pages/RestaurantList.vue';
+import Cart from './pages/Cart.vue';
 import FoodTypeList from './pages/FoodTypeList.vue';
 import UserPage from "./pages/UserPage.vue";
 import SettingsPage from "./pages/SettingsPage.vue";
@@ -34,6 +35,11 @@ const router = createRouter({
             name: 'settings',
             component: SettingsPage,
         },
+        {
+            path: "/cart",
+            name: "cart",
+            component: Cart
+        }
         // {
         //     path: "/event/:id",
         //     name: "event-detail",
