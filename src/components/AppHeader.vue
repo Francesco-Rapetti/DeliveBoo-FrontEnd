@@ -60,8 +60,13 @@ export default {
                         </li>
                     </ul>
                 </div>
-                <a :href="backendUrl" target="_blank" class="btn btn-dark">Vai a DeliveBoo<span
+                <a :href="backendUrl" target="_blank" class="btn btn-dark mx-2">Vai a DeliveBoo<span
                         class="fst-italic fs-6">Admin</span></a>
+
+                <router-link to="/cart" class="btn btn-dark">
+                    <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+                    Carrello
+                </router-link>
             </div>
         </nav>
     </header>
