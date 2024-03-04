@@ -1,11 +1,11 @@
 <script>
 import axios from 'axios'; //importo Axios
 import { store } from "./store.js" //state management
-import AppHeader from './components/AppHeader.vue'
+import SideBarComponent from './components/SideBarComponent.vue'
 
 export default {
 	components: {
-		AppHeader
+		SideBarComponent
 	},
 	data() {
 		return {
@@ -79,19 +79,15 @@ export default {
 </script>
 
 <template>
-	<header>
-		<AppHeader />
-	</header>
-	<router-view></router-view>
+	<div>
+		<SideBarComponent />
+		<router-view>
+		</router-view>
+	</div>
 </template>
 
 <style lang="scss">
-// importo il foglio di stile generale dell'applicazione, non-scoped
 @use './styles/general.scss';
 </style>
 
-<style scoped lang="scss">
-// importo variabili
-// @use './styles/partials/variables' as *;
-
-// ...qui eventuale SCSS di App.vue</style>
+<style scoped lang="scss"></style>
