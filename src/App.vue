@@ -13,13 +13,37 @@ export default {
 		}
 	},
 	mounted() {
-		axios.get(this.store.urlAPI + "/restaurants").then(risultato => {
-			console.log(risultato);
-		}).catch(errore => {
-			console.error(errore);
-		});
+
+		this.getRestaurantList();
+
+		// axios.get(this.store.urlAPI + "/restaurants").then(risultato => {
+		// 	console.log(risultato);
+		// }).catch(errore => {
+		// 	console.error(errore);
+		// });
 	},
+
+	methods: {
+		getRestaurantList() {
+			let url = this.store.urlAPI + this.store.apiRestaurantEndpoint;
+
+			axios
+				.get(url)
+				.then((result) => {
+					if (result.status === 200 && result.data.success) {
+						console.log(result.data.payload);
+						this.store.eventList = result.data.payload;
+					} else {
+						console.error("Qualcosa è andato storto...");
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		},
+	}
 }
+
 </script>
 
 <template>
@@ -38,5 +62,4 @@ export default {
 // importo variabili
 // @use './styles/partials/variables' as *;
 
-// ...qui eventuale SCSS di App.vue
-</style>
+// ...qui eventuale SCSS di App.vue</style>
