@@ -1,6 +1,5 @@
 <script>
 import { store } from "../store.js";
-import { computeStyles } from "@popperjs/core";
 import { RouterView } from "vue-router";
 
 export default {
@@ -42,6 +41,19 @@ export default {
             </div>
         </nav>
     </header>
+
+    <main>
+
+    </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+// importo il foglio di stile generale dell'applicazione, non-scoped
+@use '../styles/general.scss';
+</style>
+
+<style scoped lang="scss">
+// importo variabili
+// @use './styles/partials/variables' as *;
+
+// ...qui eventuale SCSS di App.vue</style>
