@@ -12,9 +12,26 @@ export default {
             store,
             menuItems: [
                 {
-                    routeName: 'restaurants',
-                    label: 'RestaurantList'
+                    routeName: 'home',
+                    label: 'Home',
                 },
+                {
+                    routeName: 'restaurants',
+                    label: 'Restaurants'
+                },
+                {
+                    routeName: 'types',
+                    label: 'Food types'
+                },
+                {
+                    routeName: 'user',
+                    label: 'My profile'
+                },
+                {
+                    routeName: 'settings',
+                    label: 'Settings'
+                },
+
             ]
         }
     },
