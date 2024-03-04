@@ -18,7 +18,7 @@ export default {
 <template>
     <div class="container">
         <div class="row">
-            <h1 class="mb-3">Ristoranti:</h1>
+            <h1 class="mt-5 mb-3">Ristoranti:</h1>
             <p v-if="!store.restaurantList || !store.restaurantList.length">Non ci sono ristoranti</p>
             <RestaurantCard v-for="restaurant in store.restaurantList" :item="restaurant" />
         </div>

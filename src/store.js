@@ -6,4 +6,5 @@ export const store = reactive({
     apiFoodTypeEndpoint: "/types",
     restaurantList: [],
     foodTypeList: [],
+    urlBackend: "http://127.0.0.1:8000",
 });
