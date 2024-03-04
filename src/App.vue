@@ -31,7 +31,6 @@ export default {
 				.get(url)
 				.then((result) => {
 					if (result.status === 200 && result.data.success) {
-						console.log(result.data.payload);
 						this.store.restaurantList = result.data.payload;
 					} else {
 						console.error("Qualcosa è andato storto...");
