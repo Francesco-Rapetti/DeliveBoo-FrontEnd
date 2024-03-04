@@ -14,6 +14,7 @@ export default {
                 <p class="card-text">Indirizzo: <b>{{ item.address }}</b>
                 </p>
                 <p class="card-text">{{ item.description }}</p>
+                <span v-for="(type, index) in item.types" :key="index" class="badge rounded-pill text-bg-primary">{{ type.name }}</span>
             </div>
             <!-- <div class="card-footer text-center">
                 <router-link :to="{ name: 'event-detail', params: { id: item.id } }" class="btn btn-primary">
