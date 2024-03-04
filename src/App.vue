@@ -80,9 +80,14 @@ export default {
 
 <template>
 	<div>
-		<SideBarComponent />
-		<router-view>
-		</router-view>
+		<div class="wrapper">
+			<SideBarComponent />
+			<main class="main-content">
+				<router-view>
+				</router-view>
+			</main>
+
+		</div>
 	</div>
 </template>
 
@@ -90,4 +95,15 @@ export default {
 @use './styles/general.scss';
 </style>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.wrapper {
+	display: flex;
+}
+
+.main-content {
+	flex: 1;
+	/* Il contenuto principale si espande per riempire lo spazio rimanente */
+	padding: 1rem;
+	overflow-y: auto;
+}
+</style>
