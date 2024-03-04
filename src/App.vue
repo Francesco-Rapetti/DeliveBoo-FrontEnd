@@ -15,6 +15,7 @@ export default {
 	mounted() {
 
 		this.getRestaurantList();
+		this.getDishesList();
 
 		// axios.get(this.store.urlAPI + "/restaurants").then(risultato => {
 		// 	console.log(risultato);
@@ -40,6 +41,21 @@ export default {
 					console.error(error);
 				});
 		},
+
+		getDishesList() {
+			let url = this.store.urlAPI + this.store.apiDishesEndpoint;
+
+			axios.get(url).then((risultato) => {
+				if (risultato.status === 200 && risultato.data.success) {
+					this.store.dishList = risultato.data.payload;
+				} else {
+					console.error("Qualcosa è andato storto...");
+				}
+			})
+				.catch((errore) => {
+					console.error(errore);
+				})
+		}
 	}
 }
 
