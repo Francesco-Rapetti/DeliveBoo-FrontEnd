@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { router } from './router'
 
 // importo bootstrap (js)
 import * as bootstrap from 'bootstrap'
@@ -14,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import * as solidIcons from '@fortawesome/free-solid-svg-icons'
 import * as regularIcons from '@fortawesome/free-regular-svg-icons'
 import * as brandIcons from '@fortawesome/free-brands-svg-icons'
+import { formToJSON } from 'axios'
 
 library.add(solidIcons.fas);
 library.add(regularIcons.far);
@@ -21,5 +23,6 @@ library.add(brandIcons.fab);
 
 window.vue = {};
 window.vue.App = createApp(App)
+    .use(router)
     .component('font-awesome-icon', FontAwesomeIcon)
     .mount('#app');

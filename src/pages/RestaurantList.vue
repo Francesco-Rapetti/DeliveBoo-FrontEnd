@@ -20,7 +20,7 @@ export default {
         <div class="row">
             <h1 class="mb-3">Ristoranti:</h1>
             <p v-if="!store.RestaurantList || !store.restaurantList.length">Non ci sono ristoranti</p>
-            <EventCard v-for="restaurant in store.restaurantList" :item="restaurant" />
+            <RestaurantCard v-for="restaurant in store.restaurantList" :item="restaurant" />
         </div>
     </div>
 </template>

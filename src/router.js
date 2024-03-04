@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import AppHome from "./pages/AppHome.vue";
-import AppAbout from "./pages/AppAbout.vue";
-import EventList from "./pages/EventList.vue";
-import EventDetail from './pages/EventDetail.vue';
 import RestaurantList from './pages/RestaurantList.vue';
 
 const router = createRouter({
