@@ -16,3 +16,37 @@ body {
     color: $themeColorLight;
 }
 
+.btn {
+    transition: all 0.3s ease-in-out;
+
+}
+
+.btn:hover {
+    box-shadow: 0px 16px 32px rgba(0, 0, 0, 1);
+    transform: scale(1.1);
+
+}
+
+.btn-primary {
+    background-color: #83d5cd !important;
+    color: #004350;
+    border: #83d5cd !important;
+}
+
+.btn-primary:hover {
+    background-color: #004350 !important;
+    color: #83d5cd;
+    border: #004350 !important;
+}
+
+.btn-warning {
+    background-color: #004350 !important;
+    color: #83d5cd;
+    border: #004350 !important;
+}
+
+.btn-warning:hover {
+    background-color: #83d5cd !important;
+    color: #004350;
+    border: #83d5cd !important;
+}

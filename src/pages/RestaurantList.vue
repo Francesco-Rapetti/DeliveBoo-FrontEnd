@@ -88,14 +88,42 @@ export default {
 
 <template>
 
-    <div class="container">
-        <h1 class="mt-5 mb-3 ">Ristoranti:</h1>
-        <div class="row">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Cerca per tipologia" v-model="userInputSearch" />
-                <button class="btn btn-outline-secondary" @click="clearSearch">Cancella</button>
+    <div class="container mt-5">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="btn btn-primary rounded-pill" href="#">A-Z</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="btn btn-primary rounded-pill" href="#">Newest</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary rounded-pill" href="#">Popular</a>
+                        </li>
+                    </ul>
+                    <form class="searchBox" role="search">
+                        <input type="text" class="searchInput" placeholder="Search" v-model="userInputSearch" />
+                        <button class="searchButton" href="#">
+                            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div class="mb-2">
+        </nav>
+
+        <hr class="dotted">
+
+
+
+        <div class="row">
+            <div class="mt-3 mb-2">
                 <span v-for="(type, index) in store.foodTypeList" :key="index" :class="getTypeClass(type)"
                     class="fs-6 type-tags  mt-2" @click="toggleTypeFilter(type)" :id="'type' + type.id">
                     {{ type.name }}
@@ -116,5 +144,78 @@ export default {
 .type-tags {
     padding: 0.7rem;
     margin: 0 0.2rem;
+}
+
+.searchBox {
+    background: #83d5cd;
+    height: 60px;
+    border-radius: 40px;
+    padding: 10px;
+
+}
+
+input[placeholder] {
+    color: #83d5cd;
+}
+
+.searchBox:hover {
+    background: #004350;
+    height: 60px;
+    border-radius: 40px;
+    padding: 10px;
+
+}
+
+.searchBox:hover>.searchInput {
+    width: 240px;
+    padding: 0 6px;
+}
+
+.searchBox:hover>.searchButton {
+    background: #004350;
+    color: #83d5cd;
+    border-color: #83d5cd;
+}
+
+/* #83d5cd;
+#004350  */
+
+.searchButton {
+    color: #004350;
+    border-color: #004350;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #83d5cd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+
+.searchInput {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+
+}
+
+.dotted {
+    border: 1px dashed #83d5cd;
+}
+
+@media screen and (max-width: 620px) {
+    .searchBox:hover>.searchInput {
+        width: 150px;
+        padding: 0 6px;
+    }
 }
 </style>
