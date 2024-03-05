@@ -99,7 +99,6 @@ export default {
 <style scoped lang="scss">
 .wrapper {
 	display: flex;
-	justify-content: center;
 }
 
 .main-content {
@@ -107,6 +106,5 @@ export default {
 	/* Il contenuto principale si espande per riempire lo spazio rimanente */
 	padding: 1rem;
 	overflow-y: auto;
-	margin-left: 10%;
 }
 </style>
