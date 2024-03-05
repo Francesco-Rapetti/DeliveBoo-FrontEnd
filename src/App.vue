@@ -105,8 +105,6 @@ export default {
 .main-content {
 	flex: 1;
 	/* Il contenuto principale si espande per riempire lo spazio rimanente */
-	padding: 1rem;
-	overflow-y: auto;
-	margin-left: 10%;
+
 }
 </style>

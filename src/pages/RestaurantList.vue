@@ -68,9 +68,10 @@ export default {
 </script>
 
 <template>
-    <div class="container ">
+
+    <h1 class="mt-5 mb-3 ">Ristoranti:</h1>
+    <div class="bg-restaurants-list">
         <div class="row">
-            <h1 class="mt-5 mb-3">Ristoranti:</h1>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Cerca per tipologia" v-model="userInputSearch" />
                 <button class="btn btn-outline-secondary" @click="clearSearch">Cancella</button>
@@ -95,5 +96,13 @@ export default {
 .type-tags {
     padding: 0.7rem;
     margin: 0 0.2rem;
+}
+
+.bg-restaurants-list {
+    padding: 1rem;
+    overflow-y: auto;
+    padding-left: 10%;
+    padding-right: 2%;
+
 }
 </style>

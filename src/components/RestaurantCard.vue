@@ -13,7 +13,7 @@ export default {
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text">Indirizzo: <b>{{ item.address }}</b>
                 </p>
-                <p class="card-text">{{ item.description }}</p>
+                <!-- <p class="card-text">{{ item.description }}</p> -->
                 <span v-for="(type, index) in item.types" :key="index"
                     class="badge rounded-pill text-bg-primary p-3 mx-2 text-type">{{
                 type.name }}</span>
@@ -31,7 +31,7 @@ export default {
 
 <style>
 .card-header {
-    height: 250px;
+    height: 300px;
 
 }
 
@@ -39,7 +39,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: right;
 }
 
 .text-type {
