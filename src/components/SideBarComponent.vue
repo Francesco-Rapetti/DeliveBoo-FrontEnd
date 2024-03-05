@@ -43,6 +43,9 @@ export default {
     computed: {
         backendUrl() {
             return this.store.urlBackend;
+        },
+        cartQuantity() {
+            return this.store.cart.length; // Calcoliamo la lunghezza dell'array del carrello
         }
     }
 }
@@ -74,7 +77,7 @@ export default {
         <div class="d-flex flex-column">
             <router-link to="/cart" class="btn btn-responsive-custom btn-dark my-3">
                 <font-awesome-icon :icon="['fas', 'cart-shopping']" />
-                Carrello
+                Carrello <span v-if="cartQuantity > 0">({{ cartQuantity }})</span>
             </router-link>
             <a :href="backendUrl" target="_blank" class="btn btn-responsive-custom btn-dark admin-btn">Vai a
                 DeliveBoo<span class="fst-italic">Admin</span></a>
