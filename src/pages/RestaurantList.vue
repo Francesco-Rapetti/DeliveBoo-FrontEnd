@@ -88,9 +88,8 @@ export default {
 
 <template>
 
-
-    <h1 class="mt-5 mb-3 ">Ristoranti:</h1>
-    <div class="bg-restaurants-list">
+    <div class="container">
+        <h1 class="mt-5 mb-3 ">Ristoranti:</h1>
         <div class="row">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Cerca per tipologia" v-model="userInputSearch" />
@@ -106,6 +105,7 @@ export default {
             <RestaurantCard v-for="restaurant in filteredRestaurants" :key="restaurant.id" :item="restaurant" />
         </div>
     </div>
+
 </template>
 
 <style scoped>
@@ -116,13 +116,5 @@ export default {
 .type-tags {
     padding: 0.7rem;
     margin: 0 0.2rem;
-}
-
-.bg-restaurants-list {
-    padding: 1rem;
-    overflow-y: auto;
-    padding-left: 10%;
-    padding-right: 2%;
-
 }
 </style>
