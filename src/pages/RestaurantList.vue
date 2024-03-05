@@ -77,7 +77,7 @@ export default {
             </div>
             <div class="mb-2">
                 <span v-for="(type, index) in store.foodTypeList" :key="index" :class="getTypeClass(type)"
-                    @click="toggleTypeFilter(type)" :id="'type' + type.id">
+                    class="fs-6 type-tags  mt-2" @click="toggleTypeFilter(type)" :id="'type' + type.id">
                     {{ type.name }}
                 </span>
             </div>
@@ -90,5 +90,10 @@ export default {
 <style scoped>
 .badge {
     cursor: pointer;
+}
+
+.type-tags {
+    padding: 0.7rem;
+    margin: 0 0.2rem;
 }
 </style>
