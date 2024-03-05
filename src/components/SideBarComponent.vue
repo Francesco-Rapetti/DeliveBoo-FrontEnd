@@ -170,4 +170,10 @@ nav ul li a:hover {
         display: none;
     }
 }
+
+@media (max-height: 1080px) {
+    .icon-size {
+        font-size: 1rem;
+    }
+}
 </style>
