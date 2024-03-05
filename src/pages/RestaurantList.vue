@@ -28,7 +28,9 @@ export default {
             // Filtra per tipologia
             if (this.selectedTypes.length > 0) {
                 filtered = filtered.filter((restaurant) =>
-                    restaurant.types.some((type) => this.selectedTypes.includes(type.name))
+                    this.selectedTypes.every((selectedType) =>
+                        restaurant.types.some((type) => type.name === selectedType)
+                    )
                 );
             }
 
