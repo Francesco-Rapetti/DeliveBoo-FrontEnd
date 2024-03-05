@@ -58,17 +58,16 @@ export default {
     <!-- Finestra modale per chiedere all'utente se vuole cancellare i piatti nel carrello -->
     <div class="modal" :class="{ 'is-active': showModal }">
         <div class="modal-background"></div>
-        <div class="modal-card">
+        <div class="modal-card my-modal-bg">
             <header class="modal-card-head">
-                <p class="modal-card-title">Avviso</p>
-                <button class="delete" aria-label="close" @click="showModal = false"></button>
+                <p class="modal-card-title fw-bold fs-3">Oh no!</p>
             </header>
-            <section class="modal-card-body">
+            <section class="modal-card-body fs-4">
                 <p>Hai già nel carrello piatti di un altro ristorante. Vuoi cancellarli?</p>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success" @click="clearCartAndCloseModal">Sì</button>
-                <button class="button" @click="showModal = false">No</button>
+                <button class="btn btn-primary is-success me-3" @click="clearCartAndCloseModal">Sì</button>
+                <button class="btn btn-info" @click="showModal = false">No</button>
             </footer>
         </div>
     </div>
@@ -76,7 +75,7 @@ export default {
 
 <style scoped lang="scss">
 .modal {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     display: none;
     position: fixed;
     top: 0;
@@ -90,5 +89,12 @@ export default {
 
 .modal.is-active {
     display: flex;
+}
+
+.my-modal-bg {
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1rem;
+    border-radius: 1rem;
+    color: black;
 }
 </style>
