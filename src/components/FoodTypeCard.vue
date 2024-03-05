@@ -13,12 +13,13 @@ export default {
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text">{{ item.description }}</p>
             </div>
-            <!-- <div class="card-footer text-center">
+        </div>
+    </div>
+    <!-- <div class="card-footer text-center">
                 <router-link :to="{ name: 'event-detail', params: { id: item.id } }" class="btn btn-primary">
                     <font-awesome-icon icon="fa-solid fa-circle-info" class="me-2" />
                     <span>Details</span>
                 </router-link>
             </div> -->
-        </div>
-    </div>
+
 </template>
