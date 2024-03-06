@@ -49,8 +49,53 @@ a {
 
 .wave {
     height: 100px;
-    width: 100%;
+    width: 200%;
     background: $themeColorBlueSidebar !important;
+    position: relative;
+    transition: position 0.5s ease-in-out;
+    transition: transform 5s linear;
+}
+
+.wave #wave-first {
+    transition: transform 5s linear;
+    animation: moveFirst 20s ease-in-out infinite;
+}
+
+.wave #wave-middle {
+    transform: translateX(600px);
+    animation: moveMiddle 15s ease-in-out infinite;
+}
+
+.wave #wave-last {
+    animation: moveFirst 18s ease-in-out infinite;
+}
+
+@keyframes moveFirst {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(600px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveMiddle {
+    0% {
+        transform: translateX(600px);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(600px);
+    }
 }
 
 .wave.blue * {
