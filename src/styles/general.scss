@@ -4,17 +4,85 @@
 //Importo bootstrap per l'utilizzo nell'app
 @import "bootstrap/scss/bootstrap";
 
+:root {
+    --sidebar-width: 101px;
+}
+
+.bg-dark-blue {
+    background-color: $themeColorBlueSidebar;
+}
+
+.text-light-blue {
+    color: $themeColorBlueTextLight;
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.3s ease-in-out;
 }
 
 body {
-    font-family: sans-serif;
-    background-color: $themeColorDark;
-    color: $themeColorLight;
+    font-family: 'roboto';
+    background-color: $themeColorBlueSidebar;
+    color: $themeColorBlueTextDark;
 }
+
+#main-content {
+    position: relative;
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    height: 100vh;
+    padding: 1rem;
+    // margin: 1rem;
+    overflow-y: auto;
+}
+
+.wave {
+    height: 100px;
+    width: 100%;
+    background: $themeColorBlueSidebar !important;
+}
+
+.wave.blue * {
+    fill: $themeColorBlueSectionContainer;
+}
+
+.wave-container {
+    width: 100%;
+    overflow: hidden;
+
+}
+
+#content,
+#content-container {
+    border-radius: 16px;
+    height: calc(100vh - 2rem);
+    overflow: auto;
+}
+
+#page-content {
+    position: relative;
+    z-index: 10 !important;
+
+}
+
+#content.blue {
+    background-color: $themeColorBlueSectionContainer;
+}
+
+#page-title {
+    font-size: 4rem;
+    position: relative;
+    // height: 400px;
+    // width: 100%;
+}
+
 
 .btn {
     transition: all 0.3s ease-in-out;
@@ -49,4 +117,22 @@ body {
     background-color: #83d5cd !important;
     color: #004350;
     border: #83d5cd !important;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.sidebar.blue {
+    background-color: $themeColorBlueSidebar;
 }
