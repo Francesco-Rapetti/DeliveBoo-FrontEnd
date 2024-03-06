@@ -11,67 +11,78 @@ export default {
 		return {
 			store,
 			title: '',
+			currentPage: '',
 		}
 	},
 	mounted() {
-		this.setTitle();
 		this.getRestaurantList();
 		this.getDishesList();
 		this.getFoodTypeList();
-		this.titleScrollEffect();
-		this.waveAnimation();
 
+	},
+	watch: {
+		$route(to, from) {
+			this.persist();
+			this.setTitle(to.name);
+			if (to.path === '/') {
+
+			} else {
+				this.titleScrollEffect();
+				this.setTitle(to.name);
+			}
+		}
 	},
 
 	methods: {
-		async waveAnimation() {
-			const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-			const waveFirst = document.getElementById('wave-first');
-			const waveMiddle = document.getElementById('wave-middle');
-			const waveLast = document.getElementById('wave-last');
-
-			waveFirst.style.transform = 'translate(600px)';
-			await delay(5000);
-			waveFirst.style.transform = 'translate(0px)';
-
-			this.waveAnimation()
+		persist() {
+			this.store.cart = localStorage.cart ? JSON.parse(localStorage.cart) : [];
 		},
+
 
 		titleScrollEffect() {
 			const content = document.getElementById('content');
 			const title = document.getElementById('page-title');
 			content.addEventListener('scroll', () => {
-				title.style.top = content.scrollTop / 1.7 + 'px';
-				if (content.scrollTop > 170) {
-					title.style.zIndex = -1;
-				} else {
-					title.style.zIndex = 1;
+				if (title) {
+
+					title.style.top = content.scrollTop / 1.7 + 'px';
+					if (content.scrollTop > 170) {
+						title.style.zIndex = -1;
+					} else {
+						title.style.zIndex = 1;
+					}
 				}
 			})
 		},
 
-		setTitle(route) {
-			// console.log(route);
-			if (route) {
+		async setTitle(route) {
+			const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+			while (this.store.restaurantList.length < 1) {
+				await delay(10);
+			}
+
+			const text = document.getElementById('page-title');
+			// console.log(route);
+			if (route && text) {
 				switch (route) {
 					case 'home':
-						return 'Home';
+						text.innerHTML = 'Home';
 						break;
 					case 'restaurants':
-						return 'Ristoranti';
+						text.innerHTML = 'Ristoranti';
 						break;
 					case 'types':
-						return 'Categorie';
+						text.innerHTML = 'Categorie';
 						break;
 					case 'user':
-						return 'Il mio profilo';
+						text.innerHTML = 'Il mio profilo';
 						break;
 					case 'settings':
-						return 'Impostazioni';
+						text.innerHTML = 'Impostazioni';
 						break;
 					case 'restaurant-menu':
-						return store.restaurantList[this.$route.params.id - 1].name;
+						text.innerHTML = this.store.restaurantList[this.$route.params.id - 1].name;
 						break;
 					default:
 						break;
@@ -141,14 +152,13 @@ export default {
 			<div id="content-container" class="overflow-hidden">
 
 				<div id="content" class=" blue">
-					<div v-if="$route.name !== 'home'" id="page-title-container" class="bg-dark-blue">
+					<div :class="{ 'd-none': $route.name === 'home' }" id="page-title-container" class="bg-dark-blue">
 						<div class="container">
-							<h1 id="page-title" class="text-end mb-0 text-light-blue py-5">{{ setTitle($route.name) }}
-							</h1>
+							<h1 id="page-title" class="text-end mb-0 text-light-blue py-5"></h1>
 						</div>
 					</div>
 					<div id="page-content">
-						<div v-if="$route.name !== 'home'" class="wave-container">
+						<div :class="{ 'd-none': $route.name === 'home' }" class="wave-container">
 							<svg data-name="Layer 1" viewBox="0 0 1200 120" transform="rotate(180)" class="wave blue"
 								preserveAspectRatio="none">
 								<path id="wave-last"
