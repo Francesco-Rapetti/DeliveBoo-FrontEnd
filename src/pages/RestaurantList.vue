@@ -54,14 +54,18 @@ export default {
             this.$router.push({ name: 'restaurantList' });
         },
         toggleTypeFilter(type) {
-            const index = this.selectedTypes.indexOf(type.name);
-            if (index !== -1) {
-                this.selectedTypes.splice(index, 1);
+            if (this.selectedFoodType === type.name) {
+                this.selectedFoodType = null;
+                this.$router.replace({ name: 'restaurants', query: {} });
             } else {
-                this.selectedTypes.push(type.name);
+                const index = this.selectedTypes.indexOf(type.name);
+                if (index !== -1) {
+                    this.selectedTypes.splice(index, 1);
+                } else {
+                    this.selectedTypes.push(type.name);
+                }
+                this.typeClicked[type.name] = !this.typeClicked[type.name];
             }
-
-            this.typeClicked[type.name] = !this.typeClicked[type.name];
         },
         getTypeClass(type) {
             const classes = [
