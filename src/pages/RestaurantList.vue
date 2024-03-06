@@ -13,7 +13,7 @@ export default {
             userInputSearch: "",
             selectedTypes: [],
             typeClicked: {},
-            selectedFoodType: null, // Aggiunto stato per la tipologia selezionata
+            selectedFoodType: null, 
         };
     },
     computed: {
@@ -50,8 +50,7 @@ export default {
             this.userInputSearch = "";
             this.selectedTypes = [];
             this.typeClicked = {};
-            this.selectedFoodType = null; // Aggiunto reset della tipologia selezionata
-            // Utilizza il router per rimuovere il parametro di query
+            this.selectedFoodType = null;
             this.$router.push({ name: 'restaurantList' });
         },
         toggleTypeFilter(type) {
@@ -65,19 +64,21 @@ export default {
             this.typeClicked[type.name] = !this.typeClicked[type.name];
         },
         getTypeClass(type) {
-            return [
+            const classes = [
                 "badge",
                 "rounded-pill",
-                { "text-bg-secondary": !this.typeClicked[type.name] },
-                { "text-bg-primary": this.typeClicked[type.name] },
+                {
+                    "text-bg-primary": (this.typeClicked[type.name] || this.selectedFoodType === type.name),
+                    "text-bg-secondary": !(this.typeClicked[type.name] || this.selectedFoodType === type.name),
+                },
             ];
+            return classes;
         },
     },
-    // Utilizza mounted per inizializzare lo stato con il parametro di query
     mounted() {
         this.selectedFoodType = this.$route.query.foodType || null;
     },
-    // Aggiunto watch per gestire cambiamenti nel parametro di query
+
     watch: {
         '$route.query.foodType'(newFoodType) {
             this.selectedFoodType = newFoodType;
