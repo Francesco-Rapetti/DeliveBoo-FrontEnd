@@ -7,6 +7,7 @@ import FoodTypeList from './pages/FoodTypeList.vue';
 import UserPage from "./pages/UserPage.vue";
 import SettingsPage from "./pages/SettingsPage.vue";
 import RestaurantMenu from "./pages/RestaurantMenu.vue";
+import CredentialsPage from "./pages/CredentialsPage.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -47,6 +48,11 @@ const router = createRouter({
             name: "cart",
             component: Cart
         },
+        {
+            path: "/credentials",
+            name: "credentials",
+            component: CredentialsPage
+        }
         // {
         //     path: "/event/:id",
         //     name: "event-detail",
