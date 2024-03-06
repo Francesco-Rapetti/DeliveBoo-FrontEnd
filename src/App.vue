@@ -141,14 +141,14 @@ export default {
 			<div id="content-container" class="overflow-hidden">
 
 				<div id="content" class=" blue">
-					<div id="page-title-container" class="bg-dark-blue">
+					<div v-if="$route.name !== 'home'" id="page-title-container" class="bg-dark-blue">
 						<div class="container">
 							<h1 id="page-title" class="text-end mb-0 text-light-blue py-5">{{ setTitle($route.name) }}
 							</h1>
 						</div>
 					</div>
 					<div id="page-content">
-						<div class="wave-container">
+						<div v-if="$route.name !== 'home'" class="wave-container">
 							<svg data-name="Layer 1" viewBox="0 0 1200 120" transform="rotate(180)" class="wave blue"
 								preserveAspectRatio="none">
 								<path id="wave-last"
