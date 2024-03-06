@@ -7,6 +7,7 @@ import FoodTypeList from './pages/FoodTypeList.vue';
 import UserPage from "./pages/UserPage.vue";
 import SettingsPage from "./pages/SettingsPage.vue";
 import RestaurantMenu from "./pages/RestaurantMenu.vue";
+import PaymentTest from "./pages/PaymentTest.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -46,6 +47,11 @@ const router = createRouter({
             path: "/cart",
             name: "cart",
             component: Cart
+        },
+        {
+            path: "/braintree/client-token",
+            name: "clientToken",
+            component: PaymentTest
         },
         // {
         //     path: "/event/:id",
