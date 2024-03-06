@@ -5,7 +5,7 @@
 @import "bootstrap/scss/bootstrap";
 
 :root {
-    --sidebar-width: 101px;
+    --sidebar-width: 120px;
 }
 
 .bg-dark-blue {
@@ -31,6 +31,10 @@ body {
     font-family: 'roboto';
     background-color: $themeColorBlueSidebar;
     color: $themeColorBlueTextDark;
+}
+
+a {
+    text-decoration: none;
 }
 
 #main-content {
@@ -86,6 +90,7 @@ body {
 
 .btn {
     transition: all 0.3s ease-in-out;
+    border-radius: 32px;
 
 }
 
@@ -121,18 +126,37 @@ body {
 
 .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
     width: var(--sidebar-width);
     height: 100vh;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-
+    padding: 1rem 0 1rem 1rem;
 }
 
 .sidebar.blue {
     background-color: $themeColorBlueSidebar;
+}
+
+#logo-text {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: $themeColorBlueTextLight;
+    font-weight: 900;
+    text-decoration-line: none;
+}
+
+.sidebar .img-container {
+    border-radius: 32px;
+    padding: 0.5rem 1rem;
+    transition: none;
+}
+
+.img-container.blue.active {
+    background-color: $themeColorBlueSelectedContainer;
+}
+
+a:hover .img-container.blue {
+    background-color: $themeColorHoveredContainer;
+}
+
+.text-link.blue {
+    color: $themeColorBlueTextLight;
 }
