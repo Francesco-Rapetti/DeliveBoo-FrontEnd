@@ -7,7 +7,8 @@ export default {
     data() {
         return {
             store,
-            showModal: false // Variabile per mostrare/nascondere la finestra modale
+            showModal: false, // Variabile per mostrare/nascondere la finestra modale
+            quantity: {}
         }
     },
     computed: {
@@ -16,12 +17,23 @@ export default {
         }
     },
     methods: {
+        checkSameDishDifferentQuantity(dish) {
+            return this.store.cart.some(item => item.id === dish.id);
+        },
+
         persist() {
             localStorage.cart = JSON.stringify(this.store.cart);
         },
-        addItemToCart(dish) {
+        addItemToCart(dish, quantity) {
             if (this.store.cart.length === 0 || this.store.cart.every(item => item.restaurant_id === dish.restaurant_id)) {
-                this.store.cart.push(dish);
+                if (!this.store.cart.some(item => item.id === dish.id)) {
+                    dish.quantity = quantity;
+
+                    this.store.cart.push(dish);
+
+                } else {
+                    this.store.cart.filter(item => item.id === dish.id)[0].quantity += dish.quantity;
+                }
                 this.persist();
             } else {
                 // Mostra la finestra modale per chiedere all'utente se vuole cancellare i piatti nel carrello
@@ -32,7 +44,21 @@ export default {
             this.store.cart = [];
             this.persist();
             this.showModal = false;
+        },
+
+        async getQuantity() {
+            const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+            while (this.restaurantDishes.length < 1) {
+                await delay(10);
+            }
+            this.store.dishList.filter(dish => dish.restaurant_id === parseInt(this.$route.params.id)).forEach(dish => {
+                this.quantity[dish.id] = 1;
+            })
         }
+    },
+
+    mounted() {
+        this.getQuantity();
     }
 };
 </script>
@@ -48,7 +74,14 @@ export default {
                     <div class="card-body">
                         <h5 class="card-title">{{ dish.name }}</h5>
                         <p class="card-text">{{ dish.price }}€</p>
-                        <a href="#" class="btn btn-primary" @click="addItemToCart(dish)">Aggiungi</a>
+                        <a href="#" class="btn btn-primary" :class="{ 'disabled': quantity[dish.id] <= 0 }"
+                            @click="addItemToCart(dish, quantity[dish.id])">Aggiungi</a>
+                        <div>
+                            <label for="quantity">Quantità:</label>
+                            <input type="number" name="quantity" v-model="quantity[dish.id]" id="">
+
+                        </div>
+
                     </div>
                 </div>
             </div>
