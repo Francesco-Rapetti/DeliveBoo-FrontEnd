@@ -28,7 +28,6 @@ export default {
 			const title = document.getElementById('page-title');
 			content.addEventListener('scroll', () => {
 				title.style.top = content.scrollTop / 1.7 + 'px';
-				console.log(content.scrollTop);
 				if (content.scrollTop > 170) {
 					title.style.zIndex = -1;
 				} else {
