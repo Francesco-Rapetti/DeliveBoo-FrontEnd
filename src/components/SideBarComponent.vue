@@ -52,7 +52,7 @@ export default {
 </script>
 
 <template>
-    <header class="sidebar ">
+    <header class="sidebar blue">
         <nav class="d-flex flex-column text-center align-items-center flex-shrink-0"> <!-- Aggiunto flex-grow-1 -->
             <div class="logo-container">
                 <img src="/public/img/logo.svg" alt="Logo" class="logo">
@@ -86,21 +86,6 @@ export default {
 </template>
 
 <style scoped lang="scss">
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 8%;
-    height: 100vh;
-    background-color: #006A64;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-
-}
-
 ul {
     list-style-type: none;
     padding: 0;
@@ -127,56 +112,5 @@ nav ul li a:hover {
 
 .icon-size {
     font-size: 3rem;
-}
-
-@media (max-width: 2200px) {
-    .btn-responsive-custom {
-        font-size: 12px;
-        padding: 0.5rem 0.3rem;
-    }
-
-    .text-link-responsive {
-        font-size: 14px;
-        padding-top: 8px;
-    }
-}
-
-@media (max-width: 1600px) {
-    .btn-responsive-custom {
-        font-size: 10px;
-        padding: 0.5rem 0.3rem;
-    }
-
-    .hide-text-responsive {
-        display: none;
-    }
-}
-
-@media (max-width: 1350px) {
-    .btn-responsive-custom {
-        font-size: 12px;
-        padding: 0.3rem;
-    }
-
-    .hide-text-responsive {
-        display: none;
-    }
-}
-
-@media (max-width: 1290px) {
-    .btn-responsive-custom {
-        font-size: 10px;
-        padding: 0.3rem;
-    }
-
-    .hide-text-responsive {
-        display: none;
-    }
-}
-
-@media (max-height: 1080px) {
-    .icon-size {
-        font-size: 1rem;
-    }
 }
 </style>
