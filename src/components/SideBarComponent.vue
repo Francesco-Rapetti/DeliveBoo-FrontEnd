@@ -24,7 +24,11 @@ export default {
             return this.store.urlBackend;
         },
         cartQuantity() {
-            return this.store.cart.length; // Calcoliamo la lunghezza dell'array del carrello
+            let output = 0;
+            this.store.cart.forEach(element => {
+                output += element.quantity
+            })
+            return output; // Calcoliamo la lunghezza dell'array del carrello
         }
     }
 }
