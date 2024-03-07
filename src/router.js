@@ -8,6 +8,8 @@ import UserPage from "./pages/UserPage.vue";
 import SettingsPage from "./pages/SettingsPage.vue";
 import RestaurantMenu from "./pages/RestaurantMenu.vue";
 import CredentialsPage from "./pages/CredentialsPage.vue";
+import ConfirmedPayment from "./pages/ConfirmedPayment.vue";
+import RejectedPayment from "./pages/RejectedPayment.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -52,6 +54,16 @@ const router = createRouter({
             path: "/credentials",
             name: "credentials",
             component: CredentialsPage
+        },
+        {
+            path: "/confirmed",
+            name: "confirmed",
+            component: ConfirmedPayment,
+        },
+        {
+            path: "/rejected",
+            name: "rejected",
+            component: RejectedPayment,
         }
         // {
         //     path: "/event/:id",
