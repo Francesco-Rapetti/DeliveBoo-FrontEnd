@@ -84,6 +84,8 @@ export default {
 					case 'restaurant-menu':
 						text.innerHTML = this.store.restaurantList[this.$route.params.id - 1].name;
 						break;
+					case 'cart':
+						text.innerHTML = 'Carrello';
 					default:
 						break;
 				}
