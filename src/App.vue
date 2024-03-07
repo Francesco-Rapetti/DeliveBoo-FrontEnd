@@ -3,7 +3,6 @@ import axios from 'axios'; //importo Axios
 import { store } from "./store.js" //state management
 import SideBarComponent from './components/SideBarComponent.vue'
 
-
 export default {
 	components: {
 		SideBarComponent
@@ -140,7 +139,7 @@ export default {
 				.catch((error) => {
 					console.error(error);
 				});
-		}
+		},
 	},
 }
 
