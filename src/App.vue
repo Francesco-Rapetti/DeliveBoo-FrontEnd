@@ -3,7 +3,6 @@ import axios from 'axios'; //importo Axios
 import { store } from "./store.js" //state management
 import SideBarComponent from './components/SideBarComponent.vue'
 
-
 export default {
 	components: {
 		SideBarComponent
@@ -18,7 +17,6 @@ export default {
 		this.getRestaurantList();
 		this.getDishesList();
 		this.getFoodTypeList();
-
 
 		// axios.get(this.store.urlAPI + "/restaurants").then(risultato => {
 		// 	console.log(risultato);
@@ -75,7 +73,7 @@ export default {
 				.catch((error) => {
 					console.error(error);
 				});
-		}
+		},
 	},
 }
 

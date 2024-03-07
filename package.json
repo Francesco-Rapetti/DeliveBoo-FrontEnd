@@ -17,13 +17,12 @@
     "@popperjs/core": "^2.11.8",
     "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
-    "braintree": "^3.21.0",
     "braintree-web": "^3.100.0",
+    "braintree-web-drop-in": "^1.42.0",
     "vue": "^3.3.8",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@types/braintree": "^3.3.11",
     "@vitejs/plugin-vue": "^4.5.0",
     "sass": "^1.69.5",
     "vite": "^5.0.0"
