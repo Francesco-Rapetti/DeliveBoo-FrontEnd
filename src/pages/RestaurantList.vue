@@ -14,6 +14,7 @@ export default {
             selectedTypes: [],
             typeClicked: {},
             selectedFoodType: null,
+            sortBy: 'none',
         };
     },
     computed: {
@@ -42,6 +43,15 @@ export default {
                 );
             }
 
+            // Filtro bottoni
+            if (this.sortBy === 'alphabet') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (this.sortBy === 'newest') {
+                filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            } 
+            // else if (this.sortBy === 'popularity') {
+            //     filtered.sort((a, b) => b.popularity - a.popularity);
+            // }
             return filtered;
         },
     },
@@ -78,21 +88,9 @@ export default {
             ];
             return classes;
         },
-        sortByAlphabet() {
-            this.filteredRestaurants.sort((a, b) => a.name.localeCompare(b.name));
-            console.log(this.filteredRestaurants);
-            this.$forceUpdate();
+        updateSort(type) {
+            this.sortBy = type;
         },
-
-        sortByNewest() {
-            this.filteredRestaurants.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            console.log(this.filteredRestaurants);
-            this.$forceUpdate();
-        },
-
-        // sortByPopularity() {
-        //     this.filteredRestaurants.sort((a, b) => b.popularity - a.popularity);
-        // },
     },
     mounted() {
         this.selectedFoodType = this.$route.query.foodType || null;
@@ -119,14 +117,14 @@ export default {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="btn btn-primary rounded-pill" @click="sortByAlphabet">A-Z</a>
+                            <a class="btn btn-primary rounded-pill" @click="updateSort('alphabet')">A-Z</a>
                         </li>
                         <li class="nav-item px-3">
-                            <a class="btn btn-primary rounded-pill" @click="sortByNewest">Newest</a>
+                            <a class="btn btn-primary rounded-pill" @click="updateSort('newest')">Newest</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="btn btn-primary rounded-pill" @click="sortByPopularity">Popular</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <form class="searchBox" role="search">
                         <input type="text" class="searchInput" placeholder="Search" v-model="userInputSearch" />
