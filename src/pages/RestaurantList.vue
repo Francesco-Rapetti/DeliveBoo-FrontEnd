@@ -81,15 +81,18 @@ export default {
         sortByAlphabet() {
             this.filteredRestaurants.sort((a, b) => a.name.localeCompare(b.name));
             console.log(this.filteredRestaurants);
+            this.$forceUpdate();
         },
 
         sortByNewest() {
             this.filteredRestaurants.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            console.log(this.filteredRestaurants);
+            this.$forceUpdate();
         },
 
-        sortByPopularity() {
-            this.filteredRestaurants.sort((a, b) => b.popularity - a.popularity);
-        },
+        // sortByPopularity() {
+        //     this.filteredRestaurants.sort((a, b) => b.popularity - a.popularity);
+        // },
     },
     mounted() {
         this.selectedFoodType = this.$route.query.foodType || null;
