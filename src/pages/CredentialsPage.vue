@@ -40,9 +40,12 @@ export default {
 
             try {
                 const response = await axios.post(this.store.urlAPI + '/orders', this.orderData);
-                console.log(response.data);
+                /* console.log(response.data.success); */
                 if (response.data.success) {
-                    this.$router.push({ name: 'home' });
+                    const totalFormatted = this.orderData.total.toFixed(2);
+                    localStorage.order = JSON.stringify({ ...response.data.payload, total: totalFormatted });
+                    this.$router.push({ name: 'confirmed', props: response.data.payload });
+                    console.log(response.data.payload);
                     this.store.cart = [];
                     localStorage.cart = JSON.stringify(this.store.cart);
                 }
