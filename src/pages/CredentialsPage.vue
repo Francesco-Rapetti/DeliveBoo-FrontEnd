@@ -7,6 +7,7 @@ export default {
         return {
             store,
             errors: [],
+            objectErrors: {},
             orderData: {
                 client_name: 'Francesco',
                 client_surname: 'Rapetti',
@@ -51,13 +52,13 @@ export default {
                     localStorage.cart = JSON.stringify(this.store.cart);
                 }
             } catch (error) {
-                console.error(error);
                 document.getElementById('errorMessage').classList.remove('d-none')
+                this.objectErrors = {};
                 this.errors = [];
                 for (const [key, value] of Object.entries(error.response.data.errors)) {
                     this.errors.push(value);
                 }
-                console.log(this.errors)
+                this.objectErrors = error.response.data.errors;
             }
 
             this.orderData.dishes = []
@@ -75,33 +76,43 @@ export default {
         </h1>
 
         <div class="alert alert-danger d-none" role="alert" id="errorMessage">
-            <div v-for="error in errors">{{ error[0] }}</div>
+            <ul>
+                <li v-for="error in errors">{{ error[0] }}</li>
+            </ul>
         </div>
 
-        <form @submit.prevent="order" method="POST">
+        <form @submit.prevent="order" method="POST" class="needs-validation">
             <div class="mb-3">
                 <label for="client_name" class="form-label">Nome</label>
-                <input v-model="orderData.client_name" type="text" class="form-control" id="client_name">
+                <input v-model="orderData.client_name" type="text" class="form-control"
+                    :class="{ 'is-invalid': objectErrors.client_name }" id="client_name">
+                <div v-if="objectErrors.client_name" class="text-danger error">{{ objectErrors.client_name[0] }}</div>
             </div>
 
             <div class="mb-3">
                 <label for="client_surname" class="form-label">Cognome</label>
-                <input v-model="orderData.client_surname" type="text" class="form-control" id="client_surname">
+                <input v-model="orderData.client_surname" type="text" class="form-control" id="client_surname" :class="{ 'is-invalid': objectErrors.client_surname }">
+                <div v-if="objectErrors.client_surname" class="text-danger error">{{ objectErrors.client_surname[0] }}
+                </div>
             </div>
 
             <div class="mb-3">
                 <label for="client_mail" class="form-label">Email</label>
-                <input v-model="orderData.client_mail" type="text" class="form-control" id="client_mail">
+                <input v-model="orderData.client_mail" type="text" class="form-control"
+                    :class="{ 'is-invalid': objectErrors.client_mail }" id="client_mail">
+                <div v-if="objectErrors.client_mail" class="text-danger error">{{ objectErrors.client_mail[0] }}</div>
             </div>
 
             <div class="mb-3">
                 <label for="client_address" class="form-label">Indirizzo del cliente</label>
-                <input v-model="orderData.client_address" type="text" class="form-control" id="client_address">
+                <input v-model="orderData.client_address" type="text" class="form-control" id="client_address" :class="{ 'is-invalid': objectErrors.client_address }">
+                <div v-if="objectErrors.client_address" class="text-danger error">{{ objectErrors.client_address[0] }}</div>
             </div>
 
             <div class="mb-3">
                 <label for="client_phone" class="form-label">Telefono del cliente</label>
-                <input v-model="orderData.client_phone" type="number" class="form-control" id="client_phone">
+                <input v-model="orderData.client_phone" type="number" class="form-control" id="client_phone" :class="{ 'is-invalid': objectErrors.client_phone }">
+                <div v-if="objectErrors.client_phone" class="text-danger error">{{ objectErrors.client_phone[0] }}</div>
             </div>
 
             <button type="submit" class="btn btn-primary">Procedi con il pagamento</button>
@@ -110,4 +121,8 @@ export default {
     </div>
 </template>
 
-<style></style>
+<style scoped>
+.error {
+    font-size: 12px;
+}
+</style>
