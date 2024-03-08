@@ -10,6 +10,7 @@ export const store = reactive({
     foodTypeList: [],
     dishList: [],
     cart: [],
+    order: {},
     isDropinLoaded: false,
     clientToken: null,
     paymentProcessing: false,
