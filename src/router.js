@@ -59,7 +59,7 @@ const router = createRouter({
         {
             path: "/payment",
             name: "payment",
-            component: PaymentPage
+            component: PaymentPage,
         },
         {
             path: "/confirmed",
