@@ -1,11 +1,11 @@
 <script>
 import axios from 'axios'; //importo Axios
 import { store } from "./store.js" //state management
-import SideBarComponent from './components/SideBarComponent.vue'
+import SideBarComponent from "./components/SideBarComponent.vue";
 
 export default {
 	components: {
-		SideBarComponent
+		SideBarComponent,
 	},
 	data() {
 		return {
@@ -18,7 +18,6 @@ export default {
 		this.getRestaurantList();
 		this.getDishesList();
 		this.getFoodTypeList();
-
 	},
 	watch: {
 		$route(to, from) {
@@ -152,8 +151,7 @@ export default {
 
 
 			<div id="content-container" class="overflow-hidden">
-
-				<div id="content" class=" blue">
+				<div id="content" class=" blue" data-simplebar>
 					<div :class="{ 'd-none': $route.name === 'home' }" id="page-title-container" class="bg-dark-blue">
 						<div class="container">
 							<h1 id="page-title" class="text-end mb-0 text-light-blue py-5"></h1>

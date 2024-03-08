@@ -45,12 +45,16 @@ export default {
                 clickable: true,
             }" :modules="modules" class="mySwiper">
                 <!-- <swiper-slide>
-                    <img class="img-fluid h-100" :src="getImagePath('jumbotron.png')" />
+                    <img class="img-fluid h-100" :src="getImagePath('jumbotron1.png')" />
                     <div class="swiper-content h-100">
                         <div class="container h-100">
                             <div class="row align-items-center h-100 justify-content-center">
                                 <div id="jumbotron1-title-container"
                                     class="glass d-flex align-items-center justify-content-center flex-column">
+                                    <div id="jumbo-logo">
+
+                                        <img class="image-fluid w-100" src="../assets/logo.svg" alt="">
+                                    </div>
                                     <h1 id="jumbotron1-title" class="text-center">DeliveBoo</h1>
                                     <h1 class="text-center">La tua città a domicilio!</h1>
                                 </div>
@@ -59,7 +63,7 @@ export default {
                     </div>
                 </swiper-slide> -->
                 <swiper-slide>
-                    <img class="img-fluid h-100" :src="getImagePath('jumbotron.png')" />
+                    <img class="img-fluid h-100" :src="getImagePath('jumbotron3.png')" />
                     <div class="swiper-content h-100">
                         <div class="container h-100">
                             <div class="row align-items-center h-100 justify-content-center">
@@ -252,10 +256,15 @@ export default {
     width: 800px;
     height: 800px;
     border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0);
+    /* background: rgba(255, 255, 255, 0);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); */
+}
+
+#jumbo-logo {
+    max-width: 100px !important;
+    max-height: 100px !important;
 }
 
 .jumbo {
@@ -264,7 +273,8 @@ export default {
     z-index: -1;
     bottom: 1rem;
     top: 1rem;
-    right: 2.08rem;
+    /* margin + scrollbar */
+    right: calc(1rem + 10px);
     left: 8.5rem;
     border-radius: 16px 0 0 16px;
     overflow: hidden;

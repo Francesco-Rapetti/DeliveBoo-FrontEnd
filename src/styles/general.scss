@@ -229,3 +229,21 @@ a:hover .img-container.blue {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 }
+
+::-webkit-scrollbar {
+    background-color: $themeColorBlueSectionContainer;
+    width: 10px;
+    // display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 16px;
+    background-color: $themeColorBlueTextLight;
+    // display: none;
+    // border: 5px solid #fff
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    // display: none;
+}
