@@ -9,11 +9,11 @@ export default {
             errors: [],
             objectErrors: {},
             orderData: {
-                client_name: '',
-                client_surname: '',
-                client_address: '',
-                client_phone: '',
-                client_mail: '',
+                client_name: 'asdasdasdasd',
+                client_surname: 'asdasdasdasdasd',
+                client_address: 'asdasdasdasdasdasdasdasd',
+                client_phone: '34958734958233',
+                client_mail: 'asdqwdqwdqwd@asfqwfqw',
                 total: 0,
                 status: "pending",
                 restaurant_id: 0,
@@ -26,6 +26,14 @@ export default {
                 client_phone: '',
                 client_mail: '',
             }
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        console.log(from)
+        if (from.name !== 'cart') {
+            next({ path: '/' })
+        } else {
+            next()
         }
     },
     methods: {
@@ -119,7 +127,7 @@ export default {
                     if (response.data.success) {
                         const totalFormatted = this.orderData.total.toFixed(2);
                         localStorage.order = JSON.stringify({ ...response.data.payload, total: totalFormatted });
-                        this.$router.push({ name: 'confirmed', props: response.data.payload });
+                        this.$router.push({ name: 'payment', total: totalFormatted });
                         console.log(response.data.payload);
                         this.store.cart = [];
                         localStorage.cart = JSON.stringify(this.store.cart);

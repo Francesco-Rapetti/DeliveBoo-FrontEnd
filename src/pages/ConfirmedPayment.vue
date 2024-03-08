@@ -6,12 +6,27 @@ export default {
     data() {
         return {
             store,
-            orderInfo: {}
+            orderInfo: {},
         };
     },
+    beforeRouteEnter(to, from, next) {
+        if (from.name !== 'payment') {
+            next({ path: '/' })
+        } else {
+            next()
+        }
+    },
+    beforeRouteLeave(to, from, next) {
+        if (to.path !== '/') {
+            alert('Non puoi abbandonare la pagina adesso')
+            next(false)
+        } else {
+            next()
+        }
+    },
     methods: {
-        goToRestaurantsPage() {
-            this.$router.push({ name: 'restaurants' })
+        goToHomePage() {
+            this.$router.push({ path: '/' })
         }
     },
     mounted() {
@@ -46,7 +61,7 @@ export default {
                         class="card__credit-card">
                     <div class="card__card-details">
                         <p class="card__card-type">Credit / debit card</p>
-                        <p class="card__card-number">Visa ending in **89</p>
+                        <p class="card__card-number">Visa</p>
                     </div>
                 </div>
 
@@ -61,8 +76,7 @@ export default {
         </div>
 
         <div class="text-center">
-            <button @click="goToRestaurantsPage()" class="fs-5 p-4 mt-5 btn btn-primary">Torna alla pagina dei
-                ristoranti</button>
+            <button @click="goToHomePage()" class="fs-5 p-4 mt-5 btn btn-primary">Torna alla homepage</button>
         </div>
 
     </div>

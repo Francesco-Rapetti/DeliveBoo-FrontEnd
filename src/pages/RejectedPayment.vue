@@ -6,16 +6,39 @@ export default {
     data() {
         return {
             store,
-            orderInfo: {}
+            orderInfo: {},
+            message: "Oh no, qualcosa è andato storto."
         };
     },
+    beforeRouteEnter(to, from, next) {
+        if (from.name !== 'payment') {
+            next({ path: '/' })
+        } else {
+            next()
+        }
+    },
+    beforeRouteLeave(to, from, next) {
+        if (to.path !== '/') {
+            alert('Non puoi abbandonare la pagina adesso')
+            next(false)
+        } else {
+            next()
+        }
+    },
     methods: {
-        goToRestaurantsPage() {
-            this.$router.push({ name: 'restaurants' })
+        goToHomePage() {
+            this.$router.push({ path: '/' })
         }
     },
     mounted() {
         this.orderInfo = JSON.parse(localStorage.order);
+        this.message = localStorage.orderErrorMessage
+        // this.$router.beforeEach((to, from) => {
+        //     if (from.name === 'rejected' && to.name !== 'home') {
+        //         this.$route.push({ path: '/' })
+        //         return false
+        //     }
+        // })
     }
 };
 </script>
@@ -33,11 +56,10 @@ export default {
                     <p class="card__email">ite{{ orderInfo.client_mail }}</p>
                 </div>
                 <div>
-                    <h1 class="card__price">Oh no! Qualcosa è andato storto</h1>
+                    <h1 class="card__price">{{ message }}</h1>
                 </div>
                 <div class="text-center">
-                    <button @click="goToRestaurantsPage()" class="fs-5 p-4 mt-3 btn btn-primary">Torna alla pagina dei
-                        ristoranti</button>
+                    <button @click="goToHomePage()" class="fs-5 p-4 mt-3 btn btn-primary">Torna alla homepage</button>
                 </div>
             </div>
             <div class="card__tags">
