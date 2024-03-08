@@ -1,14 +1,14 @@
 <script>
 export default {
     name: "FoodTypeCard",
-    props: ["item"]
+    props: ["item"],
 }
 </script>
 
 <template>
     <div class="col-md-4 gy-4">
         <div class="card h-100">
-            <div class="card-header"><img :src="item.img" class="w-100"></div>
+            <div class="card-header"><img :src="'../src/assets/' + item.img + '.svg'" class="w-100"></div>
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text">{{ item.description }}</p>

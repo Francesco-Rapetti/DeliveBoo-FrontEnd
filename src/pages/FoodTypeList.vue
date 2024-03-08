@@ -18,6 +18,7 @@ export default {
             this.selectedFoodType = foodType.name;
             this.$router.push({ name: 'restaurants', query: { foodType: this.selectedFoodType } });
         },
+
     },
 };
 </script>
