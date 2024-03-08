@@ -147,22 +147,23 @@ export default {
 
 <template>
 	<div>
-		<SideBarComponent v-if="$route.name !== 'confirmed' && $route.name !== 'rejected'" />
+		<SideBarComponent
+			v-if="$route.name !== 'confirmed' && $route.name !== 'rejected' && $route.name !== 'payment'" />
 		<main id="main-content"
-			:class="{ 'w-100 position-static': $route.name === 'confirmed' || $route.name === 'rejected' }">
+			:class="{ 'w-100 position-static': $route.name === 'confirmed' || $route.name === 'rejected' || $route.name === 'payment' }">
 
 
 			<div id="content-container" class="overflow-hidden">
 
 				<div id="content" class=" blue">
-					<div :class="{ 'd-none': $route.name === 'home' || $route.name === 'confirmed' || $route.name === 'rejected' }"
+					<div :class="{ 'd-none': $route.name === 'home' || $route.name === 'confirmed' || $route.name === 'rejected' || $route.name === 'payment' }"
 						id="page-title-container" class="bg-dark-blue">
 						<div class="container">
 							<h1 id="page-title" class="text-end mb-0 text-light-blue py-5"></h1>
 						</div>
 					</div>
 					<div id="page-content">
-						<div :class="{ 'd-none': $route.name === 'home' || $route.name === 'confirmed' || $route.name === 'rejected' }"
+						<div :class="{ 'd-none': $route.name === 'home' || $route.name === 'confirmed' || $route.name === 'rejected' || $route.name === 'payment' }"
 							class="wave-container">
 							<svg data-name="Layer 1" viewBox="0 0 1200 120" transform="rotate(180)" class="wave blue"
 								preserveAspectRatio="none">
