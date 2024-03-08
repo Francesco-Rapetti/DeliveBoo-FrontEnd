@@ -8,6 +8,7 @@ import UserPage from "./pages/UserPage.vue";
 import SettingsPage from "./pages/SettingsPage.vue";
 import RestaurantMenu from "./pages/RestaurantMenu.vue";
 import CredentialsPage from "./pages/CredentialsPage.vue";
+import PaymentPage from "./pages/PaymentPage.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -52,6 +53,11 @@ const router = createRouter({
             path: "/credentials",
             name: "credentials",
             component: CredentialsPage
+        },
+        {
+            path: "/payment",
+            name: "payment",
+            component: PaymentPage
         }
         // {
         //     path: "/event/:id",

@@ -5,10 +5,9 @@ export const store = reactive({
     apiRestaurantEndpoint: "/restaurants",
     apiFoodTypeEndpoint: "/types",
     apiDishesEndpoint: "/dishes",
-    apiBraintreePayment: "/braintree/client-token",
+    apiBraintreePayment: "/payment",
     restaurantList: [],
     foodTypeList: [],
-    urlBackend: "http://127.0.0.1:8000",
     dishList: [],
     cart: [],
     isDropinLoaded: false,
@@ -16,4 +15,3 @@ export const store = reactive({
     paymentProcessing: false,
     braintreeError: null,
 });
-
