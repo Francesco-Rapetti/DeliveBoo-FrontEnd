@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             store,
+            errors: [],
             orderData: {
                 client_name: 'Francesco',
                 client_surname: 'Rapetti',
@@ -51,7 +52,14 @@ export default {
                 }
             } catch (error) {
                 console.error(error);
+                document.getElementById('errorMessage').classList.remove('d-none')
+                this.errors = [];
+                for (const [key, value] of Object.entries(error.response.data.errors)) {
+                    this.errors.push(value);
+                }
+                console.log(this.errors)
             }
+
             this.orderData.dishes = []
             this.orderData.total = 0
         }
@@ -65,6 +73,10 @@ export default {
         <h1>
             Inserisci le tue credenziali
         </h1>
+
+        <div class="alert alert-danger d-none" role="alert" id="errorMessage">
+            <div v-for="error in errors">{{ error[0] }}</div>
+        </div>
 
         <form @submit.prevent="order" method="POST">
             <div class="mb-3">
