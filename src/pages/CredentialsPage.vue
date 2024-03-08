@@ -9,16 +9,23 @@ export default {
             errors: [],
             objectErrors: {},
             orderData: {
-                client_name: 'Francesco',
-                client_surname: 'Rapetti',
-                client_address: 'owiehjfgowihnegoiwhegoihweogihweohgowiheg',
-                client_phone: '23094870980192',
-                client_mail: 'a@a.com',
+                client_name: '',
+                client_surname: '',
+                client_address: '',
+                client_phone: '',
+                client_mail: '',
                 total: 0,
                 status: "pending",
                 restaurant_id: 0,
                 dishes: []
             },
+            clientSideErrors: {
+                client_name: '',
+                client_surname: '',
+                client_address: '',
+                client_phone: '',
+                client_mail: '',
+            }
         }
     },
     methods: {
@@ -34,36 +41,105 @@ export default {
             })
         },
 
+        dataValidated() {
+            if (this.orderData.client_name == '') {
+                this.clientSideErrors.client_name = 'Inserisci il tuo nome'
+            } else if (this.orderData.client_name.length < 5) {
+                this.clientSideErrors.client_name = 'Il nome deve avere almeno 5 caratteri'
+            } else if (this.orderData.client_name.length > 50) {
+                this.clientSideErrors.client_name = 'Il nome deve avere massimo 50 caratteri'
+            } else {
+                this.clientSideErrors.client_name = ''
+            }
+
+            if (this.orderData.client_surname == '') {
+                this.clientSideErrors.client_surname = 'Inserisci il tuo cognome'
+            } else if (this.orderData.client_surname.length < 5) {
+                this.clientSideErrors.client_surname = 'Il cognome deve avere almeno 5 caratteri'
+            } else if (this.orderData.client_surname.length > 50) {
+                this.clientSideErrors.client_surname = 'Il cognome deve avere massimo 50 caratteri'
+            } else {
+                this.clientSideErrors.client_surname = ''
+            }
+
+            if (this.orderData.client_mail == '') {
+                this.clientSideErrors.client_mail = 'Inserisci la tua email'
+            } else if (this.orderData.client_mail.length < 10) {
+                this.clientSideErrors.client_mail = 'la mail deve avere almeno 10 caratteri'
+            } else if (this.orderData.client_mail.length > 100) {
+                this.clientSideErrors.client_mail = 'la mail deve avere massimo 100 caratteri'
+            } else {
+                this.clientSideErrors.client_mail = ''
+            }
+
+            if (this.orderData.client_address == '') {
+                this.clientSideErrors.client_address = 'Inserisci il tuo indirizzo'
+            } else if (this.orderData.client_address.length < 10) {
+                this.clientSideErrors.client_address = 'l\'indirizzo deve avere almeno 10 caratteri'
+            } else {
+                this.clientSideErrors.client_address = ''
+            }
+
+            if (this.orderData.client_phone == '') {
+                this.clientSideErrors.client_phone = 'Inserisci il tuo numero di telefono'
+            } else if (this.orderData.client_phone.length < 9) {
+                this.clientSideErrors.client_phone = 'Il numero deve avere almeno 9 caratteri'
+            } else if (this.orderData.client_phone.length > 164) {
+                this.clientSideErrors.client_phone = 'Il numero deve avere massimo 164 caratteri'
+            } else {
+                this.clientSideErrors.client_phone = ''
+            }
+
+            let output = true;
+            for (const [key, value] of Object.entries(this.clientSideErrors)) {
+                if (value != '') {
+                    output = false
+                    break
+                }
+            }
+            return output
+        },
 
         async order() {
             this.getDishes();
             this.getTotal();
             this.orderData.restaurant_id = this.store.cart[0].restaurant_id;
 
-            try {
-                const response = await axios.post(this.store.urlAPI + '/orders', this.orderData);
-                /* console.log(response.data.success); */
-                if (response.data.success) {
-                    const totalFormatted = this.orderData.total.toFixed(2);
-                    localStorage.order = JSON.stringify({ ...response.data.payload, total: totalFormatted });
-                    this.$router.push({ name: 'confirmed', props: response.data.payload });
-                    console.log(response.data.payload);
-                    this.store.cart = [];
-                    localStorage.cart = JSON.stringify(this.store.cart);
+            if (this.dataValidated()) {
+                this.clientSideErrors = {
+                    client_name: '',
+                    client_surname: '',
+                    client_address: '',
+                    client_phone: '',
+                    client_mail: '',
                 }
-            } catch (error) {
-                document.getElementById('errorMessage').classList.remove('d-none')
-                this.objectErrors = {};
-                this.errors = [];
-                for (const [key, value] of Object.entries(error.response.data.errors)) {
-                    this.errors.push(value);
+                try {
+                    const response = await axios.post(this.store.urlAPI + '/orders', this.orderData);
+                    /* console.log(response.data.success); */
+                    if (response.data.success) {
+                        const totalFormatted = this.orderData.total.toFixed(2);
+                        localStorage.order = JSON.stringify({ ...response.data.payload, total: totalFormatted });
+                        this.$router.push({ name: 'confirmed', props: response.data.payload });
+                        console.log(response.data.payload);
+                        this.store.cart = [];
+                        localStorage.cart = JSON.stringify(this.store.cart);
+                    }
+                } catch (error) {
+                    document.getElementById('errorMessage').classList.remove('d-none')
+                    this.objectErrors = {};
+                    this.errors = [];
+                    for (const [key, value] of Object.entries(error.response.data.errors)) {
+                        this.errors.push(value);
+                    }
+                    this.objectErrors = error.response.data.errors;
                 }
-                this.objectErrors = error.response.data.errors;
-            }
 
-            this.orderData.dishes = []
-            this.orderData.total = 0
+                this.orderData.dishes = []
+                this.orderData.total = 0
+            }
         }
+
+
     }
 
 }
@@ -83,35 +159,42 @@ export default {
 
         <form @submit.prevent="order" method="POST" class="needs-validation">
             <div class="mb-3">
-                <label for="client_name" class="form-label">Nome</label>
+                <label for="client_name" class="form-label">Nome*</label>
                 <input v-model="orderData.client_name" type="text" class="form-control"
-                    :class="{ 'is-invalid': objectErrors.client_name }" id="client_name">
+                    :class="{ 'is-invalid': objectErrors.client_name || clientSideErrors.client_name != '' }"
+                    id="client_name">
                 <div v-if="objectErrors.client_name" class="text-danger error">{{ objectErrors.client_name[0] }}</div>
+                <div v-if="clientSideErrors.client_name != ''" class="text-danger error"> {{
+                    clientSideErrors.client_name }} </div>
             </div>
 
             <div class="mb-3">
-                <label for="client_surname" class="form-label">Cognome</label>
-                <input v-model="orderData.client_surname" type="text" class="form-control" id="client_surname" :class="{ 'is-invalid': objectErrors.client_surname }">
+                <label for="client_surname" class="form-label">Cognome*</label>
+                <input v-model="orderData.client_surname" type="text" class="form-control" id="client_surname"
+                    :class="{ 'is-invalid': objectErrors.client_surname }">
                 <div v-if="objectErrors.client_surname" class="text-danger error">{{ objectErrors.client_surname[0] }}
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="client_mail" class="form-label">Email</label>
-                <input v-model="orderData.client_mail" type="text" class="form-control"
+                <label for="client_mail" class="form-label">Email*</label>
+                <input v-model="orderData.client_mail" type="email" class="form-control"
                     :class="{ 'is-invalid': objectErrors.client_mail }" id="client_mail">
                 <div v-if="objectErrors.client_mail" class="text-danger error">{{ objectErrors.client_mail[0] }}</div>
             </div>
 
             <div class="mb-3">
-                <label for="client_address" class="form-label">Indirizzo del cliente</label>
-                <input v-model="orderData.client_address" type="text" class="form-control" id="client_address" :class="{ 'is-invalid': objectErrors.client_address }">
-                <div v-if="objectErrors.client_address" class="text-danger error">{{ objectErrors.client_address[0] }}</div>
+                <label for="client_address" class="form-label">Indirizzo del cliente*</label>
+                <input v-model="orderData.client_address" type="text" class="form-control" id="client_address"
+                    :class="{ 'is-invalid': objectErrors.client_address }">
+                <div v-if="objectErrors.client_address" class="text-danger error">{{ objectErrors.client_address[0] }}
+                </div>
             </div>
 
             <div class="mb-3">
-                <label for="client_phone" class="form-label">Telefono del cliente</label>
-                <input v-model="orderData.client_phone" type="number" class="form-control" id="client_phone" :class="{ 'is-invalid': objectErrors.client_phone }">
+                <label for="client_phone" class="form-label">Telefono del cliente*</label>
+                <input v-model="orderData.client_phone" type="number" class="form-control" id="client_phone"
+                    :class="{ 'is-invalid': objectErrors.client_phone }">
                 <div v-if="objectErrors.client_phone" class="text-danger error">{{ objectErrors.client_phone[0] }}</div>
             </div>
 
