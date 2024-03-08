@@ -209,3 +209,23 @@ a:hover .img-container.blue {
 .text-link.blue {
     color: $themeColorBlueTextLight;
 }
+
+#home-page section {
+    background-color: $themeColorBlueSectionContainer !important;
+}
+
+#home-page .wave.transparent {
+    background-color: transparent !important;
+}
+
+.mySwiper {
+    color: $themeColorBlueSectionContainer !important;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0);
+    // border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
