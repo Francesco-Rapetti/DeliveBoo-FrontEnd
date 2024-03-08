@@ -8,6 +8,7 @@ import UserPage from "./pages/UserPage.vue";
 import SettingsPage from "./pages/SettingsPage.vue";
 import RestaurantMenu from "./pages/RestaurantMenu.vue";
 import CredentialsPage from "./pages/CredentialsPage.vue";
+import PaymentPage from "./pages/PaymentPage.vue";
 import ConfirmedPayment from "./pages/ConfirmedPayment.vue";
 import RejectedPayment from "./pages/RejectedPayment.vue";
 
@@ -54,6 +55,11 @@ const router = createRouter({
             path: "/credentials",
             name: "credentials",
             component: CredentialsPage
+        },
+        {
+            path: "/payment",
+            name: "payment",
+            component: PaymentPage
         },
         {
             path: "/confirmed",
