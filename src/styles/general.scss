@@ -1,211 +1,225 @@
 //Importo le variabili per l'utilizzo all'interno di QUESTO file
-@use './partials/_variables.scss' as *;
+@use "./partials/_variables.scss" as *;
 
 //Importo bootstrap per l'utilizzo nell'app
 @import "bootstrap/scss/bootstrap";
 
 :root {
-    --sidebar-width: 120px;
+  --sidebar-width: 120px;
 }
 
 .bg-dark-blue {
-    background-color: $themeColorBlueSidebar;
+  background-color: $themeColorBlueSidebar;
 }
 
 .text-light-blue {
-    color: $themeColorBlueTextLight;
+  color: $themeColorBlueTextLight;
 }
 
 .overflow-hidden {
-    overflow: hidden !important;
+  overflow: hidden !important;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease-in-out;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease-in-out;
 }
 
 body {
-    font-family: 'roboto';
-    background-color: $themeColorBlueSidebar;
-    color: $themeColorBlueTextDark;
+  font-family: "roboto";
+  background-color: $themeColorBlueSidebar;
+  color: $themeColorBlueTextDark;
+}
+
+*::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color:transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.53);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15.2px);
+  -webkit-backdrop-filter: blur(15.2px);
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #main-content {
-    position: relative;
-    left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-    height: 100vh;
-    padding: 1rem;
-    // margin: 1rem;
-    overflow-y: auto;
+  position: relative;
+  left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  height: 100vh;
+  padding: 1rem;
+  // margin: 1rem;
+  overflow-y: auto;
 }
 
 .wave {
-    height: 100px;
-    width: 200%;
-    background: $themeColorBlueSidebar !important;
-    position: relative;
-    transition: position 0.5s ease-in-out;
-    transition: transform 5s linear;
+  height: 100px;
+  width: 200%;
+  background: $themeColorBlueSidebar !important;
+  position: relative;
+  transition: position 0.5s ease-in-out;
+  transition: transform 5s linear;
 }
 
 .wave #wave-first {
-    transition: transform 5s linear;
-    animation: moveFirst 20s ease-in-out infinite;
+  transition: transform 5s linear;
+  animation: moveFirst 20s ease-in-out infinite;
 }
 
 .wave #wave-middle {
-    transform: translateX(600px);
-    animation: moveMiddle 15s ease-in-out infinite;
+  transform: translateX(600px);
+  animation: moveMiddle 15s ease-in-out infinite;
 }
 
 .wave #wave-last {
-    animation: moveFirst 18s ease-in-out infinite;
+  animation: moveFirst 18s ease-in-out infinite;
 }
 
 @keyframes moveFirst {
-    0% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(0);
+  }
 
-    50% {
-        transform: translateX(600px);
-    }
+  50% {
+    transform: translateX(600px);
+  }
 
-    100% {
-        transform: translateX(0);
-    }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @keyframes moveMiddle {
-    0% {
-        transform: translateX(600px);
-    }
+  0% {
+    transform: translateX(600px);
+  }
 
-    50% {
-        transform: translateX(0);
-    }
+  50% {
+    transform: translateX(0);
+  }
 
-    100% {
-        transform: translateX(600px);
-    }
+  100% {
+    transform: translateX(600px);
+  }
 }
 
 .wave.blue * {
-    fill: $themeColorBlueSectionContainer;
+  fill: $themeColorBlueSectionContainer;
 }
 
 .wave-container {
-    width: 100%;
-    overflow: hidden;
-
+  width: 100%;
+  overflow: hidden;
 }
 
 #content,
 #content-container {
-    border-radius: 16px;
-    height: calc(100vh - 2rem);
-    overflow: auto;
+  border-radius: 16px;
+  height: calc(100vh - 2rem);
+  overflow: overlay;
 }
 
 #page-content {
-    position: relative;
-    z-index: 10 !important;
-
+  position: relative;
+  z-index: 10 !important;
 }
 
 #content.blue {
-    background-color: $themeColorBlueSectionContainer;
+  background-color: $themeColorBlueSectionContainer;
 }
 
 #page-title {
-    font-size: 4rem;
-    position: relative;
-    // height: 400px;
-    // width: 100%;
+  font-size: 4rem;
+  position: relative;
+  // height: 400px;
+  // width: 100%;
 }
 
-
 .btn {
-    transition: all 0.3s ease-in-out;
-    border-radius: 32px;
-
+  transition: all 0.3s ease-in-out;
+  border-radius: 32px;
 }
 
 .btn:hover {
-    box-shadow: 0px 16px 32px rgba(0, 0, 0, 1);
-    transform: scale(1.1);
-
+  box-shadow: 0px 16px 32px rgba(0, 0, 0, 1);
+  transform: scale(1.1);
 }
 
 .btn-primary {
-    background-color: #83d5cd !important;
-    color: #004350;
-    border: #83d5cd !important;
+  background-color: #83d5cd !important;
+  color: #004350;
+  border: #83d5cd !important;
 }
 
 .btn-primary:hover {
-    background-color: #004350 !important;
-    color: #83d5cd;
-    border: #004350 !important;
+  background-color: #004350 !important;
+  color: #83d5cd;
+  border: #004350 !important;
 }
 
 .btn-warning {
-    background-color: #004350 !important;
-    color: #83d5cd;
-    border: #004350 !important;
+  background-color: #004350 !important;
+  color: #83d5cd;
+  border: #004350 !important;
 }
 
 .btn-warning:hover {
-    background-color: #83d5cd !important;
-    color: #004350;
-    border: #83d5cd !important;
+  background-color: #83d5cd !important;
+  color: #004350;
+  border: #83d5cd !important;
 }
 
 .sidebar {
-    position: fixed;
-    width: var(--sidebar-width);
-    height: 100vh;
-    padding: 1rem 0 1rem 1rem;
+  position: fixed;
+  width: var(--sidebar-width);
+  height: 100vh;
+  padding: 1rem 0 1rem 1rem;
 }
 
 .sidebar.blue {
-    background-color: $themeColorBlueSidebar;
+  background-color: $themeColorBlueSidebar;
 }
 
 #logo-image-container {
-    top: 50px;
+  top: 50px;
 }
 
 #logo-text {
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: $themeColorBlueTextLight;
-    font-weight: 900;
-    text-decoration-line: none;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: $themeColorBlueTextLight;
+  font-weight: 900;
+  text-decoration-line: none;
 }
 
 .sidebar .img-container {
-    border-radius: 32px;
-    padding: 0.5rem 1rem;
-    transition: none;
+  border-radius: 32px;
+  padding: 0.5rem 1rem;
+  transition: none;
 }
 
 .img-container.blue.active {
-    background-color: $themeColorBlueSelectedContainer;
+  background-color: $themeColorBlueSelectedContainer;
 }
 
 a:hover .img-container.blue {
-    background-color: $themeColorHoveredContainer;
+  background-color: $themeColorHoveredContainer;
 }
 
 .text-link.blue {
-    color: $themeColorBlueTextLight;
+  color: $themeColorBlueTextLight;
 }

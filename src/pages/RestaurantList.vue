@@ -158,6 +158,8 @@ export default {
 </template>
 
 <style scoped>
+@import '../styles/general.scss';
+
 .badge {
     cursor: pointer;
 }

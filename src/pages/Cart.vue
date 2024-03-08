@@ -117,6 +117,8 @@ export default {
 </template>
 
 <style lang="scss">
+@import '../styles/general.scss';
+
 .product-card {
     display: flex;
     border: 1px solid #ccc;
