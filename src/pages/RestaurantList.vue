@@ -27,7 +27,6 @@ export default {
                 );
             }
 
-            // Filtra per tipologia
             if (this.selectedTypes.length > 0) {
                 filtered = filtered.filter((restaurant) =>
                     this.selectedTypes.every((selectedType) =>
@@ -36,22 +35,19 @@ export default {
                 );
             }
 
-            // Aggiunto filtro per la tipologia selezionata tramite query del router
             if (this.selectedFoodType) {
                 filtered = filtered.filter((restaurant) =>
                     restaurant.types.some((type) => type.name === this.selectedFoodType)
                 );
             }
 
-            // Filtro bottoni
             if (this.sortBy === 'alphabet') {
                 filtered.sort((a, b) => a.name.localeCompare(b.name));
             } else if (this.sortBy === 'newest') {
                 filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            } 
-            // else if (this.sortBy === 'popularity') {
-            //     filtered.sort((a, b) => b.popularity - a.popularity);
-            // }
+            }
+
+            this.showNoResults = filtered.length === 0;
             return filtered;
         },
     },
@@ -64,11 +60,12 @@ export default {
             this.$router.push({ name: 'restaurantList' });
         },
         toggleTypeFilter(type) {
+            const index = this.selectedTypes.indexOf(type.name);
+
             if (this.selectedFoodType === type.name) {
                 this.selectedFoodType = null;
                 this.$router.replace({ name: 'restaurants', query: {} });
             } else {
-                const index = this.selectedTypes.indexOf(type.name);
                 if (index !== -1) {
                     this.selectedTypes.splice(index, 1);
                 } else {
@@ -76,6 +73,9 @@ export default {
                 }
                 this.typeClicked[type.name] = !this.typeClicked[type.name];
             }
+
+            // Aggiorna la variabile showNoResults in base ai risultati filtrati
+            this.showNoResults = this.filteredRestaurants.length === 0;
         },
         getTypeClass(type) {
             const classes = [
@@ -148,6 +148,9 @@ export default {
                 </span>
             </div>
             <p v-if="!store.restaurantList || !store.restaurantList.length">Non ci sono ristoranti</p>
+            <div v-if="showNoResults" class="alert alert-info mt-3" role="alert">
+                Nessun ristorante trovato con i criteri di ricerca selezionati.
+            </div>
             <RestaurantCard v-for="restaurant in filteredRestaurants" :key="restaurant.id" :item="restaurant" />
         </div>
     </div>
