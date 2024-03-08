@@ -44,7 +44,7 @@ export default {
         dataValidated() {
             if (this.orderData.client_name == '') {
                 this.clientSideErrors.client_name = 'Inserisci il tuo nome'
-            } else if (this.orderData.client_name.length < 5) {
+            } else if (this.orderData.client_name.length < 2) {
                 this.clientSideErrors.client_name = 'Il nome deve avere almeno 5 caratteri'
             } else if (this.orderData.client_name.length > 50) {
                 this.clientSideErrors.client_name = 'Il nome deve avere massimo 50 caratteri'
@@ -54,7 +54,7 @@ export default {
 
             if (this.orderData.client_surname == '') {
                 this.clientSideErrors.client_surname = 'Inserisci il tuo cognome'
-            } else if (this.orderData.client_surname.length < 5) {
+            } else if (this.orderData.client_surname.length < 2) {
                 this.clientSideErrors.client_surname = 'Il cognome deve avere almeno 5 caratteri'
             } else if (this.orderData.client_surname.length > 50) {
                 this.clientSideErrors.client_surname = 'Il cognome deve avere massimo 50 caratteri'
@@ -171,31 +171,40 @@ export default {
             <div class="mb-3">
                 <label for="client_surname" class="form-label">Cognome*</label>
                 <input v-model="orderData.client_surname" type="text" class="form-control" id="client_surname"
-                    :class="{ 'is-invalid': objectErrors.client_surname }">
+                    :class="{ 'is-invalid': objectErrors.client_surname || clientSideErrors.client_surname != '' }">
                 <div v-if="objectErrors.client_surname" class="text-danger error">{{ objectErrors.client_surname[0] }}
                 </div>
+                <div v-if="clientSideErrors.client_surname != ''" class="text-danger error"> {{
+                    clientSideErrors.client_surname }} </div>
             </div>
 
             <div class="mb-3">
                 <label for="client_mail" class="form-label">Email*</label>
                 <input v-model="orderData.client_mail" type="email" class="form-control"
-                    :class="{ 'is-invalid': objectErrors.client_mail }" id="client_mail">
+                    :class="{ 'is-invalid': objectErrors.client_mail || clientSideErrors.client_mail != '' }"
+                    id="client_mail">
                 <div v-if="objectErrors.client_mail" class="text-danger error">{{ objectErrors.client_mail[0] }}</div>
+                <div v-if="clientSideErrors.client_mail != ''" class="text-danger error"> {{
+                    clientSideErrors.client_mail }} </div>
             </div>
 
             <div class="mb-3">
                 <label for="client_address" class="form-label">Indirizzo del cliente*</label>
                 <input v-model="orderData.client_address" type="text" class="form-control" id="client_address"
-                    :class="{ 'is-invalid': objectErrors.client_address }">
+                    :class="{ 'is-invalid': objectErrors.client_address || clientSideErrors.client_address != '' }">
                 <div v-if="objectErrors.client_address" class="text-danger error">{{ objectErrors.client_address[0] }}
                 </div>
+                <div v-if="clientSideErrors.client_address != ''" class="text-danger error"> {{
+                    clientSideErrors.client_address }} </div>
             </div>
 
             <div class="mb-3">
                 <label for="client_phone" class="form-label">Telefono del cliente*</label>
                 <input v-model="orderData.client_phone" type="number" class="form-control" id="client_phone"
-                    :class="{ 'is-invalid': objectErrors.client_phone }">
+                    :class="{ 'is-invalid': objectErrors.client_phone || clientSideErrors.client_phone != '' }">
                 <div v-if="objectErrors.client_phone" class="text-danger error">{{ objectErrors.client_phone[0] }}</div>
+                <div v-if="clientSideErrors.client_phone != ''" class="text-danger error"> {{
+                    clientSideErrors.client_phone }} </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Procedi con il pagamento</button>
