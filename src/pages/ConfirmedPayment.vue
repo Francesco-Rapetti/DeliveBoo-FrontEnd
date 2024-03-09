@@ -36,63 +36,70 @@ export default {
 </script>
 
 <template>
-    <div class="bg">
+    <div class="container d-flex justify-content-center align-items-center">
 
-        <div class="card">
+        <div class="bg">
 
-            <span class="card__success"><i class="ion-checkmark"></i></span>
+            <div class="card">
 
-            <h1 class="card__msg">Payment Complete</h1>
-            <h2 class="card__submsg">Thank you for your transfer</h2>
+                <span class="card__success"><i class="ion-checkmark"></i></span>
 
-            <div class="card__body">
+                <h1 class="card__msg">Payment Complete</h1>
+                <h2 class="card__submsg">Thank you for your transfer</h2>
 
-                <div class="card__recipient-info">
-                    <p class="card__recipient">{{ orderInfo.client_name }} {{ orderInfo.client_surname
-                        }}</p>
-                    <p class="card__email">{{ orderInfo.client_mail }}</p>
-                </div>
+                <div class="card__body">
 
-                <h1 class="card__price">{{ orderInfo.total }}<span>€</span></h1>
-
-                <p class="card__method">Payment method</p>
-                <div class="card__payment">
-                    <img src="https://seeklogo.com/images/V/VISA-logo-F3440F512B-seeklogo.com.png"
-                        class="card__credit-card">
-                    <div class="card__card-details">
-                        <p class="card__card-type">Credit / debit card</p>
-                        <p class="card__card-number">Visa</p>
+                    <div class="card__recipient-info">
+                        <p class="card__recipient">{{ orderInfo.client_name }} {{ orderInfo.client_surname
+                            }}</p>
+                        <p class="card__email">{{ orderInfo.client_mail }}</p>
                     </div>
+
+                    <h1 class="card__price">{{ orderInfo.total }}<span>€</span></h1>
+
+                    <p class="card__method">Payment method</p>
+                    <div class="card__payment">
+                        <img src="https://seeklogo.com/images/V/VISA-logo-F3440F512B-seeklogo.com.png"
+                            class="card__credit-card">
+                        <div class="card__card-details">
+                            <p class="card__card-type">Credit / debit card</p>
+                            <p class="card__card-number">Visa</p>
+                        </div>
+                    </div>
+
                 </div>
 
+                <div class="card__tags">
+                    <span class="card__tag">completed</span>
+                    <span class="card__tag">#{{ orderInfo.id }}</span>
+                </div>
+
+
             </div>
 
-            <div class="card__tags">
-                <span class="card__tag">completed</span>
-                <span class="card__tag">#{{ orderInfo.id }}</span>
+            <div class="text-center">
+                <button @click="goToHomePage()" class="fs-5 p-4 mt-5 btn btn-primary">Torna alla homepage</button>
             </div>
 
-
         </div>
-
-        <div class="text-center">
-            <button @click="goToHomePage()" class="fs-5 p-4 mt-5 btn btn-primary">Torna alla homepage</button>
-        </div>
-
     </div>
 </template>
 
 <style scoped lang="scss">
-.bg {
-    width: 1200px;
-    overflow: hidden;
-    margin: 0 auto;
-    box-sizing: border-box;
-    padding: 40px;
-    font-family: 'Roboto';
-    margin-top: 40px;
-
+.container {
+    height: calc(100vh - 2rem);
 }
+
+.bg {
+    width: 100%;
+    // overflow: hidden;
+    // margin: 0 auto;
+    box-sizing: border-box;
+    // padding: 40px;
+    font-family: 'Roboto';
+    margin-bottom: 40px;
+}
+
 
 .card {
 
@@ -113,7 +120,7 @@ export default {
 
         position: absolute;
         top: -50px;
-        left: 500px;
+        left: calc(50% - 50px);
         width: 100px;
         height: 100px;
         border-radius: 100%;

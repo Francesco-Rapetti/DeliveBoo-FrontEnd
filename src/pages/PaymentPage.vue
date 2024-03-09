@@ -10,6 +10,7 @@ export default {
             store,
             order: null,
             total: 0,
+            clientToken: null,
         }
     },
 
@@ -22,7 +23,7 @@ export default {
     },
 
     mounted() {
-        this.initializeBraintree();
+        this.initialization();
         this.order = JSON.parse(localStorage.order);
         this.total = this.order.total;
         console.log(this.order.total);
@@ -35,11 +36,16 @@ export default {
         })
     },
     methods: {
+        async initialization() {
+            const request = await axios.get(this.store.urlAPI + '/generate-client-token');
+            this.clientToken = request.data.token;
+            this.initializeBraintree();
+        },
+
         initializeBraintree() {
             const form = document.querySelector('#cardForm');
-
             braintree.client.create({
-                authorization: 'eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpGVXpJMU5pSXNJbXRwWkNJNklqSXdNVGd3TkRJMk1UWXRjMkZ1WkdKdmVDSXNJbWx6Y3lJNkltaDBkSEJ6T2k4dllYQnBMbk5oYm1SaWIzZ3VZbkpoYVc1MGNtVmxaMkYwWlhkaGVTNWpiMjBpZlEuZXlKbGVIQWlPakUzTURrNU56a3dNVEVzSW1wMGFTSTZJalZtTUdZd01tUmtMV1kxT1RrdE5HRXpNaTA0WWpKaExUazRPV1ZqTnpObFptRXpaaUlzSW5OMVlpSTZJbmhvZURZMGVXdDZhbTE0Y0dwbmRHSWlMQ0pwYzNNaU9pSm9kSFJ3Y3pvdkwyRndhUzV6WVc1a1ltOTRMbUp5WVdsdWRISmxaV2RoZEdWM1lYa3VZMjl0SWl3aWJXVnlZMmhoYm5RaU9uc2ljSFZpYkdsalgybGtJam9pZUdoNE5qUjVhM3BxYlhod2FtZDBZaUlzSW5abGNtbG1lVjlqWVhKa1gySjVYMlJsWm1GMWJIUWlPbVpoYkhObGZTd2ljbWxuYUhSeklqcGJJbTFoYm1GblpWOTJZWFZzZENKZExDSnpZMjl3WlNJNld5SkNjbUZwYm5SeVpXVTZWbUYxYkhRaVhTd2liM0IwYVc5dWN5STZlMzE5LkVObDJIeXJSTFNha2JjSW5qbFlJVkt3ZEpUMGJBVXRrR3BTWGFqWHhURkRYMUs3RGwzR3BmSmNrUk4tWHYzYTZGdGNxOWRLRElPWHFCWF9hZDFMNG5RIiwiY29uZmlnVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3hoeDY0eWt6am14cGpndGIvY2xpZW50X2FwaS92MS9jb25maWd1cmF0aW9uIiwiZ3JhcGhRTCI6eyJ1cmwiOiJodHRwczovL3BheW1lbnRzLnNhbmRib3guYnJhaW50cmVlLWFwaS5jb20vZ3JhcGhxbCIsImRhdGUiOiIyMDE4LTA1LTA4IiwiZmVhdHVyZXMiOlsidG9rZW5pemVfY3JlZGl0X2NhcmRzIl19LCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMveGh4NjR5a3pqbXhwamd0Yi9jbGllbnRfYXBpIiwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwibWVyY2hhbnRJZCI6InhoeDY0eWt6am14cGpndGIiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsInZlbm1vIjoib2ZmIiwiY2hhbGxlbmdlcyI6W10sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL29yaWdpbi1hbmFseXRpY3Mtc2FuZC5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tL3hoeDY0eWt6am14cGpndGIifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJhbGxvd0h0dHAiOnRydWUsImRpc3BsYXlOYW1lIjoiRnJlZWxhbmNlIiwiY2xpZW50SWQiOm51bGwsImJhc2VVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImFzc2V0c1VybCI6Imh0dHBzOi8vY2hlY2tvdXQucGF5cGFsLmNvbSIsImRpcmVjdEJhc2VVcmwiOm51bGwsImVudmlyb25tZW50Ijoib2ZmbGluZSIsImJyYWludHJlZUNsaWVudElkIjoibWFzdGVyY2xpZW50MyIsIm1lcmNoYW50QWNjb3VudElkIjoiZnJlZWxhbmNlIiwiY3VycmVuY3lJc29Db2RlIjoiRVVSIn19'
+                authorization: this.clientToken,
             }, (err, client) => {
                 if (err) {
                     console.error(err);
@@ -150,7 +156,7 @@ export default {
 </script>
 
 <template>
-    <div id="payment-conainer" class="container d-flex flex-column justify-content-center align-items-center">
+    <div id="payment-conainer" class="w-100 container d-flex flex-column justify-content-center align-items-center">
 
         <div class="sub-body">
             <header class="header">

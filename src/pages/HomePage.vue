@@ -219,9 +219,10 @@ export default {
 
         <section class="py-5">
             <div class="container">
-                <div class="row">
-                    <div class="col-12 mb-3 col-md-6">
-                        <div>
+                <div class="row justify-content-center">
+                    <div
+                        class="col-12 mb-3 col-md-6 d-md-block d-flex flex-column justify-content-center align-items-center">
+                        <div class="text-center text-md-start">
 
                             <h1 class="fw-bold">Sei un ristoratore? Prova ora: </h1>
                             <div class="d-flex justify-content-start align-items-center">
@@ -241,14 +242,14 @@ export default {
                                 portata di mano.</p>
                         </div>
 
-                        <div>
+                        <div class="mb-3">
                             <a :href="store.urlBackend" class="btn btn-primary mt-4">Vai al sito</a>
                         </div>
 
                     </div>
                     <div class="col-12 mb-3 col-md-auto">
                         <div class="img-container">
-                            <img class="w-100" :src="'../src/assets/backEnd.png'" alt="">
+                            <img class="w-100 img-fluid" :src="'../src/assets/backEnd.png'" alt="">
                         </div>
                     </div>
                 </div>

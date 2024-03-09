@@ -44,41 +44,49 @@ export default {
 </script>
 
 <template>
-    <div class="bg">
-        <div class="card">
-            <span class="card__failure"><i class="ion-close-circled"></i></span>
-            <h1 class="card__msg">Payment Failed</h1>
-            <h2 class="card__submsg">We're sorry, but your payment was not successful</h2>
-            <div class="card__body">
-                <div class="card__recipient-info">
-                    <p class="card__recipient">{{ orderInfo.client_name }} {{ orderInfo.client_surname
-                        }}</p>
-                    <p class="card__email">ite{{ orderInfo.client_mail }}</p>
+    <div class="container d-flex justify-content-center align-items-center">
+
+        <div class="bg">
+            <div class="card">
+                <span class="card__failure"><i class="ion-close-circled"></i></span>
+                <h1 class="card__msg">Payment Failed</h1>
+                <h2 class="card__submsg">We're sorry, but your payment was not successful</h2>
+                <div class="card__body">
+                    <div class="card__recipient-info">
+                        <p class="card__recipient">{{ orderInfo.client_name }} {{ orderInfo.client_surname
+                            }}</p>
+                        <p class="card__email">ite{{ orderInfo.client_mail }}</p>
+                    </div>
+                    <div>
+                        <h1 class="card__price text-danger">{{ message }}</h1>
+                    </div>
+                    <div class="text-center">
+                        <button @click="goToHomePage()" class="fs-5 p-4 mt-3 btn btn-primary">Torna alla
+                            homepage</button>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="card__price">{{ message }}</h1>
+                <div class="card__tags">
+                    <span class="card__tag">failed</span>
+                    <span class="card__tag">item</span>
                 </div>
-                <div class="text-center">
-                    <button @click="goToHomePage()" class="fs-5 p-4 mt-3 btn btn-primary">Torna alla homepage</button>
-                </div>
-            </div>
-            <div class="card__tags">
-                <span class="card__tag">failed</span>
-                <span class="card__tag">item</span>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
+.container {
+    height: calc(100vh - 2rem);
+}
+
 .bg {
-    width: 1200px;
-    overflow: hidden;
-    margin: 0 auto;
+    width: 100%;
+    // overflow: hidden;
+    // margin: 0 auto;
     box-sizing: border-box;
-    padding: 40px;
+    // padding: 40px;
     font-family: 'Roboto';
-    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .card {
@@ -97,7 +105,7 @@ export default {
 .card__failure {
     position: absolute;
     top: -50px;
-    left: 500px;
+    left: calc(50% - 50px);
     width: 100px;
     height: 100px;
     border-radius: 100%;
@@ -155,7 +163,7 @@ export default {
 
 .card__price {
     color: #232528;
-    font-size: 50px;
+    font-size: 30px;
     margin-top: 25px;
     margin-bottom: 30px;
 
