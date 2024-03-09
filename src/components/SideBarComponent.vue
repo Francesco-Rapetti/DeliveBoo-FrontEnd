@@ -35,8 +35,8 @@ export default {
 </script>
 
 <template>
-    <header class="sidebar blue d-flex flex-column align-items-center justify-content-between">
-        <div id="logo-image-container" class="position-relative">
+    <header class="sidebar blue d-flex flex-row flex-md-column align-items-center justify-content-between">
+        <div id="logo-image-container" class="position-relative d-none d-md-block">
             <router-link to="/">
                 <div class="logo-container d-flex align-items-center justify-content-center">
                     <svg width="70%" height="100%" viewBox="0 0 1182 1182" version="1.1"
@@ -56,9 +56,10 @@ export default {
                 <p id="logo-text" class="mt-2">DeliveBoo</p>
             </router-link>
         </div>
-        <nav class="d-flex flex-column text-center align-items-center flex-shrink-0 my-5"> <!-- Aggiunto flex-grow-1 -->
-            <div class="d-flex align-items-center ">
-                <ul>
+        <nav class="d-flex flex-row flex-md-column text-center align-items-center w-100 my-5">
+            <!-- Aggiunto flex-grow-1 -->
+            <div class="d-flex align-items-center w-100">
+                <ul id="sidebar-links" class="d-flex flex-md-column w-100">
                     <li class="py-3">
                         <router-link :to="{ name: 'home' }"
                             class="text-link-responsive nav-link d-flex flex-column text-center">
@@ -136,11 +137,13 @@ export default {
                         </router-link>
                     </li>
 
+
+
                 </ul>
             </div>
         </nav>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column d-none d-md-block">
             <router-link to="/cart" class="btn btn-responsive-custom btn-primary my-3 position-relative">
                 <font-awesome-icon :icon="['fas', 'cart-shopping']" />
                 Carrello
