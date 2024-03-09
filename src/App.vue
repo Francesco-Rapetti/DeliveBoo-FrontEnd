@@ -1,11 +1,11 @@
 <script>
 import axios from 'axios'; //importo Axios
 import { store } from "./store.js" //state management
-import SideBarComponent from './components/SideBarComponent.vue'
+import SideBarComponent from "./components/SideBarComponent.vue";
 
 export default {
 	components: {
-		SideBarComponent
+		SideBarComponent,
 	},
 	data() {
 		return {
@@ -18,7 +18,6 @@ export default {
 		this.getRestaurantList();
 		this.getDishesList();
 		this.getFoodTypeList();
-
 	},
 	watch: {
 		$route(to, from) {
@@ -30,6 +29,7 @@ export default {
 				this.titleScrollEffect();
 				this.setTitle(to.name);
 			}
+			document.getElementById('content').scrollTop = 0
 		}
 	},
 
