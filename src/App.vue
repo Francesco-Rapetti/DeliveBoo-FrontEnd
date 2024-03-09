@@ -141,6 +141,15 @@ export default {
 				});
 		},
 	},
+	computed: {
+		cartQuantity() {
+			let output = 0;
+			this.store.cart.forEach(element => {
+				output += element.quantity
+			})
+			return output; // Calcoliamo la lunghezza dell'array del carrello
+		}
+	}
 }
 
 </script>
@@ -149,13 +158,27 @@ export default {
 	<div>
 		<SideBarComponent
 			v-if="$route.name !== 'confirmed' && $route.name !== 'rejected' && $route.name !== 'payment'" />
-		<main id="main-content"
-			:class="{ 'w-100 position-static': $route.name === 'confirmed' || $route.name === 'rejected' || $route.name === 'payment' }">
+		<main id="main-content" class="main-content"
+			:class="{ 'w-100 sidebar-off position-static': $route.name === 'confirmed' || $route.name === 'rejected' || $route.name === 'payment' }">
 
 
 			<div id="content-container" class="overflow-hidden">
 
 				<div id="content" class=" blue">
+					<div v-if="$route.name !== 'payment' && $route.name !== 'confirmed' && $route.name !== 'rejected'"
+						id="floating-cart" class="d-block d-md-none position-fixed">
+						<router-link to="/cart"
+							class="btn btn-responsive-custom p-4 fs-2 btn-primary d-flex justify-content-center align-items-center rounded-4">
+							<font-awesome-icon :icon="['fas', 'cart-shopping']" />
+
+							<span v-if="cartQuantity > 0" id="floating-cart-quantity"
+								class="position-absolute top-0 translate-middle badge rounded-pill bg-danger">
+								{{ cartQuantity }}
+								<span class="visually-hidden">chart items</span>
+							</span>
+							<!-- <span v-if="cartQuantity > 0">({{ cartQuantity }})</span> -->
+						</router-link>
+					</div>
 					<div :class="{ 'd-none': $route.name === 'home' || $route.name === 'confirmed' || $route.name === 'rejected' || $route.name === 'payment' }"
 						id="page-title-container" class="bg-dark-blue">
 						<div class="container">
