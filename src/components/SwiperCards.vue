@@ -24,9 +24,10 @@ export default {
     },
     data() {
         return {
-            store
+            store,
         }
-    }
+    },
+
 };
 </script>
 
@@ -44,7 +45,7 @@ export default {
                     </div>
 
                     <div>
-                        <p id="card-description" class="text-center">{{ restaurant.description.slice(0, 200) + "..." }}
+                        <p id="card-description" class="text-center">{{ restaurant.description.slice(0, 100) + "..." }}
                         </p>
                     </div>
 
@@ -55,7 +56,7 @@ export default {
                                 <div class="d-flex">
                                     <router-link :to="{ name: 'restaurant-menu', params: { id: restaurant.id } }"
                                         class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-utensils"
-                                            class="me-1" /><span> Sfoglia il menù</span></router-link>
+                                            class="me-1" /><span> Menù</span></router-link>
 
 
                                 </div>
@@ -91,9 +92,16 @@ export default {
     overflow: hidden;
 }
 
+@media screen and (max-width: 1024px) {
+    .swiper {
+        width: 300px !important;
+        height: 350px !important;
+    }
+}
+
 .swiper {
-    width: 400px !important;
-    height: 450px !important;
+    max-width: 400px !important;
+    max-height: 450px !important;
 }
 
 .swiper-slide {
