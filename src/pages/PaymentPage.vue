@@ -231,7 +231,6 @@ body {
     background: #FFFFFF;
     border-radius: 20px;
     box-shadow: 0 10px 30px 5px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
     overflow: hidden;
     transition: all 0.2s;
     width: 540px;
