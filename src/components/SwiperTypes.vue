@@ -32,8 +32,8 @@ export default {
 
 <template>
 
-    <swiper :centeredSlides="false" :loop="true" :speed="3000" :autoplay="{ delay: 1, disableOnInteraction: false }"
-        :slidesPerView="5" :spaceBetween="30" :modules="modules" class="mySwiper">
+    <swiper :centeredSlides="false" :loop="true" :speed="3000" :autoplay="{ delay: 0, disableOnInteraction: false }"
+        slidesPerView="auto" :spaceBetween="30" :modules="modules" class="mySwiper">
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
                 <img :src="'../src/assets/burgers.svg'" alt="burgers">
@@ -134,11 +134,12 @@ export default {
 }
 
 .swiper {
-    width: 100%;
+    width: 100% !important;
     height: 230px !important;
 }
 
 .swiper-slide {
+    width: 230px !important;
     text-align: center;
     font-size: 18px;
     border-radius: 18px;
