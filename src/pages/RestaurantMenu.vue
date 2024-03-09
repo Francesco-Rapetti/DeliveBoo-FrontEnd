@@ -24,21 +24,32 @@ export default {
         persist() {
             localStorage.cart = JSON.stringify(this.store.cart);
         },
-        addItemToCart(dish, quantity) {
+        addItemToCart(dish) {
             if (this.store.cart.length === 0 || this.store.cart.every(item => item.restaurant_id === dish.restaurant_id)) {
-                if (!this.store.cart.some(item => item.id === dish.id)) {
-                    dish.quantity = quantity;
-
-                    this.store.cart.push(dish);
-
-                } else {
-                    this.store.cart.filter(item => item.id === dish.id)[0].quantity += dish.quantity;
-                }
+                document.getElementById('add-to-cart' + dish.id).classList.add('d-none');
+                document.getElementById('cart-controls' + dish.id).classList.remove('d-none');
+                dish['quantity'] = 1;
+                this.store.cart.push(dish);
+                // console.log(this.store.cart);
                 this.persist();
             } else {
                 // Mostra la finestra modale per chiedere all'utente se vuole cancellare i piatti nel carrello
                 this.showModal = true;
             }
+        },
+        updateItemQuantity(dish, quantity) {
+            if (quantity <= 0) {
+                document.getElementById('cart-controls' + dish.id).classList.add('d-none');
+                document.getElementById('add-to-cart' + dish.id).classList.remove('d-none');
+                this.store.cart = this.store.cart.filter(item => item.id !== dish.id);
+                this.persist();
+                this.quantity[dish.id] = 1;
+            } else {
+
+                this.store.cart.filter(item => item.id === dish.id)[0].quantity = quantity;
+                this.persist();
+            }
+            // console.log(this.store.cart);
         },
         clearCartAndCloseModal() {
             this.store.cart = [];
@@ -54,33 +65,69 @@ export default {
             this.store.dishList.filter(dish => dish.restaurant_id === parseInt(this.$route.params.id)).forEach(dish => {
                 this.quantity[dish.id] = 1;
             })
-        }
+        },
+
+
     },
 
     mounted() {
         this.getQuantity();
+        if (this.store.cart.length > 0 && this.store.cart.every(item => item.restaurant_id === parseInt(this.$route.params.id))) {
+            this.store.cart.forEach(dish => {
+                this.quantity[dish.id] = dish.quantity;
+                document.getElementById('add-to-cart' + dish.id).classList.add('d-none');
+                document.getElementById('cart-controls' + dish.id).classList.remove('d-none');
+            })
+        }
     }
 };
 </script>
 
 <template>
-    <div class="container">
-        <div class="row">
-            <h1 class="mt-5 mb-3">Menu:</h1>
+
+
+
+
+    <div class="container my-5 w-100 d-flex justify-content-center align-items-center p-0">
+        <div class="d-flex justify-content-center align-items-center gap-md-5 gap-4 w-100 p-0 flex-wrap">
             <p v-if="restaurantDishes.length === 0">Nessun piatto trovato per questo ristorante.</p>
-            <div class="col-3 my-3" v-else v-for="dish in restaurantDishes" :key="dish.id">
-                <div class="card" style="width: 18rem;">
-                    <img :src="dish.img" class="card-img-top" :alt="dish.name + ' image'">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ dish.name }}</h5>
-                        <p class="card-text">{{ dish.price }}€</p>
-                        <a href="#" class="btn btn-primary" :class="{ 'disabled': quantity[dish.id] <= 0 }"
-                            @click="addItemToCart(dish, quantity[dish.id])">Aggiungi</a>
-                        <div>
+            <div id="card-container" class="d-flex justify-content-center align-items-center" v-else
+                v-for="dish in restaurantDishes.filter(dish => dish.visibility === 1)" :key="dish.id">
+                <div class="card glass h-100">
+                    <div class="card-img-container" type="button" data-bs-toggle="modal" data-bs-target="#dishInfo"
+                        @click="store.currentDish = dish">
+
+                        <img :src="dish.img" :alt="dish.name + ' image'">
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-between align-items-center">
+                        <div class="w-100">
+                            <h5 class="card-title text-center">{{ dish.name }}</h5>
+
+                        </div>
+
+                        <div class="d-flex justify-content-around align-items-center w-100">
+                            <p class="card-text m-0">
+                                <font-awesome-icon icon="fa-solid fa-coins" class="me-2" />
+                                {{ dish.price }}€
+                            </p>
+
+                            <div :id="'add-to-cart' + dish.id" class="btn btn-warning"
+                                :class="{ 'disabled': quantity[dish.id] <= 0 }" @click="addItemToCart(dish)">Aggiungi
+                            </div>
+
+                            <div :id="'cart-controls' + dish.id" class="d-flex quantity-controls d-none">
+                                <button @click="updateItemQuantity(dish, --quantity[dish.id])"><font-awesome-icon
+                                        icon="fa-solid fa-minus" class="me-2" /></button>
+                                <div>{{ quantity[dish.id] }}</div>
+                                <button @click="updateItemQuantity(dish, ++quantity[dish.id])"><font-awesome-icon
+                                        icon="fa-solid fa-plus" class="ms-2" /></button>
+                            </div>
+                        </div>
+                        <!-- <div>
                             <label for="quantity">Quantità:</label>
                             <input type="number" name="quantity" v-model="quantity[dish.id]" id="">
 
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -91,22 +138,97 @@ export default {
     <!-- Finestra modale per chiedere all'utente se vuole cancellare i piatti nel carrello -->
     <div class="modal" :class="{ 'is-active': showModal }">
         <div class="modal-background"></div>
-        <div class="modal-card my-modal-bg">
+        <div class="modal-card my-modal-bg glass ">
             <header class="modal-card-head">
                 <p class="modal-card-title fw-bold fs-3">Oh no!</p>
             </header>
             <section class="modal-card-body fs-4">
                 <p>Hai già nel carrello piatti di un altro ristorante. Vuoi cancellarli?</p>
             </section>
-            <footer class="modal-card-foot">
+            <footer class="modal-card-foot bg-transparent">
                 <button class="btn btn-primary is-success me-3" @click="clearCartAndCloseModal">Sì</button>
-                <button class="btn btn-info" @click="showModal = false">No</button>
+                <button class="btn btn-primary" @click="showModal = false">No</button>
             </footer>
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
+button {
+    background-color: transparent;
+    border: 0;
+}
+
+.quantity-controls {
+    padding: 6px 12px;
+    background-color: #004350;
+    border-radius: 32px;
+    color: #83D5CD;
+    min-width: 86.78px;
+    justify-content: space-between;
+}
+
+.quantity-controls button {
+    color: #83D5CD;
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 100% !important;
+        flex-direction: row !important;
+    }
+
+    #card-container {
+        width: 100% !important;
+    }
+
+    .card-img-container {
+        border-radius: 32px 0 0 32px !important;
+        width: 40%;
+        height: 100% !important;
+        overflow: hidden;
+        object-position: center;
+    }
+}
+
+.btn {
+    transition: all 0.3s ease-in-out;
+}
+
+.card {
+    height: 300px;
+    width: 18rem;
+    // width: 100% !important;
+    border-radius: 32px;
+    background-color: #9df2e9;
+    color: #006a64;
+    border: 0;
+}
+
+.card-title {
+    font-weight: 900;
+}
+
+.card-img-container {
+    cursor: pointer;
+    border-radius: 32px 32px 0 0;
+    max-width: 300px;
+    max-height: 150px !important;
+    overflow: hidden;
+    object-position: center;
+    object-fit: cover;
+
+}
+
+.card-img-container img {
+    // max-height: 100% !important;
+    min-height: 100% !important;
+    max-width: 110% !important;
+    min-width: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
 .modal {
     background-color: rgba(0, 0, 0, 0.7);
     display: none;
@@ -125,9 +247,9 @@ export default {
 }
 
 .my-modal-bg {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(157, 242, 234, 0.518);
     padding: 1rem;
     border-radius: 1rem;
-    color: black;
+    // color: black;
 }
 </style>
