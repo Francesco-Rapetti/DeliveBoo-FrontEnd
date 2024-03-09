@@ -156,6 +156,28 @@ export default {
 
 <template>
 	<div>
+		<!-- Modal -->
+		<div class="modal fade" id="dishInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div v-if="store.currentDish" class="modal-content glass">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">{{ store.currentDish['name'] }}</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						{{ store.currentDish['description'] }}
+					</div>
+					<div class="modal-footer d-flex justify-content-around">
+						<p class="m-0">
+							<font-awesome-icon icon="fa-solid fa-coins" /> {{ store.currentDish['price'] }}
+						</p>
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 		<SideBarComponent
 			v-if="$route.name !== 'confirmed' && $route.name !== 'rejected' && $route.name !== 'payment'" />
 		<main id="main-content" class="main-content"
@@ -215,4 +237,9 @@ export default {
 
 <style lang="scss">
 @use './styles/general.scss';
+
+.modal-content {
+	background-color: #006a6599;
+	color: #9df2e9;
+}
 </style>
