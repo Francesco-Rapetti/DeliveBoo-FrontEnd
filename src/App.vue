@@ -29,6 +29,7 @@ export default {
 				this.titleScrollEffect();
 				this.setTitle(to.name);
 			}
+			document.getElementById('content').scrollTop = 0
 		}
 	},
 
