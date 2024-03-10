@@ -75,7 +75,7 @@ export default {
         <div class="row">
             <div class="col-md-8  mt-4">
                 <p v-if="!store.cart || !store.cart.length">Non ci sono elementi nel carrello</p>
-                <div v-for="dish in store.cart" :key="dish.id" class="card mb-3 rounded-5">
+                <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-5">
                     <div class="row g-0 h-100">
                         <div class="col h-100">
                             <div class="my-img-container h-100">
@@ -113,36 +113,48 @@ export default {
 
 
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Totale</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p v-if="store.cart && store.cart.length">
-                            Totale Parziale: {{ calculatePartialTotal().toFixed(2) }} $
+                <div class="card my-panel mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4"><strong>Totale ordine</strong></h4>
+                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                            <span>Totale Parziale </span>
+                            <span>${{ calculatePartialTotal().toFixed(2) }}</span>
                         </p>
-                        <p v-if="store.cart && store.cart.length">
-                            Costo di Spedizione: {{ shippingCost }} $
+                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                            <span>Costo di Spedizione</span>
+                            <span>${{ shippingCost }}.00</span>
                         </p>
-                        <p v-if="store.cart && store.cart.length">
-                            Commissioni: {{ commission }} $
+                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                            <span>Commissioni</span>
+                            <span>${{ commission }}</span>
                         </p>
-                        <p v-if="store.cart && store.cart.length">
-                            Totale: {{ calculateTotal().toFixed(2) }} $
+                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                            <span><strong>Totale</strong></span>
+                            <span><strong>${{ calculateTotal().toFixed(2) }}</strong></span>
                         </p>
                         <p v-else>Nessun elemento nel carrello</p>
                     </div>
+                    <div class="my-checkout d-flex justify-content-center">
+                        <router-link class="btn my-checkout-btn mb-3" :class="{ 'disabled': store.cart.length === 0 }"
+                            :to="{ name: 'credentials' }">
+                            Check Out <font-awesome-icon icon="fa-solid fa-arrow-right pl-2" />
+                        </router-link>
+                    </div>
                 </div>
-                <router-link class="btn my-btn" :class="{ 'disabled': store.cart.length === 0 }"
-                    :to="{ name: 'credentials' }">Procedi</router-link>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
-.card {
+.my-card {
     height: 150px;
+    background-color: #83D5CD;
+    border: none;
+    box-shadow: 5px 5px 6px 0px grey;
+}
+
+.my-panel {
     background-color: #83D5CD;
     border: none;
     box-shadow: 5px 5px 6px 0px grey;
@@ -159,6 +171,16 @@ button {
 }
 
 .my-btn {
+    background-color: #004350;
+    color: #83D5CD;
+}
+
+
+.my-checkout-btn {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #004350;
     color: #83D5CD;
 }
