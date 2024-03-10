@@ -74,7 +74,9 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col-md-8  mt-4">
-                <p v-if="!store.cart || !store.cart.length">Non ci sono elementi nel carrello</p>
+                <p v-if="!store.cart || !store.cart.length" class="d-flex flex-column justify-content-center align-items-center mt-5"><strong>Non ci sono piatti nel carrello</strong>
+                    <span><router-link to="/restaurants" class="btn btn-primary btn-lg mt-4"><strong>Trova Ristoranti qui!</strong></router-link></span>
+                </p>
                 <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-4">
                     <div class="row g-0 h-100">
                         <div class="col h-100">
@@ -86,7 +88,8 @@ export default {
                             <div class="card-body d-flex justify-content-between">
                                 <div>
                                     <h5 class="card-title mb-2 mt-0 my-color"><strong>{{ dish.name }}</strong></h5>
-                                    <p class="card-text my-2 my-color"><strong>$ {{ dish.price }} / {{ dish.quantity }}</strong>
+                                    <p class="card-text my-2 my-color"><strong>$ {{ dish.price }} / {{ dish.quantity
+                                            }}</strong>
                                     </p>
                                     <div class="d-flex quantity-controls">
                                         <button @click="decreaseQuantity(dish)">
@@ -113,7 +116,7 @@ export default {
 
 
             <div class="col-md-4 mt-4">
-                <div class="card my-panel mb-3 rounded-4">
+                <div class="card my-panel mb-3 rounded-4" v-if="store.cart && store.cart.length">
                     <div class="card-body">
                         <h4 class="card-title mb-4 my-color"><strong>Totale ordine</strong></h4>
                         <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
@@ -147,10 +150,9 @@ export default {
 </template>
 
 <style scoped lang="scss">
-
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-.my-color{
+.my-color {
     color: #004350;
 }
 
