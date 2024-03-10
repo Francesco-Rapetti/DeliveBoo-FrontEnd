@@ -76,7 +76,7 @@ export default {
 						text.innerHTML = 'Categorie';
 						break;
 					case 'user':
-						text.innerHTML = 'Il mio profilo';
+						text.innerHTML = 'Admin';
 						break;
 					case 'settings':
 						text.innerHTML = 'Impostazioni';
@@ -186,8 +186,8 @@ export default {
 
 			<div id="content-container" class="overflow-hidden">
 
-				<div id="content" class=" blue">
-					<div v-if="$route.name !== 'payment' && $route.name !== 'confirmed' && $route.name !== 'rejected'"
+				<div id="content" class=" blue" :class="{ 'admin': $route.name === 'user' }">
+					<div v-if="$route.name !== 'payment' && $route.name !== 'confirmed' && $route.name !== 'rejected' && $route.name !== 'cart'"
 						id="floating-cart" class="d-block d-md-none position-fixed">
 						<router-link to="/cart"
 							class="btn btn-responsive-custom p-4 fs-2 btn-primary d-flex justify-content-center align-items-center rounded-4">
@@ -211,7 +211,7 @@ export default {
 						<div :class="{ 'd-none': $route.name === 'home' || $route.name === 'confirmed' || $route.name === 'rejected' || $route.name === 'payment' }"
 							class="wave-container">
 							<svg data-name="Layer 1" viewBox="0 0 1200 120" transform="rotate(180)" class="wave blue"
-								preserveAspectRatio="none">
+								:class="{ 'admin': $route.name === 'user' }" preserveAspectRatio="none">
 								<path id="wave-last"
 									d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
 									opacity=".25" class="shape-fill position-relative" fill="#FFFFFF" fill-opacity="1">
