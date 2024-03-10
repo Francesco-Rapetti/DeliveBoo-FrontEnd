@@ -161,8 +161,8 @@ export default {
                     </div>
                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
                         <div class="w-100">
-                            <h5 class="card-title dish-name text-center">{{ dish.name.length > 26 ? dish.name.slice(0,
-                26) + '...' : dish.name }}</h5>
+                            <h5 class="card-title dish-name text-center">{{ dish.name.length > 23 ? dish.name.slice(0,
+                23) + '...' : dish.name }}</h5>
 
                         </div>
 
