@@ -243,7 +243,10 @@ export default {
                         </div>
 
                         <div class="mb-3">
-                            <a :href="store.urlBackend" class="btn btn-primary mt-4">Vai al sito</a>
+                            <a :href="store.urlBackend" class="btn btn-primary mt-4 p-3 px-5 fw-bold fs-5">
+                                <font-awesome-icon icon="fa-solid fa-right-to-bracket" class="me-2" />
+                                Vai al sito
+                            </a>
                         </div>
 
                     </div>
