@@ -8,7 +8,9 @@ export default {
         return {
             store,
             showModal: false, // Variabile per mostrare/nascondere la finestra modale
-            quantity: {}
+            quantity: {},
+            searchText: '',
+            searchedDishes: []
         }
     },
     computed: {
@@ -67,33 +69,89 @@ export default {
             })
         },
 
+        searchDish() {
+            // Get all Dish names
+            let names = document.getElementsByClassName('dish-name');
+
+            // Iterate through each Dish
+            this.store.dishList.filter(dish => dish.restaurant_id === parseInt(this.$route.params.id) && dish.visibility === 1).forEach(dish => {
+                // If search text is empty reset visibility
+                if (this.searchText == "") {
+                    // Clean all Dish names and set visibility to true
+                    Array.from(names).forEach(name => {
+                        // Remove existing highlight tags
+                        name.innerHTML = name.innerHTML.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+                    })
+                    // dish.visible = true;
+                }
+                // If Dish name includes search text
+                else if (dish.name.toLowerCase().includes(this.searchText.toLowerCase())) {
+                    // Create regex to match search text
+                    const regex = new RegExp(this.searchText, 'gi');
+                    // Iterate through each Dish name
+                    Array.from(names).forEach(name => {
+                        // console.log(name.innerHTML)
+                        let text = name.innerHTML
+                        // Remove existing highlight tags
+                        text = text.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+                        // Replace search text with highlighted text
+                        const newText = text.replace(regex, '<mark class="highlight">$&</mark>');
+                        name.innerHTML = newText;
+                    })
+                }
+                // If Dish name does not include search text
+                else {
+                    // Set visibility to false
+                    dish.visible = false;
+                }
+            });
+        },
+
+        itemCartWatcher() {
+            if (this.store.cart.length > 0 && this.store.cart.every(item => item.restaurant_id === parseInt(this.$route.params.id))) {
+                this.store.cart.forEach(dish => {
+                    this.quantity[dish.id] = dish.quantity;
+                    document.getElementById('add-to-cart' + dish.id).classList.add('d-none');
+                    document.getElementById('cart-controls' + dish.id).classList.remove('d-none');
+                })
+            }
+        },
+
+        async initialize() {
+            await this.getQuantity();
+            await this.itemCartWatcher();
+        }
+
 
     },
 
     mounted() {
-        this.getQuantity();
-        if (this.store.cart.length > 0 && this.store.cart.every(item => item.restaurant_id === parseInt(this.$route.params.id))) {
-            this.store.cart.forEach(dish => {
-                this.quantity[dish.id] = dish.quantity;
-                document.getElementById('add-to-cart' + dish.id).classList.add('d-none');
-                document.getElementById('cart-controls' + dish.id).classList.remove('d-none');
-            })
-        }
+        this.initialize();
+
     }
 };
 </script>
 
 <template>
+    <div id="search" class="container d-flex justify-content-between">
+        <div>
+        </div>
 
-
-
+        <div class="searchBox">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+            <input class="w-75" type="text" placeholder="Cerca un piatto" :value="searchText"
+                @input="searchText = $event.target.value, searchDish()">
+        </div>
+    </div>
 
     <div class="container my-5 w-100 d-flex justify-content-center align-items-center p-0">
-        <div class="d-flex justify-content-center align-items-center gap-md-5 gap-4 w-100 p-0 flex-wrap">
+        <div class="d-flex justify-content-center align-items-center w-100 p-0 flex-wrap">
             <p v-if="restaurantDishes.length === 0">Nessun piatto trovato per questo ristorante.</p>
             <div id="card-container" class="d-flex justify-content-center align-items-center" v-else
-                v-for="dish in restaurantDishes.filter(dish => dish.visibility === 1)" :key="dish.id">
-                <div class="card glass h-100">
+                v-for="dish in restaurantDishes.filter(dish => dish.visibility === 1)" :key="dish.id"
+                :class="{ 'invisible': !dish.name.toLowerCase().includes(this.searchText.toLowerCase()) }">
+                <div class="card glass h-100 mx-3 my-3"
+                    :class="{ 'invisible': !dish.name.toLowerCase().includes(this.searchText.toLowerCase()) }">
                     <div class="card-img-container" type="button" data-bs-toggle="modal" data-bs-target="#dishInfo"
                         @click="store.currentDish = dish">
 
@@ -101,7 +159,7 @@ export default {
                     </div>
                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
                         <div class="w-100">
-                            <h5 class="card-title text-center">{{ dish.name }}</h5>
+                            <h5 class="card-title dish-name text-center">{{ dish.name }}</h5>
 
                         </div>
 
@@ -123,12 +181,6 @@ export default {
                                         icon="fa-solid fa-plus" class="ms-2" /></button>
                             </div>
                         </div>
-                        <!-- <div>
-                            <label for="quantity">Quantità:</label>
-                            <input type="number" name="quantity" v-model="quantity[dish.id]" id="">
-
-                        </div> -->
-
                     </div>
                 </div>
             </div>
@@ -154,6 +206,42 @@ export default {
 </template>
 
 <style scoped lang="scss">
+#search {
+    border-bottom: #006a657a 1px dotted;
+    padding: 3rem 0 1rem;
+}
+
+.searchBox {
+    background-color: #9df2e9;
+    color: #004350;
+    width: 300px;
+    border-radius: 32px;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    border-radius: 32px;
+    padding: 0.5rem 1rem;
+    border: 0;
+    background-color: transparent;
+    color: #004350;
+
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+.invisible {
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 button {
     background-color: transparent;
     border: 0;
@@ -175,6 +263,7 @@ button {
 @media screen and (max-width: 768px) {
     .card {
         width: 100% !important;
+        height: 150px !important;
         flex-direction: row !important;
     }
 
@@ -196,13 +285,15 @@ button {
 }
 
 .card {
-    height: 300px;
+    height: 250px;
     width: 18rem;
     // width: 100% !important;
     border-radius: 32px;
     background-color: #9df2e9;
     color: #006a64;
     border: 0;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
+
 }
 
 .card-title {
