@@ -162,7 +162,8 @@ export default {
                     <div class="card-img-container" type="button" data-bs-toggle="modal" data-bs-target="#dishInfo"
                         @click="store.currentDish = dish">
 
-                        <img :src="dish.img" :alt="dish.name + ' image'">
+                        <img :src="dish.img.substring(0, 4) === 'http' ? dish.img : store.urlBackend + '/storage/' + dish.img"
+                            :alt="dish.name + ' image'">
                     </div>
                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
                         <div class="w-100">

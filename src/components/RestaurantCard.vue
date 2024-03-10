@@ -1,14 +1,22 @@
 <script>
+import { store } from "../store.js"
 export default {
     name: "RestaurantCard",
-    props: ["item"]
+    props: ["item"],
+    data() {
+        return {
+            store
+        }
+    }
 }
 </script>
 
 <template>
     <div class="col-md-4 gy-4">
         <div class="card h-100">
-            <div class="card-header "><img :src="item.img" class="img-cover"></div>
+            <div class="card-header "><img
+                    :src="item.img.substring(0, 4) === 'http' ? item.img : store.urlBackend + '/storage/' + item.img"
+                    class="img-cover"></div>
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text">Indirizzo: <b>{{ item.address }}</b>
@@ -16,7 +24,7 @@ export default {
                 <!-- <p class="card-text">{{ item.description }}</p> -->
                 <span v-for="(type, index) in item.types" :key="index"
                     class="badge rounded-pill text-bg-primary p-3 mx-2 text-type">{{
-                type.name }}</span>
+                        type.name }}</span>
             </div>
             <div class="card-footer text-center">
                 <router-link :to="{ name: 'restaurant-menu', params: { id: item.id } }" class="btn btn-primary">
