@@ -133,13 +133,13 @@ export default {
 </script>
 
 <template>
-    <div id="search" class="container d-flex justify-content-between">
+    <div id="search" class="container">
         <div>
         </div>
 
         <div class="searchBox">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-            <input class="w-75" type="text" placeholder="Cerca un piatto" :value="searchText"
+            <input class="" type="text" placeholder="Cerca un piatto" :value="searchText"
                 @input="searchText = $event.target.value, searchDish()">
         </div>
     </div>
@@ -217,7 +217,7 @@ export default {
     width: 300px;
     border-radius: 32px;
     padding: 0.5rem 1rem;
-    margin: 1rem 0;
+    margin: 1rem 2rem;
     box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
@@ -261,6 +261,10 @@ button {
 }
 
 @media screen and (max-width: 768px) {
+    .searchBox {
+        margin: 1rem;
+    }
+
     .card {
         width: 100% !important;
         height: 150px !important;
