@@ -71,11 +71,22 @@ export default {
 </script>
 
 <template>
+    <!-- Bottone fisso in basso a destra -->
+    <div class="my-position d-md-none">
+        <button class="btn my-btn" @click="togglePanel">
+            <strong><span class="px-1">${{ calculateTotal().toFixed(2) }}</span></strong>
+            <span class="my-arrow"><strong><font-awesome-icon icon="fa-solid fa-arrow-right pl-2" /></strong></span>
+        </button>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-8  mt-4">
-                <p v-if="!store.cart || !store.cart.length" class="d-flex flex-column justify-content-center align-items-center mt-5"><strong>Non ci sono piatti nel carrello</strong>
-                    <span><router-link to="/restaurants" class="btn btn-primary btn-lg mt-4"><strong>Trova Ristoranti qui!</strong></router-link></span>
+                <p v-if="!store.cart || !store.cart.length"
+                    class="d-flex flex-column justify-content-center align-items-center mt-5"><strong>Non ci sono piatti
+                        nel carrello</strong>
+                    <span><router-link to="/restaurants" class="btn btn-primary btn-lg mt-4"><strong>Trova Ristoranti
+                                qui!</strong></router-link></span>
                 </p>
                 <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-4">
                     <div class="row g-0 h-100">
@@ -112,10 +123,7 @@ export default {
 
             </div>
 
-
-
-
-            <div class="col-md-4 mt-4">
+            <div class="col-md-4 mt-4 d-none d-md-block">
                 <div class="card my-panel mb-3 rounded-4" v-if="store.cart && store.cart.length">
                     <div class="card-body">
                         <h4 class="card-title mb-4 my-color"><strong>Totale ordine</strong></h4>
@@ -152,8 +160,23 @@ export default {
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+.my-position {
+    position: fixed;
+    bottom: 150px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.my-position button {
+    padding: 12px 20px;
+}
+
 .my-color {
     color: #004350;
+}
+
+.my-arrow{
+    padding-left: 0.5rem;
 }
 
 .my-card {
@@ -161,12 +184,14 @@ export default {
     background-color: #83D5CD;
     border: none;
     box-shadow: 5px 5px 6px 0px grey;
+    margin-bottom: 0;
 }
 
 .my-panel {
     background-color: #83D5CD;
     border: none;
     box-shadow: 5px 5px 6px 0px grey;
+    padding: 15px;
 }
 
 .my-img-container img {
@@ -192,6 +217,7 @@ button {
     align-items: center;
     background-color: #004350;
     color: #83D5CD;
+    margin-bottom: 0;
 }
 
 .my-btn:hover {
