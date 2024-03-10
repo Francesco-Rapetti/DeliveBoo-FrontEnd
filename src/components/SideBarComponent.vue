@@ -117,12 +117,12 @@ export default {
                                 </svg>
                             </div>
                             <div class="d-flex flex-column align-items-center">
-                                <span class="text-link blue">Profilo</span>
+                                <span class="text-link blue">Admin</span>
                             </div>
                         </router-link>
                     </li>
 
-                    <li class="py-3">
+                    <!-- <li class="py-3">
                         <router-link :to="{ name: 'settings' }"
                             class="text-link-responsive nav-link d-flex flex-column text-center">
                             <div class="img-container blue" :class="{ 'active': $route.path === '/settings' }">
@@ -135,7 +135,7 @@ export default {
                             </div>
                             <span class="text-link blue">Impostazioni</span>
                         </router-link>
-                    </li>
+                    </li> -->
 
 
 
