@@ -73,7 +73,7 @@ export default {
 <template>
     <!-- Bottone fisso in basso a destra -->
     <div class="my-position d-md-none">
-        <button class="btn my-btn" @click="togglePanel">
+        <button class="btn my-btn" data-bs-toggle="modal" data-bs-target="#cartModal">
             <strong><span class="px-1">${{ calculateTotal().toFixed(2) }}</span></strong>
             <span class="my-arrow"><strong><font-awesome-icon icon="fa-solid fa-arrow-right pl-2" /></strong></span>
         </button>
@@ -121,6 +121,26 @@ export default {
                     </div>
                 </div>
 
+            </div>
+
+            <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cartModalLabel">Totale ordine</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Contenuto del pannello laterale -->
+                            <p v-if="store.cart && store.cart.length">
+                                Totale Parziale: ${{ calculatePartialTotal().toFixed(2) }}<br>
+                                Costo di Spedizione: ${{ shippingCost }}<br>
+                                Commissioni: ${{ commission }}<br>
+                                Totale: ${{ calculateTotal().toFixed(2) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-4 mt-4 d-none d-md-block">
@@ -175,7 +195,7 @@ export default {
     color: #004350;
 }
 
-.my-arrow{
+.my-arrow {
     padding-left: 0.5rem;
 }
 
