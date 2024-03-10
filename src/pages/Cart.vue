@@ -85,8 +85,8 @@ export default {
                         <div class="col-9">
                             <div class="card-body d-flex justify-content-between">
                                 <div>
-                                    <h5 class="card-title mb-2 mt-0"><strong>{{ dish.name }}</strong></h5>
-                                    <p class="card-text my-2"><strong>$ {{ dish.price }} / {{ dish.quantity }}</strong>
+                                    <h5 class="card-title mb-2 mt-0 my-color"><strong>{{ dish.name }}</strong></h5>
+                                    <p class="card-text my-2 my-color"><strong>$ {{ dish.price }} / {{ dish.quantity }}</strong>
                                     </p>
                                     <div class="d-flex quantity-controls">
                                         <button @click="decreaseQuantity(dish)">
@@ -115,24 +115,24 @@ export default {
             <div class="col-md-4 mt-4">
                 <div class="card my-panel mb-3 rounded-4">
                     <div class="card-body">
-                        <h4 class="card-title mb-4"><strong>Totale ordine</strong></h4>
-                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                        <h4 class="card-title mb-4 my-color"><strong>Totale ordine</strong></h4>
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span>Totale Parziale </span>
                             <span>${{ calculatePartialTotal().toFixed(2) }}</span>
                         </p>
-                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span>Costo di Spedizione</span>
                             <span>${{ shippingCost }}.00</span>
                         </p>
-                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span>Commissioni</span>
                             <span>${{ commission }}</span>
                         </p>
-                        <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span><strong>Totale</strong></span>
                             <span><strong>${{ calculateTotal().toFixed(2) }}</strong></span>
                         </p>
-                        <p v-else>Nessun elemento nel carrello</p>
+                        <p v-else class="my-color">Nessun elemento nel carrello</p>
                     </div>
                     <div class="my-checkout d-flex justify-content-center">
                         <router-link class="btn my-checkout-btn mb-3" :class="{ 'disabled': store.cart.length === 0 }"
@@ -147,6 +147,13 @@ export default {
 </template>
 
 <style scoped lang="scss">
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.my-color{
+    color: #004350;
+}
+
 .my-card {
     height: 150px;
     background-color: #83D5CD;
