@@ -6,13 +6,13 @@ export default {
 </script>
 
 <template>
-    <div class="col-md-4 gy-4">
-        <div class="card h-100">
-            <div class="card-header"><img :src="'../src/assets/' + item.img + '.svg'" class="w-100"></div>
-            <div class="card-body">
-                <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text">{{ item.description }}</p>
+    <div class="card">
+        <div class="card-custom d-flex flex-column align-items-center justify-content-between">
+            <h3 class="card-title type-name align-self-start">{{ item.name }}</h3>
+            <div class="img-container d-flex justify-content-center align-items-center">
+                <img :src="'../src/assets/' + item.img + '.svg'" class="w-100">
             </div>
+            <div></div>
         </div>
     </div>
     <!-- <div class="card-footer text-center">
@@ -23,3 +23,33 @@ export default {
             </div> -->
 
 </template>
+
+<style scoped lang="scss">
+@use '../styles/partials/variables' as *;
+
+.card-custom {
+    padding: 1rem;
+    border: none;
+    background-color: none !important;
+    width: 300px;
+    height: 200px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0px 10px 8px 0px rgba(133, 133, 133, 0.75);
+    background-color: $themeColorBlueButton;
+    border-radius: 20px;
+}
+
+.img-container {
+    width: 200px;
+}
+
+@media screen and (max-width: 768px) {
+    .card-custom {
+        width: 100% !important;
+    }
+
+}
+</style>
