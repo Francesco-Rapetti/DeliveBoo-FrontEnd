@@ -144,6 +144,8 @@ export default {
         </div>
     </div>
 
+    <hr class="dotted my-4">
+
     <div class="container my-5 w-100 d-flex justify-content-center align-items-center p-0">
         <div class="d-flex justify-content-center align-items-center w-100 p-0 flex-wrap">
             <p v-if="restaurantDishes.length === 0">Nessun piatto trovato per questo ristorante.</p>
@@ -159,7 +161,8 @@ export default {
                     </div>
                     <div class="card-body d-flex flex-column justify-content-between align-items-center">
                         <div class="w-100">
-                            <h5 class="card-title dish-name text-center">{{ dish.name }}</h5>
+                            <h5 class="card-title dish-name text-center">{{ dish.name.length > 26 ? dish.name.slice(0,
+                26) + '...' : dish.name }}</h5>
 
                         </div>
 
@@ -206,9 +209,13 @@ export default {
 </template>
 
 <style scoped lang="scss">
+.dotted {
+    border: 2px dashed #9df2e9;
+}
+
 #search {
-    border-bottom: #006a657a 1px dotted;
-    padding: 3rem 0 1rem;
+    // border-bottom: #006a657a 1px dotted;
+    padding: 0;
 }
 
 .searchBox {
@@ -218,7 +225,7 @@ export default {
     border-radius: 32px;
     padding: 0.5rem 1rem;
     margin: 1rem 2rem;
-    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
 }
 
 input[type="text"] {
@@ -296,7 +303,7 @@ button {
     background-color: #9df2e9;
     color: #006a64;
     border: 0;
-    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
 
 }
 
