@@ -36,7 +36,8 @@ export default {
         <swiper-slide v-for="restaurant in store.restaurantList" :key="restaurant">
             <div class="card d-flex flex-column align-items-center justify-content-end h-100">
                 <div class="card-img-top overflow-hidden">
-                    <img :src="restaurant.img" :alt="restaurant.name">
+                    <img :src="restaurant.img.substring(0, 4) == 'http' ? restaurant.img : store.urlBackend + '/storage/' + restaurant.img"
+                        :alt="restaurant.name">
                 </div>
                 <div class="card-body w-100 d-flex flex-column justify-content-between align-items-center">
                     <div class="">
