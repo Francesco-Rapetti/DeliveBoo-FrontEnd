@@ -358,6 +358,7 @@ export default {
 #jumbotron4-title-admin {
     font-size: 4rem;
     font-family: 'impact';
+    font-style: italic;
     color: #81d5cd;
     position: relative;
     top: 15px;
@@ -373,6 +374,7 @@ export default {
 #section-title-admin {
     font-size: 3rem;
     font-family: 'impact';
+    font-style: italic;
     color: #81d5cd;
     position: relative;
     top: 15px;
