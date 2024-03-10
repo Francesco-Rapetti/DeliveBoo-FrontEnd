@@ -27,6 +27,10 @@ export default {
 <style scoped lang="scss">
 @use '../styles/partials/variables' as *;
 
+.card-title {
+    color: #004350;
+}
+
 .card-custom {
     padding: 1rem;
     border: none;
@@ -37,7 +41,7 @@ export default {
 
 .card {
     border: none;
-    box-shadow: 0px 10px 8px 0px rgba(133, 133, 133, 0.75);
+    box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
     background-color: $themeColorBlueButton;
     border-radius: 20px;
 }
