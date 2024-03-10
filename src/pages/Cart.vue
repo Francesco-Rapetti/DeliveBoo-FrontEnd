@@ -55,6 +55,13 @@ export default {
             return total;
         },
 
+        removeFromCart(dish) {
+            const index = this.store.cart.findIndex(item => item.id === dish.id);
+            if (index !== -1) {
+                this.store.cart.splice(index, 1);
+                this.saveCartToLocalStorage();
+            }
+        },
     },
     mounted() {
         this.store.cart = localStorage.cart ? JSON.parse(localStorage.cart) : [];
@@ -65,77 +72,148 @@ export default {
 
 <template>
     <div class="container">
-        <h1>Carrello mooooolto provvisorio</h1>
         <div class="row">
-            <div class="col-md-8">
-                <button class="btn btn-primary" v-if="store.cart && store.cart.length"
-                    @click="emptyCart()">Svuota</button>
-                <p v-if="!store.cart || !store.cart.length">Non ci sono elementi nel carrello</p>
-                <p v-else>Il carrello contiene {{ store.cart.length }} elementi</p>
-
-                <div v-for="dish in store.cart" :key="dish.id" class="product-card">
-                    <img :src="dish.img" :alt="dish.name" class="product-image">
-                    <div class="product-details">
-                        <h3>{{ dish.name }}</h3>
-                        <p>{{ dish.description }}</p>
-                        <p>Prezzo: {{ dish.price }} $</p>
-                    </div>
-                    <div class="quantity-controls">
-                        <button @click="decreaseQuantity(dish)" class="btn btn-sm btn-primary">-</button>
-                        <div class="quantity">{{ dish.quantity }}</div>
-                        <button @click="increaseQuantity(dish)" class="btn btn-sm btn-primary">+</button>
+            <div class="col-md-8  mt-4">
+                <p v-if="!store.cart || !store.cart.length" class="d-flex flex-column justify-content-center align-items-center mt-5"><strong>Non ci sono piatti nel carrello</strong>
+                    <span><router-link to="/restaurants" class="btn btn-primary btn-lg mt-4"><strong>Trova Ristoranti qui!</strong></router-link></span>
+                </p>
+                <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-4">
+                    <div class="row g-0 h-100">
+                        <div class="col h-100">
+                            <div class="my-img-container h-100">
+                                <img :src="dish.img" :alt="dish.name" class="img-fluid rounded-start-4 h-100">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="card-body d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title mb-2 mt-0 my-color"><strong>{{ dish.name }}</strong></h5>
+                                    <p class="card-text my-2 my-color"><strong>$ {{ dish.price }} / {{ dish.quantity
+                                            }}</strong>
+                                    </p>
+                                    <div class="d-flex quantity-controls">
+                                        <button @click="decreaseQuantity(dish)">
+                                            <font-awesome-icon icon="fa-solid fa-minus" class="me-2" />
+                                        </button>
+                                        <div class="quantity">{{ dish.quantity }}</div>
+                                        <button @click="increaseQuantity(dish)">
+                                            <font-awesome-icon icon="fa-solid fa-plus" class="ms-2" />
+                                        </button>
+                                    </div>
+                                </div>
+                                <button class="my-trash-button" v-if="store.cart && store.cart.length"
+                                    @click="removeFromCart(dish)">
+                                    <font-awesome-icon icon="fas fa-trash-can" />
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Totale</h4>
+
+
+
+            <div class="col-md-4 mt-4">
+                <div class="card my-panel mb-3 rounded-4" v-if="store.cart && store.cart.length">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4 my-color"><strong>Totale ordine</strong></h4>
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
+                            <span>Totale Parziale </span>
+                            <span>${{ calculatePartialTotal().toFixed(2) }}</span>
+                        </p>
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
+                            <span>Costo di Spedizione</span>
+                            <span>${{ shippingCost }}.00</span>
+                        </p>
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
+                            <span>Commissioni</span>
+                            <span>${{ commission }}</span>
+                        </p>
+                        <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
+                            <span><strong>Totale</strong></span>
+                            <span><strong>${{ calculateTotal().toFixed(2) }}</strong></span>
+                        </p>
+                        <p v-else class="my-color">Nessun elemento nel carrello</p>
                     </div>
-                    <div class="panel-body">
-                        <p v-if="store.cart && store.cart.length">
-                            Totale Parziale: {{ calculatePartialTotal().toFixed(2) }} $
-                        </p>
-                        <p v-if="store.cart && store.cart.length">
-                            Costo di Spedizione: {{ shippingCost }} $
-                        </p>
-                        <p v-if="store.cart && store.cart.length">
-                            Commissioni: {{ commission }} $
-                        </p>
-                        <p v-if="store.cart && store.cart.length">
-                            Totale: {{ calculateTotal().toFixed(2) }} $
-                        </p>
-                        <p v-else>Nessun elemento nel carrello</p>
+                    <div class="my-checkout d-flex justify-content-center">
+                        <router-link class="btn my-checkout-btn mb-3" :class="{ 'disabled': store.cart.length === 0 }"
+                            :to="{ name: 'credentials' }">
+                            Check Out <font-awesome-icon icon="fa-solid fa-arrow-right pl-2" />
+                        </router-link>
                     </div>
                 </div>
-                <router-link class="btn btn-primary" :class="{ 'disabled': store.cart.length === 0 }"
-                    :to="{ name: 'credentials' }">Procedi</router-link>
             </div>
         </div>
     </div>
 </template>
 
-<style lang="scss">
-.product-card {
-    display: flex;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
+<style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.my-color {
+    color: #004350;
 }
 
-.product-image {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
+.my-card {
+    height: 150px;
+    background-color: #83D5CD;
+    border: none;
+    box-shadow: 5px 5px 6px 0px grey;
+}
+
+.my-panel {
+    background-color: #83D5CD;
+    border: none;
+    box-shadow: 5px 5px 6px 0px grey;
+}
+
+.my-img-container img {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+button {
+    background-color: transparent;
+    border: 0;
+}
+
+.my-btn {
+    background-color: #004350;
+    color: #83D5CD;
+}
+
+
+.my-checkout-btn {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004350;
+    color: #83D5CD;
+}
+
+.my-btn:hover {
+    background-color: #004350;
+    border-color: #004350;
+    color: #83D5CD;
+}
+
+.my-trash-button {
+    color: #004350;
 }
 
 .quantity-controls {
-    display: flex;
-    align-items: center;
+    padding: 6px 12px;
+    background-color: #004350;
+    border-radius: 32px;
+    color: #83D5CD;
+    width: 86.78px;
+    justify-content: space-between;
 }
 
-.quantity {
-    margin: 0 10px;
+.quantity-controls button {
+    color: #83D5CD;
 }
 </style>
