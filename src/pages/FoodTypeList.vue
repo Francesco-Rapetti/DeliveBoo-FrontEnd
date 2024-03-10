@@ -73,7 +73,15 @@ export default {
 
                 <hr class="dotted my-4">
 
-                <p v-if="!store.foodTypeList || !store.foodTypeList.length">Non ci sono tipi di cibo</p>
+                <div class="container">
+                    <p v-if="!store.foodTypeList || !store.foodTypeList.length" class="alert alert-info mt-3"
+                        role="alert">
+                        Non ci sono tipi di cibo</p>
+                    <div v-if="store.foodTypeList.filter(foodType => foodType.name.toLowerCase().includes(searchText.toLowerCase())).length <= 0 && searchText != ''"
+                        class="alert alert-info mt-3" role="alert">
+                        Nessuna categoria trovata con i criteri di ricerca selezionati.
+                    </div>
+                </div>
             </div>
             <FoodTypeCard :class="{ 'invisible': !foodType.name.toLowerCase().includes(searchText.toLowerCase()) }"
                 v-for="foodType in store.foodTypeList" :key="foodType.id" :item="foodType"

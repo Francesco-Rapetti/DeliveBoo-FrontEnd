@@ -148,7 +148,12 @@ export default {
 
     <div class="container my-5 w-100 d-flex justify-content-center align-items-center p-0">
         <div class="d-flex justify-content-center align-items-center w-100 p-0 flex-wrap">
-            <p v-if="restaurantDishes.length === 0">Nessun piatto trovato per questo ristorante.</p>
+            <p v-if="restaurantDishes.length === 0" class="alert alert-info mt-3" role="alert">
+                Non ci sono piatti in questo ristorante</p>
+            <div v-if="restaurantDishes.filter(dish => dish.visibility === 1).filter(dish => dish.name.toLowerCase().includes(this.searchText.toLowerCase())).length <= 0 && searchText != ''"
+                class="alert alert-info mt-3" role="alert">
+                Nessun piatto trovato con i criteri di ricerca selezionati.
+            </div>
             <div id="card-container" class="d-flex justify-content-center align-items-center" v-else
                 v-for="dish in restaurantDishes.filter(dish => dish.visibility === 1)" :key="dish.id"
                 :class="{ 'invisible': !dish.name.toLowerCase().includes(this.searchText.toLowerCase()) }">
