@@ -73,7 +73,7 @@ export default {
 
                 <hr class="dotted my-4">
 
-                <div class="container">
+                <div class="w-100 d-flex justify-content-center align-items-center">
                     <p v-if="!store.foodTypeList || !store.foodTypeList.length" class="alert alert-info mt-3"
                         role="alert">
                         Non ci sono tipi di cibo</p>
