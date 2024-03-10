@@ -68,7 +68,7 @@ export default {
         <div class="row">
             <div class="col-md-8  mt-4">
                 <p v-if="!store.cart || !store.cart.length">Non ci sono elementi nel carrello</p>
-                <div v-for="dish in store.cart" :key="dish.id" class="card mb-3 rounded-5 shadow">
+                <div v-for="dish in store.cart" :key="dish.id" class="card mb-3 rounded-5">
                     <div class="row g-0 h-100">
                         <div class="col h-100">
                             <div class="my-img-container h-100">
@@ -77,9 +77,9 @@ export default {
                         </div>
                         <div class="col-9">
                             <div class="card-body">
-                                <h5 class="card-title mb-2 mt-0">{{ dish.name }}</h5>
-                                <p class="card-text my-2">Prezzo: {{ dish.price }}
-                                    $
+                                <h5 class="card-title mb-2 mt-0"><strong>{{ dish.name }}</strong></h5>
+                                <p class="card-text my-2"><strong>$ {{ dish.price }} / {{ dish.quantity }}</strong>
+                                    
                                 </p>
 
                                 <div class="d-flex quantity-controls">
@@ -129,10 +129,13 @@ export default {
     </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 .card{
     height: 150px;
+    background-color: #83D5CD;
+    border: none;
+    box-shadow: 5px 5px 6px 0px grey;
 }
 
 .my-img-container img {
