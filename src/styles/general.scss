@@ -62,6 +62,7 @@
     #jumbotron4-title-admin {
         font-size: 2rem !important;
         font-family: 'impact';
+        font-style: italic;
         color: #81d5cd;
         position: relative;
         top: 15px;
@@ -77,6 +78,7 @@
     #section-title-admin {
         font-size: 2rem !important;
         font-family: 'impact';
+        font-style: italic;
         color: #81d5cd;
         position: relative;
         top: 15px;
@@ -174,7 +176,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color 0.3s ease-in-out;
+    // transition: background-color 0.3s ease-in-out;
 }
 
 body {
@@ -294,6 +296,10 @@ a {
     fill: $themeColorBlueSectionContainer;
 }
 
+.wave.admin * {
+    fill: #212529 !important;
+}
+
 .wave.cyan {
     fill: #9df2e9 !important;
     // color: #9df2e9 !important;
@@ -320,6 +326,11 @@ a {
 
 #content.blue {
     background-color: $themeColorBlueSectionContainer;
+}
+
+#content.admin {
+    background-color: #212529 !important;
+    color: #9df2e9 !important;
 }
 
 #page-title {
