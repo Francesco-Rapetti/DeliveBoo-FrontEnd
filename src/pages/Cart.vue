@@ -75,11 +75,11 @@ export default {
         <div class="row">
             <div class="col-md-8  mt-4">
                 <p v-if="!store.cart || !store.cart.length">Non ci sono elementi nel carrello</p>
-                <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-5">
+                <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-4">
                     <div class="row g-0 h-100">
                         <div class="col h-100">
                             <div class="my-img-container h-100">
-                                <img :src="dish.img" :alt="dish.name" class="img-fluid rounded-start-5 h-100">
+                                <img :src="dish.img" :alt="dish.name" class="img-fluid rounded-start-4 h-100">
                             </div>
                         </div>
                         <div class="col-9">
@@ -113,7 +113,7 @@ export default {
 
 
             <div class="col-md-4">
-                <div class="card my-panel mb-3">
+                <div class="card my-panel mb-3 rounded-4">
                     <div class="card-body">
                         <h4 class="card-title mb-4"><strong>Totale ordine</strong></h4>
                         <p class="mb-2 d-flex justify-content-between" v-if="store.cart && store.cart.length">
