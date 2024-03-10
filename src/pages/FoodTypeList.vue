@@ -119,7 +119,7 @@ export default {
     border-radius: 32px;
     padding: 0.5rem 1rem;
     margin: 1rem;
-    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
 }
 
 input[type="text"] {
