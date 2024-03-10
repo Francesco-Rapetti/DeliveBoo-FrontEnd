@@ -55,6 +55,13 @@ export default {
             return total;
         },
 
+        removeFromCart(dish) {
+            const index = this.store.cart.findIndex(item => item.id === dish.id);
+            if (index !== -1) {
+                this.store.cart.splice(index, 1);
+                this.saveCartToLocalStorage();
+            }
+        },
     },
     mounted() {
         this.store.cart = localStorage.cart ? JSON.parse(localStorage.cart) : [];
@@ -76,26 +83,30 @@ export default {
                             </div>
                         </div>
                         <div class="col-9">
-                            <div class="card-body">
-                                <h5 class="card-title mb-2 mt-0"><strong>{{ dish.name }}</strong></h5>
-                                <p class="card-text my-2"><strong>$ {{ dish.price }} / {{ dish.quantity }}</strong>
-                                    
-                                </p>
-
-                                <div class="d-flex quantity-controls">
-                                    <button @click="decreaseQuantity(dish)"><font-awesome-icon icon="fa-solid fa-minus"
-                                            class="me-2" /></button>
-                                    <div class="quantity">{{ dish.quantity }}</div>
-                                    <button @click="increaseQuantity(dish)"><font-awesome-icon icon="fa-solid fa-plus"
-                                            class="ms-2" /></button>
+                            <div class="card-body d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title mb-2 mt-0"><strong>{{ dish.name }}</strong></h5>
+                                    <p class="card-text my-2"><strong>$ {{ dish.price }} / {{ dish.quantity }}</strong>
+                                    </p>
+                                    <div class="d-flex quantity-controls">
+                                        <button @click="decreaseQuantity(dish)">
+                                            <font-awesome-icon icon="fa-solid fa-minus" class="me-2" />
+                                        </button>
+                                        <div class="quantity">{{ dish.quantity }}</div>
+                                        <button @click="increaseQuantity(dish)">
+                                            <font-awesome-icon icon="fa-solid fa-plus" class="ms-2" />
+                                        </button>
+                                    </div>
                                 </div>
+                                <button class="my-trash-button" v-if="store.cart && store.cart.length"
+                                    @click="removeFromCart(dish)">
+                                    <font-awesome-icon icon="fas fa-trash-can" />
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button class="btn my-btn" v-if="store.cart && store.cart.length"
-                    @click="emptyCart()"><font-awesome-icon icon="fas fa-trash-can"/></button>
             </div>
 
 
@@ -130,8 +141,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
-
-.card{
+.card {
     height: 150px;
     background-color: #83D5CD;
     border: none;
@@ -157,6 +167,10 @@ button {
     background-color: #004350;
     border-color: #004350;
     color: #83D5CD;
+}
+
+.my-trash-button {
+    color: #004350;
 }
 
 .quantity-controls {
