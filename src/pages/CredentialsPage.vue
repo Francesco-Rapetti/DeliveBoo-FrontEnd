@@ -166,34 +166,55 @@ export default {
         </div>
 
         <form @submit.prevent="order" method="POST" class="needs-validation">
-            <div class="mb-3">
-                <label for="client_name" class="form-label">Nome*</label>
-                <input v-model="orderData.client_name" type="text" class="form-control"
-                    :class="{ 'is-invalid': objectErrors.client_name || clientSideErrors.client_name != '' }"
-                    id="client_name">
-                <div v-if="objectErrors.client_name" class="text-danger error">{{ objectErrors.client_name[0] }}</div>
-                <div v-if="clientSideErrors.client_name != ''" class="text-danger error"> {{
+
+            <div class="d-flex w-100 gap-3">
+                <div class="mb-3 w-50">
+                    <label for="client_name" class="form-label">Nome*</label>
+                    <input v-model="orderData.client_name" type="text" class="form-control"
+                        :class="{ 'is-invalid': objectErrors.client_name || clientSideErrors.client_name != '' }"
+                        id="client_name">
+                    <div v-if="objectErrors.client_name" class="text-danger error">{{ objectErrors.client_name[0] }}
+                    </div>
+                    <div v-if="clientSideErrors.client_name != ''" class="text-danger error"> {{
                     clientSideErrors.client_name }} </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="client_surname" class="form-label">Cognome*</label>
-                <input v-model="orderData.client_surname" type="text" class="form-control" id="client_surname"
-                    :class="{ 'is-invalid': objectErrors.client_surname || clientSideErrors.client_surname != '' }">
-                <div v-if="objectErrors.client_surname" class="text-danger error">{{ objectErrors.client_surname[0] }}
                 </div>
-                <div v-if="clientSideErrors.client_surname != ''" class="text-danger error"> {{
+
+                <div class="mb-3 w-50">
+                    <label for="client_surname" class="form-label">Cognome*</label>
+                    <input v-model="orderData.client_surname" type="text" class="form-control" id="client_surname"
+                        :class="{ 'is-invalid': objectErrors.client_surname || clientSideErrors.client_surname != '' }">
+                    <div v-if="objectErrors.client_surname" class="text-danger error">{{ objectErrors.client_surname[0]
+                        }}
+                    </div>
+                    <div v-if="clientSideErrors.client_surname != ''" class="text-danger error"> {{
                     clientSideErrors.client_surname }} </div>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="client_mail" class="form-label">Email*</label>
-                <input v-model="orderData.client_mail" type="email" class="form-control"
-                    :class="{ 'is-invalid': objectErrors.client_mail || clientSideErrors.client_mail != '' }"
-                    id="client_mail">
-                <div v-if="objectErrors.client_mail" class="text-danger error">{{ objectErrors.client_mail[0] }}</div>
-                <div v-if="clientSideErrors.client_mail != ''" class="text-danger error"> {{
+            <div class="d-flex w-100 gap-3">
+                <div class="mb-3 w-50">
+                    <label for="client_mail" class="form-label">Email*</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <input v-model="orderData.client_mail" type="email" class="form-control"
+                            :class="{ 'is-invalid': objectErrors.client_mail || clientSideErrors.client_mail != '' }"
+                            id="client_mail">
+                    </div>
+                    <div v-if="objectErrors.client_mail" class="text-danger error">{{ objectErrors.client_mail[0] }}
+                    </div>
+                    <div v-if="clientSideErrors.client_mail != ''" class="text-danger error"> {{
                     clientSideErrors.client_mail }} </div>
+                </div>
+
+                <div class="mb-3 w-50">
+                    <label for="client_phone" class="form-label">Cellulare*</label>
+                    <input v-model="orderData.client_phone" type="number" class="form-control" id="client_phone"
+                        :class="{ 'is-invalid': objectErrors.client_phone || clientSideErrors.client_phone != '' }">
+                    <div v-if="objectErrors.client_phone" class="text-danger error">{{ objectErrors.client_phone[0] }}
+                    </div>
+                    <div v-if="clientSideErrors.client_phone != ''" class="text-danger error"> {{
+                    clientSideErrors.client_phone }} </div>
+                </div>
             </div>
 
             <div class="mb-3">
@@ -206,14 +227,6 @@ export default {
                     clientSideErrors.client_address }} </div>
             </div>
 
-            <div class="mb-3">
-                <label for="client_phone" class="form-label">Telefono del cliente*</label>
-                <input v-model="orderData.client_phone" type="number" class="form-control" id="client_phone"
-                    :class="{ 'is-invalid': objectErrors.client_phone || clientSideErrors.client_phone != '' }">
-                <div v-if="objectErrors.client_phone" class="text-danger error">{{ objectErrors.client_phone[0] }}</div>
-                <div v-if="clientSideErrors.client_phone != ''" class="text-danger error"> {{
-                    clientSideErrors.client_phone }} </div>
-            </div>
 
             <button type="submit" class="btn btn-primary">Procedi con il pagamento</button>
         </form>
