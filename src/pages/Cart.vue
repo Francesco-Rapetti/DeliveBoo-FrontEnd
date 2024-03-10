@@ -65,28 +65,41 @@ export default {
 
 <template>
     <div class="container">
-        <h1>Carrello mooooolto provvisorio</h1>
         <div class="row">
-            <div class="col-md-8">
-                <button class="btn btn-primary" v-if="store.cart && store.cart.length"
-                    @click="emptyCart()">Svuota</button>
+            <div class="col-md-8  mt-4">
                 <p v-if="!store.cart || !store.cart.length">Non ci sono elementi nel carrello</p>
-                <p v-else>Il carrello contiene {{ store.cart.length }} elementi</p>
+                <div v-for="dish in store.cart" :key="dish.id" class="card mb-3 rounded-5 shadow">
+                    <div class="row g-0 h-100">
+                        <div class="col h-100">
+                            <div class="my-img-container h-100">
+                                <img :src="dish.img" :alt="dish.name" class="img-fluid rounded-start-5 h-100">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="card-body">
+                                <h5 class="card-title mb-2 mt-0">{{ dish.name }}</h5>
+                                <p class="card-text my-2">Prezzo: {{ dish.price }}
+                                    $
+                                </p>
 
-                <div v-for="dish in store.cart" :key="dish.id" class="product-card">
-                    <img :src="dish.img" :alt="dish.name" class="product-image">
-                    <div class="product-details">
-                        <h3>{{ dish.name }}</h3>
-                        <p>{{ dish.description }}</p>
-                        <p>Prezzo: {{ dish.price }} $</p>
-                    </div>
-                    <div class="quantity-controls">
-                        <button @click="decreaseQuantity(dish)" class="btn btn-sm btn-primary">-</button>
-                        <div class="quantity">{{ dish.quantity }}</div>
-                        <button @click="increaseQuantity(dish)" class="btn btn-sm btn-primary">+</button>
+                                <div class="d-flex quantity-controls">
+                                    <button @click="decreaseQuantity(dish)"><font-awesome-icon icon="fa-solid fa-minus"
+                                            class="me-2" /></button>
+                                    <div class="quantity">{{ dish.quantity }}</div>
+                                    <button @click="increaseQuantity(dish)"><font-awesome-icon icon="fa-solid fa-plus"
+                                            class="ms-2" /></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <button class="btn my-btn" v-if="store.cart && store.cart.length"
+                    @click="emptyCart()"><font-awesome-icon icon="fas fa-trash-can"/></button>
             </div>
+
+
+
 
             <div class="col-md-4">
                 <div class="panel panel-default">
@@ -109,7 +122,7 @@ export default {
                         <p v-else>Nessun elemento nel carrello</p>
                     </div>
                 </div>
-                <router-link class="btn btn-primary" :class="{ 'disabled': store.cart.length === 0 }"
+                <router-link class="btn my-btn" :class="{ 'disabled': store.cart.length === 0 }"
                     :to="{ name: 'credentials' }">Procedi</router-link>
             </div>
         </div>
@@ -117,25 +130,42 @@ export default {
 </template>
 
 <style lang="scss">
-.product-card {
-    display: flex;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
+
+.card{
+    height: 150px;
 }
 
-.product-image {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
+.my-img-container img {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+button {
+    background-color: transparent;
+    border: 0;
+}
+
+.my-btn {
+    background-color: #004350;
+    color: #83D5CD;
+}
+
+.my-btn:hover {
+    background-color: #004350;
+    border-color: #004350;
+    color: #83D5CD;
 }
 
 .quantity-controls {
-    display: flex;
-    align-items: center;
+    padding: 6px 12px;
+    background-color: #004350;
+    border-radius: 32px;
+    color: #83D5CD;
+    width: 86.78px;
+    justify-content: space-between;
 }
 
-.quantity {
-    margin: 0 10px;
+.quantity-controls button {
+    color: #83D5CD;
 }
 </style>
