@@ -112,7 +112,7 @@ export default {
 
 
 
-            <div class="col-md-4">
+            <div class="col-md-4 mt-4">
                 <div class="card my-panel mb-3 rounded-4">
                     <div class="card-body">
                         <h4 class="card-title mb-4"><strong>Totale ordine</strong></h4>
