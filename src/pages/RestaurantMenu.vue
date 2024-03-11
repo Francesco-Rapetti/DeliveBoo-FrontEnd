@@ -133,7 +133,7 @@ export default {
 </script>
 
 <template>
-    <div id="search" class="container">
+    <div id="search" class="container mt-5">
         <div>
         </div>
 
@@ -142,9 +142,9 @@ export default {
             <input class="" type="text" placeholder="Cerca un piatto" :value="searchText"
                 @input="searchText = $event.target.value, searchDish()">
         </div>
+        <hr class="dotted my-3">
     </div>
 
-    <hr class="dotted my-4">
 
     <div class="container my-5 w-100 d-flex justify-content-center align-items-center p-0">
         <div class="d-flex justify-content-center align-items-center w-100 p-0 flex-wrap">
@@ -179,7 +179,11 @@ export default {
                             </p>
 
                             <div :id="'add-to-cart' + dish.id" class="btn btn-warning"
-                                :class="{ 'disabled': quantity[dish.id] <= 0 }" @click="addItemToCart(dish)">Aggiungi
+                                :class="{ 'disabled': quantity[dish.id] <= 0 }"
+                                :data-bs-toggle="dish.restaurant_id !== store.cart[0]?.restaurant_id && store.cart.length > 0 ? 'modal' : ''"
+                                :data-bs-target="'#menuErrorModal'"
+                                @click="dish.restaurant_id === store.cart[0]?.restaurant_id || store.cart.length === 0 ? addItemToCart(dish) : null">
+                                Aggiungi
                             </div>
 
                             <div :id="'cart-controls' + dish.id" class="d-flex quantity-controls d-none">
@@ -197,7 +201,7 @@ export default {
     </div>
 
     <!-- Finestra modale per chiedere all'utente se vuole cancellare i piatti nel carrello -->
-    <div class="modal" :class="{ 'is-active': showModal }">
+    <!-- <div class="modal" :class="{ 'is-active': showModal }">
         <div class="modal-background"></div>
         <div class="modal-card my-modal-bg glass ">
             <header class="modal-card-head">
@@ -211,17 +215,13 @@ export default {
                 <button class="btn btn-primary" @click="showModal = false">No</button>
             </footer>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <style scoped lang="scss">
 .dotted {
-    border: 2px dashed #9df2e9;
-}
-
-#search {
-    // border-bottom: #006a657a 1px dotted;
-    padding: 0;
+    border: 1px dashed #83d5cd;
+    ;
 }
 
 .searchBox {
@@ -230,7 +230,7 @@ export default {
     width: 300px;
     border-radius: 32px;
     padding: 0.5rem 1rem;
-    margin: 1rem 2rem;
+    // margin: 1rem 2rem;
     box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
 }
 
@@ -274,9 +274,6 @@ button {
 }
 
 @media screen and (max-width: 768px) {
-    .searchBox {
-        margin: 1rem;
-    }
 
     .card {
         width: 100% !important;
