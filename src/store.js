@@ -16,5 +16,6 @@ export const store = reactive({
     clientToken: null,
     paymentProcessing: false,
     braintreeError: null,
-    currentDish: null
+    currentDish: null,
+    currentRestaurant: null,
 });
