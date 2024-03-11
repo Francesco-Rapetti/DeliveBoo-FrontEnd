@@ -346,7 +346,7 @@ export default {
 @use './styles/general.scss';
 
 .modal-content {
-	background-color: #006a6599;
+	background-color: #006a65d7;
 	color: #9df2e9;
 }
 
