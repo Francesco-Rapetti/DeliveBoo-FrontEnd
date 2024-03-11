@@ -9,11 +9,11 @@ export default {
             errors: [],
             objectErrors: {},
             orderData: {
-                client_name: 'asdasdasdasd',
-                client_surname: 'asdasdasdasdasd',
-                client_address: 'asdasdasdasdasdasdasdasd',
-                client_phone: '34958734958233',
-                client_mail: 'asdqwdqwdqwd@asfqwfqw',
+                client_name: '',
+                client_surname: '',
+                client_address: '',
+                client_phone: '',
+                client_mail: '',
                 total: 0,
                 status: "pending",
                 restaurant_id: 0,
@@ -219,7 +219,7 @@ export default {
             </div>
 
             <div class="mb-3">
-                <label for="client_address" class="form-label">Indirizzo del cliente*</label>
+                <label for="client_address" class="form-label">Indirizzo*</label>
                 <input v-model="orderData.client_address" type="text" class="form-control" id="client_address"
                     :class="{ 'is-invalid': objectErrors.client_address || clientSideErrors.client_address != '' }">
                 <div v-if="objectErrors.client_address" class="text-danger error">{{ objectErrors.client_address[0] }}
