@@ -158,6 +158,10 @@ export default {
 			}
 			return output;
 		},
+
+		changeRoute(){
+			this.$router.push({ path: '/credentials' })
+		},
 	},
 	computed: {
 		cartQuantity() {
@@ -220,7 +224,7 @@ export default {
 						<div class="d-flex justify-content-between align-items-center">
 							<strong>Totale: ${{ calculateTotal() }}</strong>
 							<router-link class="btn my-checkout-btn" :class="{ 'disabled': store.cart.length === 0 }"
-                            :to="{ name: 'credentials' }">
+                            :to="{ name: 'credentials' }" data-bs-dismiss="modal" @click="changeRoute">
                             Check Out <font-awesome-icon icon="fa-solid fa-arrow-right pl-2" />
                         </router-link>
 						</div>
