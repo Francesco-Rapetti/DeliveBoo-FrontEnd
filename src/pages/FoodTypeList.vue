@@ -13,6 +13,7 @@ export default {
             selectedFoodType: null,
             searchText: '',
             sortBy: 'none',
+            phoneMQ: false,
         };
     },
     methods: {
@@ -58,20 +59,29 @@ export default {
             this.$router.push({ name: 'restaurants', query: { foodType: this.selectedFoodType } });
         },
     },
+
+    mounted() {
+        this.phoneMQ = window.innerWidth < 768;
+        window.addEventListener('resize', () => {
+            this.phoneMQ = window.innerWidth < 768;
+        })
+    }
 };
 </script>
 
 <template>
-    <div class="mb-5">
+    <div class="my-5" :class="{ 'container': phoneMQ }">
         <div class="d-flex justify-content-center align-items-center w-100 flex-wrap">
             <div class="w-100">
-                <div class="searchBox">
-                    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-                    <input class="" type="text" placeholder="Cerca una categoria" :value="searchText"
-                        @input="searchText = $event.target.value, searchType()">
-                </div>
+                <div class="container p-0">
+                    <div class="searchBox">
+                        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                        <input class="" type="text" placeholder="Cerca una categoria" :value="searchText"
+                            @input="searchText = $event.target.value, searchType()">
+                    </div>
 
-                <hr class="dotted my-4">
+                    <hr class="dotted my-3">
+                </div>
 
                 <div class="w-100 d-flex justify-content-center align-items-center">
                     <p v-if="!store.foodTypeList || !store.foodTypeList.length" class="alert alert-info mt-3"
@@ -85,7 +95,7 @@ export default {
             </div>
             <FoodTypeCard :class="{ 'invisible': !foodType.name.toLowerCase().includes(searchText.toLowerCase()) }"
                 v-for="foodType in store.foodTypeList" :key="foodType.id" :item="foodType"
-                @click="selectFoodType(foodType)" class="food-type-card m-3" />
+                @click="selectFoodType(foodType)" class="food-type-card my-3 m-md-3" />
         </div>
     </div>
 </template>
@@ -126,7 +136,7 @@ export default {
     width: 300px;
     border-radius: 32px;
     padding: 0.5rem 1rem;
-    margin: 1rem;
+    /* margin: 1rem; */
     box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
 }
 
@@ -144,7 +154,7 @@ input[type="text"]:focus {
 }
 
 .dotted {
-    border: 2px dashed #9df2e9;
+    border: 1px dashed #9df2e9;
 }
 
 @media screen and (max-width: 768px) {
