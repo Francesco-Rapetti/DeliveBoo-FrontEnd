@@ -41,6 +41,7 @@ export default {
             this.store.cart.forEach(dish => {
                 this.orderData.total += dish.price * dish.quantity
             })
+            this.orderData.total += 5.99
         },
 
         getDishes() {
