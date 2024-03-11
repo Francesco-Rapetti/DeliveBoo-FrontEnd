@@ -167,7 +167,8 @@ export default {
 
         <div class="d-flex justify-content-center">
             <p v-if="!store.restaurantList || !store.restaurantList.length">Non ci sono ristoranti</p>
-            <div v-if="showNoResults && searchText != ''" class="alert alert-info mt-3" role="alert">
+            <div v-if="showNoResults && searchText != '' || filteredRestaurants.length <= 0"
+                class="alert alert-info mt-3" role="alert">
                 Nessun ristorante trovato con i criteri di ricerca selezionati.
             </div>
         </div>
