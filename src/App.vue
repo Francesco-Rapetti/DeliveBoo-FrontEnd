@@ -162,7 +162,6 @@ export default {
 
 		changeRoute(){
 			this.$router.push({ path: '/credentials' })
-			this.isModalActive = true;
 		},
 	},
 	computed: {
@@ -202,7 +201,7 @@ export default {
 		</div>
 
 		<!-- Modal Cart -->
-		<div class="modal fade" :class="{ 'blur': isModalActive }" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+		<div class="modal fade" :class="{ 'blur': true}" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content my-modal">
 					<div class="modal-body">
