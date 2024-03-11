@@ -160,7 +160,7 @@ export default {
 			return output;
 		},
 
-		changeRoute(){
+		changeRoute() {
 			this.$router.push({ path: '/credentials' })
 		},
 	},
@@ -179,8 +179,56 @@ export default {
 
 <template>
 	<div>
+		<!-- Modal menu error-->
+		<div class="modal fade blur" id="menuErrorModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content glass">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">ATTENZIONE</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Hai già nel carrello piatti di un altro ristorante. Vuoi cancellarli?</p>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ANNULLA</button>
+						<button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+							@click="store.cart = []">CANCELLA</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal restaurant-->
+		<div class="modal fade blur" id="restaurantInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div v-if="store.currentRestaurant" class="modal-content glass">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">{{ store.currentRestaurant['name'] }}</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						{{ store.currentRestaurant['description'] }}
+					</div>
+					<div>
+						<ul class="fa-ul w-75">
+							<li><span class="fa-li"><font-awesome-icon icon="fa-solid fa-location-dot" /></span>
+								{{ store.currentRestaurant['address'] }}
+							</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Modal dish-->
-		<div class="modal fade" id="dishInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade blur" id="dishInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div v-if="store.currentDish" class="modal-content glass">
 					<div class="modal-header">
@@ -201,7 +249,8 @@ export default {
 		</div>
 
 		<!-- Modal Cart -->
-		<div class="modal fade" :class="{ 'blur': true}" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+		<div class="modal fade" :class="{ 'blur': true }" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content my-modal">
 					<div class="modal-body">
@@ -225,9 +274,9 @@ export default {
 						<div class="d-flex justify-content-between align-items-center">
 							<strong>Totale: ${{ calculateTotal() }}</strong>
 							<router-link class="btn my-checkout-btn" :class="{ 'disabled': store.cart.length === 0 }"
-                            :to="{ name: 'credentials' }" data-bs-dismiss="modal" @click="changeRoute">
-                            Check Out <font-awesome-icon icon="fa-solid fa-arrow-right pl-2" />
-                        </router-link>
+								:to="{ name: 'credentials' }" data-bs-dismiss="modal" @click="changeRoute">
+								Check Out <font-awesome-icon icon="fa-solid fa-arrow-right pl-2" />
+							</router-link>
 						</div>
 						</p>
 					</div>
@@ -302,7 +351,7 @@ export default {
 }
 
 .modal.blur {
-    backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
 }
 
 .my-modal {
@@ -310,10 +359,11 @@ export default {
 	color: #004350;
 	border-radius: 25px !important;
 }
+
 .my-checkout-btn {
-    width: 30%;
-    background-color: #004350;
-    color: #83D5CD;
-    margin-bottom: 0;
+	width: 30%;
+	background-color: #004350;
+	color: #83D5CD;
+	margin-bottom: 0;
 }
 </style>
