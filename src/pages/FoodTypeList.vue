@@ -73,7 +73,7 @@ export default {
     <div class="my-5" :class="{ 'container': phoneMQ }">
         <div class="d-flex justify-content-center align-items-center w-100 flex-wrap">
             <div class="w-100">
-                <div class="container p-0">
+                <div class="container search">
                     <div class="searchBox">
                         <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                         <input class="" type="text" placeholder="Cerca una categoria" :value="searchText"
@@ -162,5 +162,10 @@ input[type="text"]:focus {
     .card {
         width: 100% !important;
     }
+
+    .container.search {
+        padding: 0 !important;
+    }
+
 }
 </style>
