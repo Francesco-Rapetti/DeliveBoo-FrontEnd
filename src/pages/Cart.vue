@@ -97,7 +97,8 @@ export default {
                     <div class="row g-0 h-100">
                         <div class="col h-100">
                             <div class="my-img-container h-100">
-                                <img :src="dish.img" :alt="dish.name" class="img-fluid rounded-start-4 h-100">
+                                <img :src="dish.img.substring(0, 4) === 'http' ? dish.img : store.urlBackend + '/storage/' + dish.img"
+                                    :alt="dish.name" class="img-fluid rounded-start-4 h-100">
                             </div>
                         </div>
                         <div class="col-9">
