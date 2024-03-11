@@ -21,6 +21,7 @@ export default {
 		this.getRestaurantList();
 		this.getDishesList();
 		this.getFoodTypeList();
+		console.log(this.store.restaurantList)
 	},
 	watch: {
 		$route(to, from) {
@@ -85,7 +86,7 @@ export default {
 						text.innerHTML = 'Impostazioni';
 						break;
 					case 'restaurant-menu':
-						text.innerHTML = this.store.restaurantList[this.$route.params.id - 1].name;
+						text.innerHTML = this.store.restaurantList.filter(restaurant => restaurant.id == this.$route.params.id)[0].name;
 						break;
 					case 'cart':
 						text.innerHTML = 'Carrello';

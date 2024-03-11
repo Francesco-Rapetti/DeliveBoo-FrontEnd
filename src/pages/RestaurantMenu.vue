@@ -148,7 +148,8 @@ export default {
 
     <div class="container my-5 w-100 d-flex justify-content-center align-items-center p-0">
         <div class="d-flex justify-content-center align-items-center w-100 p-0 flex-wrap">
-            <p v-if="restaurantDishes.length === 0" class="alert alert-info mt-3" role="alert">
+            <p v-if="restaurantDishes.length === 0 || restaurantDishes.filter(dish => dish.visibility === 1).length === 0"
+                class="alert alert-info mt-3" role="alert">
                 Non ci sono piatti in questo ristorante</p>
             <div v-if="restaurantDishes.filter(dish => dish.visibility === 1).filter(dish => dish.name.toLowerCase().includes(this.searchText.toLowerCase())).length <= 0 && searchText != ''"
                 class="alert alert-info mt-3" role="alert">
