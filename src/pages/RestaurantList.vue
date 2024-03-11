@@ -148,7 +148,7 @@ export default {
     <div class="container mt-5">
         <div class="searchBox">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-            <input class="" type="text" placeholder="Cerca una categoria" :value="searchText"
+            <input class="" type="text" placeholder="Cerca un ristorante" :value="searchText"
                 @input="searchText = $event.target.value, searchRestaurant()">
         </div>
 
