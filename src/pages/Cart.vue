@@ -104,7 +104,7 @@ export default {
                             <div class="card-body d-flex justify-content-between">
                                 <div>
                                     <h5 class="card-title mb-2 mt-0 my-color"><strong>{{ dish.name }}</strong></h5>
-                                    <p class="card-text my-2 my-color"><strong>€ {{ dish.price }} / {{ dish.quantity
+                                    <p class="card-text my-2 my-color"><strong>€ {{ dish.price }} * {{ dish.quantity
                                             }}</strong>
                                     </p>
                                     <div class="d-flex quantity-controls">
