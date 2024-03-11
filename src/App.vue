@@ -12,6 +12,8 @@ export default {
 			store,
 			title: '',
 			currentPage: '',
+			shippingCost: 2.00,
+            commission: 3.99,
 		}
 	},
 	mounted() {
@@ -140,6 +142,22 @@ export default {
 					console.error(error);
 				});
 		},
+
+		calculatePartialTotal() {
+			let output = 0;
+			if (localStorage.partialTotal != undefined && localStorage.partialTotal != null) {
+				output = localStorage.partialTotal;
+			}
+            return output;
+        },
+
+        calculateTotal() {
+			let output = 0;
+			if (localStorage.orderTotal != undefined && localStorage.orderTotal != null) {
+				output = localStorage.orderTotal;
+			}
+            return output;
+        },
 	},
 	computed: {
 		cartQuantity() {
@@ -156,7 +174,7 @@ export default {
 
 <template>
 	<div>
-		<!-- Modal -->
+		<!-- Modal dish-->
 		<div class="modal fade" id="dishInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div v-if="store.currentDish" class="modal-content glass">
@@ -176,6 +194,27 @@ export default {
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal Cart -->
+		<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cartModalLabel">Totale ordine</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Contenuto del pannello laterale -->
+                            <p v-if="store.cart && store.cart.length">
+                                Totale Parziale: ${{ calculatePartialTotal() }}<br>
+                                Costo di Spedizione: ${{ shippingCost }}<br>
+                                Commissioni: ${{ commission }}<br>
+                                Totale: ${{ calculateTotal() }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 		<SideBarComponent

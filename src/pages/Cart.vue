@@ -11,7 +11,6 @@ export default {
             store,
             shippingCost: 2.00,
             commission: 3.99,
-
         }
     },
     methods: {
@@ -47,11 +46,13 @@ export default {
             for (const dish of this.store.cart) {
                 partialTotal += dish.price * dish.quantity;
             }
+            localStorage.partialTotal = partialTotal;
             return partialTotal
         },
 
         calculateTotal() {
             let total = this.calculatePartialTotal() + this.shippingCost + this.commission;
+            localStorage.orderTotal = total;
             return total;
         },
 
@@ -73,7 +74,7 @@ export default {
 <template>
     <!-- Bottone fisso in basso a destra -->
     <div class="my-position d-md-none">
-        <button class="btn my-btn" data-bs-toggle="modal" data-bs-target="#cartModal">
+        <button class="btn my-btn" data-bs-toggle="modal" data-bs-target="#cartModal" @click="calculateTotal(), calculatePartialTotal()">
             <strong><span class="px-1">${{ calculateTotal().toFixed(2) }}</span></strong>
             <span class="my-arrow"><strong><font-awesome-icon icon="fa-solid fa-arrow-right pl-2" /></strong></span>
         </button>
@@ -121,26 +122,6 @@ export default {
                     </div>
                 </div>
 
-            </div>
-
-            <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="cartModalLabel">Totale ordine</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Contenuto del pannello laterale -->
-                            <p v-if="store.cart && store.cart.length">
-                                Totale Parziale: ${{ calculatePartialTotal().toFixed(2) }}<br>
-                                Costo di Spedizione: ${{ shippingCost }}<br>
-                                Commissioni: ${{ commission }}<br>
-                                Totale: ${{ calculateTotal().toFixed(2) }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="col-md-4 mt-4 d-none d-md-block">
