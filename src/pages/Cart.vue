@@ -17,6 +17,8 @@ export default {
 
         saveCartToLocalStorage() {
             localStorage.cart = JSON.stringify(this.store.cart);
+            this.calculatePartialTotal();
+            this.calculateTotal();
         },
 
         emptyCart() {
@@ -39,6 +41,7 @@ export default {
             }
 
             this.saveCartToLocalStorage();
+            console.log(localStorage.orderTotal)
         },
 
         calculatePartialTotal() {
@@ -73,23 +76,24 @@ export default {
 
 <template>
     <!-- Bottone fisso in basso a destra -->
-    <div class="my-position d-md-none">
-        <button class="btn my-btn" data-bs-toggle="modal" data-bs-target="#cartModal" @click="calculateTotal(), calculatePartialTotal()">
-            <strong><span class="px-1">${{ calculateTotal().toFixed(2) }}</span></strong>
+    <div v-if="store.cart.length" class="my-position d-lg-none">
+        <button class="btn my-btn" data-bs-toggle="modal" data-bs-target="#cartModal"
+            @click="calculateTotal(), calculatePartialTotal()">
+            <strong><span class="px-1">€ {{ calculatePartialTotal().toFixed(2) }}</span></strong>
             <span class="my-arrow"><strong><font-awesome-icon icon="fa-solid fa-arrow-right pl-2" /></strong></span>
         </button>
     </div>
 
-    <div class="container">
+    <div class="container my-5">
         <div class="row">
-            <div class="col-md-8  mt-4">
-                <p v-if="!store.cart || !store.cart.length"
-                    class="d-flex flex-column justify-content-center align-items-center mt-5"><strong>Non ci sono piatti
-                        nel carrello</strong>
-                    <span><router-link to="/restaurants" class="btn btn-primary btn-lg mt-4"><strong>Trova Ristoranti
-                                qui!</strong></router-link></span>
-                </p>
-                <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-4">
+            <p v-if="!store.cart || !store.cart.length"
+                class="d-flex flex-column justify-content-center align-items-center mt-5"><strong>Non ci sono piatti
+                    nel carrello</strong>
+                <span><router-link to="/restaurants" class="btn btn-primary btn-lg mt-4"><strong>Trova Ristoranti
+                            qui!</strong></router-link></span>
+            </p>
+            <div class="col-lg-8  mt-4">
+                <div v-for="dish in store.cart" :key="dish.id" class="card my-card mb-3 rounded-5">
                     <div class="row g-0 h-100">
                         <div class="col h-100">
                             <div class="my-img-container h-100">
@@ -100,7 +104,7 @@ export default {
                             <div class="card-body d-flex justify-content-between">
                                 <div>
                                     <h5 class="card-title mb-2 mt-0 my-color"><strong>{{ dish.name }}</strong></h5>
-                                    <p class="card-text my-2 my-color"><strong>$ {{ dish.price }} / {{ dish.quantity
+                                    <p class="card-text my-2 my-color"><strong>€ {{ dish.price }} / {{ dish.quantity
                                             }}</strong>
                                     </p>
                                     <div class="d-flex quantity-controls">
@@ -124,25 +128,25 @@ export default {
 
             </div>
 
-            <div class="col-md-4 mt-4 d-none d-md-block">
+            <div class="col-lg-4 mt-4 d-none d-lg-block">
                 <div class="card my-panel mb-3 rounded-4" v-if="store.cart && store.cart.length">
                     <div class="card-body">
                         <h4 class="card-title mb-4 my-color"><strong>Totale ordine</strong></h4>
                         <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span>Totale Parziale </span>
-                            <span>${{ calculatePartialTotal().toFixed(2) }}</span>
+                            <span>€ {{ calculatePartialTotal().toFixed(2) }}</span>
                         </p>
                         <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span>Costo di Spedizione</span>
-                            <span>${{ shippingCost }}.00</span>
+                            <span>€ {{ shippingCost }}.00</span>
                         </p>
                         <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span>Commissioni</span>
-                            <span>${{ commission }}</span>
+                            <span>€ {{ commission }}</span>
                         </p>
                         <p class="mb-2 d-flex justify-content-between my-color" v-if="store.cart && store.cart.length">
                             <span><strong>Totale</strong></span>
-                            <span><strong>${{ calculateTotal().toFixed(2) }}</strong></span>
+                            <span><strong>€ {{ calculateTotal().toFixed(2) }}</strong></span>
                         </p>
                         <p v-else class="my-color">Nessun elemento nel carrello</p>
                     </div>
@@ -161,10 +165,14 @@ export default {
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+.card {
+    overflow: hidden;
+}
+
 .my-position {
     position: fixed;
     bottom: 150px;
-    right: 20px;
+    right: 2rem;
     z-index: 1000;
 }
 
@@ -182,20 +190,29 @@ export default {
 
 .my-card {
     height: 150px;
-    background-color: #83D5CD;
+    background-color: #9df2e9;
     border: none;
-    box-shadow: 5px 5px 6px 0px grey;
+    box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
     margin-bottom: 0;
 }
 
 .my-panel {
-    background-color: #83D5CD;
+    background-color: #9df2e9;
     border: none;
-    box-shadow: 5px 5px 6px 0px grey;
+    box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
     padding: 15px;
+    position: sticky;
+    top: 200px;
+}
+
+.my-img-container {
+    height: 100%;
+    // max-width: 250px;
 }
 
 .my-img-container img {
+    object-fit: cover;
+    object-position: center;
     min-width: 100%;
     min-height: 100%;
 }
@@ -207,7 +224,7 @@ button {
 
 .my-btn {
     background-color: #004350;
-    color: #83D5CD;
+    color: #9df2e9;
 }
 
 
@@ -217,14 +234,14 @@ button {
     justify-content: space-between;
     align-items: center;
     background-color: #004350;
-    color: #83D5CD;
+    color: #9df2e9;
     margin-bottom: 0;
 }
 
 .my-btn:hover {
     background-color: #004350;
     border-color: #004350;
-    color: #83D5CD;
+    color: #9df2e9;
 }
 
 .my-trash-button {
@@ -235,12 +252,12 @@ button {
     padding: 6px 12px;
     background-color: #004350;
     border-radius: 32px;
-    color: #83D5CD;
+    color: #9df2e9;
     width: 86.78px;
     justify-content: space-between;
 }
 
 .quantity-controls button {
-    color: #83D5CD;
+    color: #9df2e9;
 }
 </style>
