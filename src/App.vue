@@ -12,6 +12,9 @@ export default {
 			store,
 			title: '',
 			currentPage: '',
+			shippingCost: 2.00,
+			commission: 3.99,
+			isModalActive: false
 		}
 	},
 	mounted() {
@@ -140,6 +143,26 @@ export default {
 					console.error(error);
 				});
 		},
+
+		calculatePartialTotal() {
+			let output = 0;
+			if (localStorage.partialTotal != undefined && localStorage.partialTotal != null) {
+				output = localStorage.partialTotal;
+			}
+			return output;
+		},
+
+		calculateTotal() {
+			let output = 0;
+			if (localStorage.orderTotal != undefined && localStorage.orderTotal != null) {
+				output = localStorage.orderTotal;
+			}
+			return output;
+		},
+
+		changeRoute(){
+			this.$router.push({ path: '/credentials' })
+		},
 	},
 	computed: {
 		cartQuantity() {
@@ -156,7 +179,7 @@ export default {
 
 <template>
 	<div>
-		<!-- Modal -->
+		<!-- Modal dish-->
 		<div class="modal fade" id="dishInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div v-if="store.currentDish" class="modal-content glass">
@@ -172,6 +195,41 @@ export default {
 							<font-awesome-icon icon="fa-solid fa-coins" /> {{ store.currentDish['price'] }}
 						</p>
 						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Cart -->
+		<div class="modal fade" :class="{ 'blur': true}" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content my-modal">
+					<div class="modal-body">
+						<div class="d-flex justify-content-between mb-4">
+							<h5 class="modal-title" id="cartModalLabel"><strong>Totale ordine</strong></h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<p v-if="store.cart && store.cart.length">
+						<p class="d-flex justify-content-between">
+							<span>Totale Parziale</span>
+							<span>${{ calculatePartialTotal() }}</span>
+						</p>
+						<p class="d-flex justify-content-between">
+							<span>Costo di Spedizione</span>
+							<span> ${{ shippingCost }}.00</span>
+						</p>
+						<p class="d-flex justify-content-between">
+							<span>Commissioni:</span>
+							<span> ${{ commission }}</span>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<strong>Totale: ${{ calculateTotal() }}</strong>
+							<router-link class="btn my-checkout-btn" :class="{ 'disabled': store.cart.length === 0 }"
+                            :to="{ name: 'credentials' }" data-bs-dismiss="modal" @click="changeRoute">
+                            Check Out <font-awesome-icon icon="fa-solid fa-arrow-right pl-2" />
+                        </router-link>
+						</div>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -241,5 +299,21 @@ export default {
 .modal-content {
 	background-color: #006a6599;
 	color: #9df2e9;
+}
+
+.modal.blur {
+    backdrop-filter: blur(8px);
+}
+
+.my-modal {
+	background-color: #9df2e9;
+	color: #004350;
+	border-radius: 25px !important;
+}
+.my-checkout-btn {
+    width: 30%;
+    background-color: #004350;
+    color: #83D5CD;
+    margin-bottom: 0;
 }
 </style>
