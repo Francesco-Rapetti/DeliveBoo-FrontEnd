@@ -14,6 +14,7 @@ export default {
 			currentPage: '',
 			shippingCost: 2.00,
 			commission: 3.99,
+			isModalActive: false
 		}
 	},
 	mounted() {
@@ -161,6 +162,7 @@ export default {
 
 		changeRoute(){
 			this.$router.push({ path: '/credentials' })
+			this.isModalActive = true;
 		},
 	},
 	computed: {
@@ -200,7 +202,7 @@ export default {
 		</div>
 
 		<!-- Modal Cart -->
-		<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+		<div class="modal fade" :class="{ 'blur': isModalActive }" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content my-modal">
 					<div class="modal-body">
@@ -298,6 +300,10 @@ export default {
 .modal-content {
 	background-color: #006a6599;
 	color: #9df2e9;
+}
+
+.modal.blur {
+    backdrop-filter: blur(8px);
 }
 
 .my-modal {
