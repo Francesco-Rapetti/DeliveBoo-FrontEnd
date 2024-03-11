@@ -10,20 +10,21 @@ export default {
     data() {
         return {
             store,
-            userInputSearch: "",
+            searchText: "",
             selectedTypes: [],
             typeClicked: {},
             selectedFoodType: null,
             sortBy: 'none',
+            showNoResults: false,
         };
     },
     computed: {
         filteredRestaurants() {
             let filtered = [...this.store.restaurantList];
 
-            if (this.userInputSearch) {
+            if (this.searchText) {
                 filtered = filtered.filter((restaurant) =>
-                    restaurant.name.toLowerCase().includes(this.userInputSearch.toLowerCase())
+                    restaurant.name.toLowerCase().includes(this.searchText.toLowerCase())
                 );
             }
 
@@ -53,7 +54,7 @@ export default {
     },
     methods: {
         clearSearch() {
-            this.userInputSearch = "";
+            this.searchText = "";
             this.selectedTypes = [];
             this.typeClicked = {};
             this.selectedFoodType = null;
@@ -91,6 +92,44 @@ export default {
         updateSort(type) {
             this.sortBy = type;
         },
+
+        searchRestaurant() {
+            // Get all type names
+            let names = document.getElementsByClassName('restaurant-name');
+
+            // Iterate through each type
+            this.store.restaurantList.forEach(restaurant => {
+                // If search text is empty reset visibility
+                if (this.searchText == "") {
+                    // Clean all restaurant names and set visibility to true
+                    Array.from(names).forEach(name => {
+                        // Remove existing highlight tags
+                        name.innerHTML = name.innerHTML.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+                    })
+                    // restaurant.visible = true;
+                }
+                // If restaurant name includes search text
+                else if (restaurant.name.toLowerCase().includes(this.searchText.toLowerCase())) {
+                    // Create regex to match search text
+                    const regex = new RegExp(this.searchText, 'gi');
+                    // Iterate through each restaurant name
+                    Array.from(names).forEach(name => {
+                        // console.log(name.innerHTML)
+                        let text = name.innerHTML
+                        // Remove existing highlight tags
+                        text = text.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+                        // Replace search text with highlighted text
+                        const newText = text.replace(regex, '<mark class="highlight">$&</mark>');
+                        name.innerHTML = newText;
+                    })
+                }
+                // If restaurant name does not include search text
+                else {
+                    // Set visibility to false
+                    restaurant.visible = false;
+                }
+            });
+        },
     },
     mounted() {
         this.selectedFoodType = this.$route.query.foodType || null;
@@ -107,34 +146,11 @@ export default {
 <template>
 
     <div class="container mt-5">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="btn btn-primary rounded-pill" @click="updateSort('alphabet')">A-Z</a>
-                        </li>
-                        <li class="nav-item px-3">
-                            <a class="btn btn-primary rounded-pill" @click="updateSort('newest')">Newest</a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a class="btn btn-primary rounded-pill" @click="sortByPopularity">Popular</a>
-                        </li> -->
-                    </ul>
-                    <form class="searchBox" role="search">
-                        <input type="text" class="searchInput" placeholder="Search" v-model="userInputSearch" />
-                        <button class="searchButton" href="#">
-                            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+        <div class="searchBox">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+            <input class="" type="text" placeholder="Cerca una categoria" :value="searchText"
+                @input="searchText = $event.target.value, searchRestaurant()">
+        </div>
 
         <hr class="dotted">
 
@@ -147,17 +163,72 @@ export default {
                     {{ type.name }}
                 </span>
             </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
             <p v-if="!store.restaurantList || !store.restaurantList.length">Non ci sono ristoranti</p>
-            <div v-if="showNoResults" class="alert alert-info mt-3" role="alert">
+            <div v-if="showNoResults && searchText != ''" class="alert alert-info mt-3" role="alert">
                 Nessun ristorante trovato con i criteri di ricerca selezionati.
             </div>
+        </div>
+
+        <div class="row my-4 gap-5 gap-md-4 justify-content-center">
             <RestaurantCard v-for="restaurant in filteredRestaurants" :key="restaurant.id" :item="restaurant" />
+
         </div>
     </div>
 
 </template>
 
 <style scoped>
+.text-bg-primary {
+    background-color: #9df2e9 !important;
+    color: #004350 !important;
+    border: solid 2px #9df2e9 !important;
+}
+
+.text-bg-secondary {
+    border: solid 2px;
+    border-color: #9df2e9 !important;
+    background-color: transparent !important;
+    color: #004350 !important;
+}
+
+.invisible {
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.searchBox {
+    background-color: #9df2e9;
+    color: #004350;
+    width: 300px;
+    border-radius: 32px;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    box-shadow: 0px 6px 10px 0px rgba(133, 133, 133, 0.5);
+}
+
+input[type="text"] {
+    border-radius: 32px;
+    padding: 0.5rem 1rem;
+    border: 0;
+    background-color: transparent;
+    color: #004350;
+
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+.dotted {
+    border: 2px dashed #9df2e9;
+}
+
 .badge {
     cursor: pointer;
 }
@@ -165,68 +236,6 @@ export default {
 .type-tags {
     padding: 0.7rem;
     margin: 0 0.2rem;
-}
-
-.searchBox {
-    background: #83d5cd;
-    height: 60px;
-    border-radius: 40px;
-    padding: 10px;
-
-}
-
-input[placeholder] {
-    color: #83d5cd;
-}
-
-.searchBox:hover {
-    background: #004350;
-    height: 60px;
-    border-radius: 40px;
-    padding: 10px;
-
-}
-
-.searchBox:hover>.searchInput {
-    width: 240px;
-    padding: 0 6px;
-}
-
-.searchBox:hover>.searchButton {
-    background: #004350;
-    color: #83d5cd;
-    border-color: #83d5cd;
-}
-
-/* #83d5cd;
-#004350  */
-
-.searchButton {
-    color: #004350;
-    border-color: #004350;
-    float: right;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #83d5cd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.4s;
-}
-
-.searchInput {
-    border: none;
-    background: none;
-    outline: none;
-    float: left;
-    padding: 0;
-    color: white;
-    font-size: 16px;
-    transition: 0.4s;
-    line-height: 40px;
-    width: 0px;
-
 }
 
 .dotted {
