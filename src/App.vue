@@ -146,18 +146,19 @@ export default {
 
 		calculatePartialTotal() {
 			let output = 0;
-			if (localStorage.partialTotal != undefined && localStorage.partialTotal != null) {
-				output = localStorage.partialTotal;
-			}
-			return output;
+			store.cart.forEach(element => {
+				output += element.quantity * element.price
+			})
+			return output.toFixed(2);
 		},
 
 		calculateTotal() {
 			let output = 0;
-			if (localStorage.orderTotal != undefined && localStorage.orderTotal != null) {
-				output = localStorage.orderTotal;
-			}
-			return output;
+			store.cart.forEach(element => {
+				output += element.quantity * element.price
+			})
+			output += this.shippingCost + this.commission
+			return output.toFixed(2);
 		},
 
 		changeRoute() {
@@ -195,7 +196,7 @@ export default {
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ANNULLA</button>
 						<button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-							@click="store.cart = []">CANCELLA</button>
+							@click="store.cart = [], localStorage.cart = []">CANCELLA</button>
 					</div>
 				</div>
 			</div>
@@ -261,18 +262,18 @@ export default {
 						<p v-if="store.cart && store.cart.length">
 						<p class="d-flex justify-content-between">
 							<span>Totale Parziale</span>
-							<span>${{ calculatePartialTotal() }}</span>
+							<span>€ {{ calculatePartialTotal() }}</span>
 						</p>
 						<p class="d-flex justify-content-between">
 							<span>Costo di Spedizione</span>
-							<span> ${{ shippingCost }}.00</span>
+							<span> € {{ shippingCost }}.00</span>
 						</p>
 						<p class="d-flex justify-content-between">
 							<span>Commissioni:</span>
-							<span> ${{ commission }}</span>
+							<span> € {{ commission }}</span>
 						</p>
 						<div class="d-flex justify-content-between align-items-center">
-							<strong>Totale: ${{ calculateTotal() }}</strong>
+							<strong>Totale: € {{ calculateTotal() }}</strong>
 							<router-link class="btn my-checkout-btn" :class="{ 'disabled': store.cart.length === 0 }"
 								:to="{ name: 'credentials' }" data-bs-dismiss="modal" @click="changeRoute">
 								Check Out <font-awesome-icon icon="fa-solid fa-arrow-right pl-2" />
@@ -294,7 +295,7 @@ export default {
 			<div id="content-container" class="overflow-hidden">
 
 				<div id="content" class=" blue" :class="{ 'admin': $route.name === 'user' }">
-					<div v-if="$route.name !== 'payment' && $route.name !== 'confirmed' && $route.name !== 'rejected' && $route.name !== 'cart'"
+					<div v-if="$route.name !== 'payment' && $route.name !== 'confirmed' && $route.name !== 'rejected' && $route.name !== 'cart' && $route.name !== 'credentials'"
 						id="floating-cart" class="d-block d-md-none position-fixed">
 						<router-link to="/cart"
 							class="btn btn-responsive-custom p-4 fs-2 btn-primary d-flex justify-content-center align-items-center rounded-4">
