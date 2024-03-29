@@ -1,8 +1,10 @@
 import { reactive } from 'vue'
 
 export const store = reactive({
-    urlBackend: "http://127.0.0.1:8000",
-    urlAPI: "http://127.0.0.1:8000/api",
+    urlBackend: import.meta.env.VITE_BACKEND_URL,
+    urlAPI: `${import.meta.env.VITE_BACKEND_URL}/api`,
+    // urlBackend: "http://localhost:8000",
+    // urlAPI: "http://localhost:8000/api",
     apiRestaurantEndpoint: "/restaurants",
     apiFoodTypeEndpoint: "/types",
     apiDishesEndpoint: "/dishes",
