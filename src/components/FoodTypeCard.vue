@@ -2,6 +2,11 @@
 export default {
     name: "FoodTypeCard",
     props: ["item"],
+    methods: {
+        getImagePath(path) {
+            return new URL(`../assets/img/${path}`, import.meta.url).href
+        }
+    }
 }
 </script>
 
@@ -10,7 +15,7 @@ export default {
         <div class="card-custom d-flex flex-column align-items-center justify-content-between">
             <h3 class="card-title type-name align-self-start">{{ item.name }}</h3>
             <div class="img-container d-flex justify-content-center align-items-center">
-                <img :src="'../src/assets/' + item.img + '.svg'" class="w-100">
+                <img :src="getImagePath(item.img + '.svg')" class="w-100">
             </div>
             <div></div>
         </div>
