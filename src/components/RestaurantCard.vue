@@ -7,6 +7,12 @@ export default {
         return {
             store
         }
+    },
+
+    methods: {
+        getImagePath(img) {
+            return new URL(`../assets/img/${img}`, import.meta.url).href
+        }
     }
 }
 </script>
@@ -28,7 +34,7 @@ export default {
 
             <div class="text-center mt-3 d-flex flex-wrap justify-content-center w-100">
                 <span v-for="(item, index) in item.types" :key="index" class="pill">
-                    <img :src="'../src/assets/' + item.img + '.svg'" class="svg-pill">
+                    <img :src="getImagePath(item.img + '.svg')" class="svg-pill">
                 </span>
             </div>
             <router-link :to="{ name: 'restaurant-menu', params: { id: item.id } }" class="btn btn-warning my-3">
