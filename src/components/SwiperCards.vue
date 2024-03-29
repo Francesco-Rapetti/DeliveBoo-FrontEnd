@@ -28,6 +28,12 @@ export default {
         }
     },
 
+    methods: {
+        getImagePath(img) {
+            return new URL(`../assets/img/${img}`, import.meta.url).href
+        }
+    },
+
 };
 </script>
 
@@ -64,8 +70,8 @@ export default {
                             </div>
                             <div id="type-img-container"
                                 class="col-6 d-flex justify-content-center align-items-center ms-5">
-                                <img v-for="type in restaurant.types" :key="type"
-                                    :src="'../src/assets/' + type.img + '.svg'" :alt="type.name" class="w-100">
+                                <img v-for="type in restaurant.types" :key="type" :src="getImagePath(type.img + '.svg')"
+                                    :alt="type.name" class="w-100">
                             </div>
                         </div>
 

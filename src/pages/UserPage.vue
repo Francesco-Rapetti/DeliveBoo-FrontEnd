@@ -7,6 +7,11 @@ export default {
         return {
             store
         }
+    },
+    methods: {
+        getImagePath(name) {
+            return new URL(`../assets/img/${name}`, import.meta.url).href
+        }
     }
 }
 </script>
@@ -16,7 +21,7 @@ export default {
         <div class="container my-5">
             <div class="d-flex justify-content-center align-items-center">
                 <div id="logo" class="me-2">
-                    <img class="w-100" src="../assets/logo.svg" alt="">
+                    <img class="w-100" :src="getImagePath('logo.svg')" alt="logo">
                 </div>
                 <span id="section-title-DeliveBoo">DeliveBoo</span>
                 <span id="section-title-admin">admin</span>
@@ -42,7 +47,7 @@ export default {
             <div class="row gap-4 py-5">
                 <div
                     class="col-12 col-md-6 glass-clear chart-container p-3 d-flex justify-content-center align-items-center">
-                    <img class="rounded-4 w-100" src="../assets/chart.png" alt="">
+                    <img class="rounded-4 w-100" :src="getImagePath('chart.png')" alt="">
                 </div>
 
                 <div class="col">

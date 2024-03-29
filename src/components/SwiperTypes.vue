@@ -26,6 +26,12 @@ export default {
         return {
             store
         }
+    },
+
+    methods: {
+        getImagePath(name) {
+            return new URL(`../assets/img/${name}`, import.meta.url).href
+        }
     }
 };
 </script>
@@ -36,91 +42,91 @@ export default {
         slidesPerView="auto" :spaceBetween="30" :modules="modules" class="mySwiper">
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/burgers.svg'" alt="burgers">
+                <img :src="getImagePath('burgers.svg')" alt="burgers">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/chinese.svg'" alt="chinese">
+                <img :src="getImagePath('chinese.svg')" alt="chinese">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/dessert.svg'" alt="dessert">
+                <img :src="getImagePath('dessert.svg')" alt="dessert">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/fast_food.svg'" alt="fast food">
+                <img :src="getImagePath('fast_food.svg')" alt="fast food">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/fish.svg'" alt="fish">
+                <img :src="getImagePath('fish.svg')" alt="fish">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/gluten_free.svg'" alt="gluten_free">
+                <img :src="getImagePath('gluten_free.svg')" alt="gluten_free">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/ice_cream.svg'" alt="ice cream">
+                <img :src="getImagePath('ice_cream.svg')" alt="ice cream">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/italian.svg'" alt="italian">
+                <img :src="getImagePath('italian.svg')" alt="italian">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/kebab.svg'" alt="kebab">
+                <img :src="getImagePath('kebab.svg')" alt="kebab">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/meat.svg'" alt="meat">
+                <img :src="getImagePath('meat.svg')" alt="meat">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/mexican.svg'" alt="mexican">
+                <img :src="getImagePath('mexican.svg')" alt="mexican">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/pizza.svg'" alt="pizza">
+                <img :src="getImagePath('pizza.svg')" alt="pizza">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/sushi.svg'" alt="sushi">
+                <img :src="getImagePath('sushi.svg')" alt="sushi">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/vegan.svg'" alt="vegan">
+                <img :src="getImagePath('vegan.svg')" alt="vegan">
             </div>
         </swiper-slide>
 
         <swiper-slide>
             <div class="card-img-top overflow-hidden">
-                <img :src="'../src/assets/vegetarian.svg'" alt="vegetarian">
+                <img :src="getImagePath('vegetarian.svg')" alt="vegetarian">
             </div>
         </swiper-slide>
 

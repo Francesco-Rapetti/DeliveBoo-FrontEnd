@@ -36,7 +36,7 @@ export default {
 
     methods: {
         getImagePath(image) {
-            return new URL(`../assets/${image}`, import.meta.url).href
+            return new URL(`../assets/img/${image}`, import.meta.url).href
         }
     }
 };
@@ -62,7 +62,7 @@ export default {
                                     class="glass d-flex align-items-center justify-content-center flex-column">
                                     <div id="jumbo-logo">
 
-                                        <img class="image-fluid w-100" src="../assets/logo.svg" alt="">
+                                        <img class="image-fluid w-100" :src="getImagePath('logo.svg')" alt="logo" />
                                     </div>
                                     <h1 id="jumbotron1-title" class="text-center">DeliveBoo</h1>
                                     <h1 class="text-center">La tua città a domicilio.</h1>
@@ -112,7 +112,7 @@ export default {
                                     <span class="jumbotron4-title">Registrala ora su </span>
                                     <div class="d-flex justify-content-end align-items-center">
                                         <div id="jumbo-logo" class="me-2">
-                                            <img class="image-fluid w-100" src="../assets/logo.svg" alt="">
+                                            <img class="image-fluid w-100" :src="getImagePath('logo.svg')" alt="logo">
                                         </div>
                                         <span id="jumbotron4-title-DeliveBoo">DeliveBoo</span>
                                         <span id="jumbotron4-title-admin">admin</span>
@@ -227,7 +227,7 @@ export default {
                             <h1 class="fw-bold">Sei un ristoratore? Prova ora: </h1>
                             <div class="d-flex justify-content-start align-items-center">
                                 <div id="jumbo-logo" class="me-2">
-                                    <img class="w-100" src="../assets/logo.svg" alt="">
+                                    <img class="w-100" :src="getImagePath('logo.svg')" alt="logo">
                                 </div>
                                 <span id="section-title-DeliveBoo">DeliveBoo</span>
                                 <span id="section-title-admin">admin</span>
