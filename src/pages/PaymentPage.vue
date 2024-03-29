@@ -195,7 +195,7 @@ export default {
                         <label class="form__label" for="cvv">Billing Zip Code</label>
                         <div class="card-input" id="postal-code"></div>
 
-                        <input type="submit" value="Subscribe" id="submit" />
+                        <input type="submit" value="Paga" id="submit" />
                     </form>
                 </div>
 
