@@ -54,7 +54,7 @@ export default {
                 clickable: true,
             }" :modules="modules" class="mySwiper">
                 <swiper-slide>
-                    <img class="img-fluid h-100" :src="getImagePath('jumbotron1.png')" />
+                    <img class="img-fluid h-100" :src="getImagePath('jumbotron1.jpg')" />
                     <div class="swiper-content h-100">
                         <div class="container h-100">
                             <div class="row align-items-center h-100 justify-content-center">
@@ -72,7 +72,7 @@ export default {
                     </div>
                 </swiper-slide>
                 <swiper-slide>
-                    <img class="img-fluid h-100" :src="getImagePath('jumbotron2.png')" />
+                    <img class="img-fluid h-100" :src="getImagePath('jumbotron2.jpg')" />
                     <div class="swiper-content h-100 p-3 p-md-5">
                         <div class="container-fluid h-100">
                             <div class="row align-items-center h-100 justify-content-start">
@@ -87,7 +87,7 @@ export default {
                     </div>
                 </swiper-slide>
                 <swiper-slide>
-                    <img class="img-fluid h-100" :src="getImagePath('jumbotron3.png')" />
+                    <img class="img-fluid h-100" :src="getImagePath('jumbotron3.jpg')" />
                     <div class="swiper-content h-100 p-3 p-md-5">
                         <div class="container-fluid h-100">
                             <div class="row align-items-center h-100 justify-content-end">
@@ -103,7 +103,7 @@ export default {
                     </div>
                 </swiper-slide>
                 <swiper-slide>
-                    <img class="img-fluid h-100" :src="getImagePath('jumbotron4.png')" />
+                    <img class="img-fluid h-100" :src="getImagePath('jumbotron4.jpg')" />
                     <div class="swiper-content h-100 p-3 p-md-5">
                         <div class="container-fluid h-100">
                             <div class="row align-items-center h-100 justify-content-end">
