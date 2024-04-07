@@ -105,7 +105,7 @@ export default {
 					if (result.status === 200 && result.data.success) {
 						this.store.restaurantList = result.data.payload;
 					} else {
-						console.error("errore...", result);
+						console.error("errore API ristoranti...", result);
 					}
 				})
 				.catch((error) => {
@@ -121,7 +121,7 @@ export default {
 				if (risultato.status === 200 && risultato.data.success) {
 					this.store.dishList = risultato.data.payload;
 				} else {
-					console.error("errore...", risultato);
+					console.error("errore API piatti...", risultato);
 				}
 			})
 				.catch((errore) => {
@@ -137,7 +137,7 @@ export default {
 					if (result.status === 200 && result.data.success) {
 						this.store.foodTypeList = result.data.payload;
 					} else {
-						console.error("errore...", result);
+						console.error("errore API tipi...", result);
 					}
 				})
 				.catch((error) => {
