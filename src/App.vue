@@ -21,7 +21,7 @@ export default {
 		this.getRestaurantList();
 		this.getDishesList();
 		this.getFoodTypeList();
-		console.log(this.store.restaurantList)
+		console.log(this.store.urlBackend)
 	},
 	watch: {
 		$route(to, from) {
